@@ -1,6 +1,6 @@
-import { StyledDropdown } from './custom-dropdown.styles'
-import { FormControl, InputLabel, List, MenuItem } from '@mui/material'
-import { FC, ReactNode } from 'react';
+import { StyledDropdown, StyledInputLabel } from './custom-dropdown.styles'
+import { FormControl } from '@mui/material'
+import { FC, ReactNode, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import StyledListItem, { StyledList } from '../Dropdown-List-Item/dropdown-list-item.style';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
@@ -16,9 +16,16 @@ export interface CustomDrodownProps {
 const CustomDropdown: FC<CustomDrodownProps> = (props) => {
 
     const { id, label, labelId, handleChange, children } = props
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen)
+    }
+
     return (
-        <FormControl>
-            <InputLabel id="">{label}</InputLabel>
+        <FormControl style={{ position: 'relative' }}>
+            <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
+            {/* <ArrowDownIcon /> */}
             <StyledDropdown
                 IconComponent={ArrowDownIcon}
                 id={id}

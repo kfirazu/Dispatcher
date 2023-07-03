@@ -1,14 +1,26 @@
-import { styled, Select } from "@mui/material";
+import { styled, Select, InputLabel, SelectProps } from "@mui/material";
+
+export interface CustomDropdownProps extends SelectProps {
+    width?: string
+    height?: string
+    fontWeight?: string
+
+}
 
 
-export const StyledDropdown = styled(Select)`
-width: 190px;
-height: 47px;
+export const StyledDropdown = styled(Select)((props: CustomDropdownProps) => `
+width: ${props.width || '175px'};
+height: ${props.height || '47px'};
 border-radius: 10px;
 padding: 15px;
 gap: 10px;
-border: 1px solid;
 background-color: white;
+font-weight: ${props.fontWeight || '400'};
+`
+)
+
+export const StyledInputLabel = styled(InputLabel)`
+color: #5A5A89;
 `
 
 

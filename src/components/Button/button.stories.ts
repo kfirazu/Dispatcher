@@ -16,9 +16,13 @@ type Story = StoryObj<typeof CustomButton>
 export const PrimaryButton: Story = {
     args: {
         backgroundColor: '#0058B9',
-        textColor: '#FFFFFFF',
+        textColor: '#FFFFFF',
         borderRadius: '20px',
-        padding: '10px 16px'
+        padding: '10px 16px',
+        children: 'Primary',
+        hover: '#0058B9',
+        opacity: '0.8',
+        width: '226px'
     }
 }
 
@@ -28,13 +32,14 @@ export const SecondaryButton: Story = {
         textColor: '#5A5A89',
         borderRadius: '20px',
         padding: '10px 16px',
-        children: 'Primary',
-        hover: '#0058B9',
+        children: 'Secondary',
+        hover: '#D9DBE9',
         opacity: '0.8',
         width: '226px'
 
 
     }
+   
 }
 
 

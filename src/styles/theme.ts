@@ -3,11 +3,11 @@ import { PaletteColorOptions, createTheme } from "@mui/material";
 
 declare module '@mui/material/styles' {
     interface PaletteOptions {
-      appHeaderBackground?: PaletteColorOptions;
-      appBackgroundColor?: PaletteColorOptions
-      dropdownScrollbar?: PaletteColorOptions
+        appHeaderBackground?: PaletteColorOptions;
+        appBackgroundColor?: PaletteColorOptions
+        dropdownScrollbar?: PaletteColorOptions
     }
-  }
+}
 
 const theme = createTheme({
     palette: {
@@ -16,7 +16,7 @@ const theme = createTheme({
         },
         secondary: {
             main: '#D9DBE9',
-            
+
         },
         appHeaderBackground: {
             main: '#262146'
@@ -30,7 +30,16 @@ const theme = createTheme({
         // anotherColorWhite: {
         //     main: '#F8F8FF'
         // }
-    }
+    },
+    // components: {
+    //     MuiCssBaseline: {
+    //         styleOverrides: `
+    //         h1 {
+    //           color: grey;
+    //         }
+    //       `,
+    //     }
+    // }
 })
 
 export default theme

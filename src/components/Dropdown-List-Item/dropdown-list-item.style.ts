@@ -23,11 +23,12 @@ export default StyledListItem
 
 
 export const StyledList = styled(List)(({ theme }) => `
-width: 190px;
+width: 175px;
 padding-bottom: 3px;
 padding-top: 3px;
 max-height: 125px;
 overflow: auto;
+border-radius: 8px;
 
 ::-webkit-scrollbar {
   width: 5px;

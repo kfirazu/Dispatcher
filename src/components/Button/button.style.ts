@@ -1,4 +1,4 @@
-import { styled, Button, ButtonProps } from '@mui/material'
+import { styled, ButtonProps } from '@mui/material'
 import { ReactNode } from 'react'
 
 export interface CustomButtonProps extends ButtonProps {
@@ -33,6 +33,7 @@ const StyledButton = styled('button')((props: CustomButtonProps) => `
     border-radius: ${props.borderRadius};
     padding: ${props.padding};
     width: ${props.width};
+    max-width: ${props.width};
     position: relative;
     
     :hover {

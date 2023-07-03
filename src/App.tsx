@@ -6,7 +6,7 @@ import CustomDropdown from './components/Dropdown/custom-dropdown'
 import CustomInput from './components/Input/custom-input';
 import CustomButton from './components/Button/button';
 import theme from './styles/theme';
-import { ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 // import { CustomTextField } from './components/Dropdown/custom-dropdown.styles'
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <AppContainer>
           <MainContainer>
             {/* <CustomiezedButton color={"primary"}/> */}
@@ -39,6 +40,7 @@ function App() {
 
             />
             <CustomButton
+              variant='contained'
               backgroundColor={'#D9DBE9'}
               textColor={'#5A5A89'}
               borderRadius={'20px'}

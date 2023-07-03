@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const StyledInput = styled.input`
 width: 365px;
-height: 38px;
+height: 50px;
 border: 1px solid #D9DBE9;
 border-radius: 10px;
 border: 1px;
