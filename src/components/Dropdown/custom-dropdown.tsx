@@ -7,15 +7,15 @@ import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 
 export interface CustomDrodownProps {
     id: string
-    label: ReactNode
+    label?: ReactNode
     labelId?: string
-    // value?:string
+    value?: string
     handleChange: () => void
     children: string[]
 }
 const CustomDropdown: FC<CustomDrodownProps> = (props) => {
 
-    const { id, label, labelId, handleChange, children } = props
+    const { id, label, labelId, handleChange, children, value } = props
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleDropdown = () => {
@@ -29,12 +29,19 @@ const CustomDropdown: FC<CustomDrodownProps> = (props) => {
             <StyledDropdown
                 IconComponent={ArrowDownIcon}
                 id={id}
+                value={value}
                 labelId={labelId}
                 label={label}
                 onChange={handleChange}
+
             >
                 <StyledList >
-                    {children.map((child: any) => <StyledListItem key={uuidv4()}>{child}</StyledListItem>)}
+                    {children.map((child: any, idx) =>
+                        <StyledListItem
+                            key={uuidv4()}
+                            value={idx + 1}>
+                            {child}
+                        </StyledListItem>)}
                 </StyledList>
             </StyledDropdown>
         </FormControl>
