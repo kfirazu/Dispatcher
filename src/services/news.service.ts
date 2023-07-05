@@ -1,7 +1,7 @@
 import axios from "axios"
 import { format } from "date-fns"
+import { API_KEY } from "../api/api"
 
-const API_KEY = '9c5fbce52439475f940cdd2e64bc186f'
 const STROAGE_KEY = 'top-headlines'
 
 export const newsService = {
@@ -10,10 +10,6 @@ export const newsService = {
 }
 
 export const mockArticle = {
-    // "status": "ok",
-    // "totalResults": 33,
-    // -"articles": [
-
     source: {
         id: "WGAL Susquehanna Valley Pa.",
         name: "WGAL Susquehanna Valley Pa."
@@ -39,7 +35,7 @@ async function query() {
             localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
             news = newsFeed
         }
-        
+
         return news
 
     } catch (err) {

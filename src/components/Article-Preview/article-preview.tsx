@@ -2,33 +2,16 @@ import { FC, useEffect, useState } from "react"
 import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, ButtonWrapper, StyledImg } from "./article-preview.style"
 import CustomButton from "../Button/button"
 import { newsService } from "../../services/news.service"
-import { useNavigate } from "react-router-dom"
-
-export interface ArticleSource {
-    id: string
-    name: string
-}
-
-export interface Article {
-    source: ArticleSource
-    title: string
-    description: string,
-    url: string
-    urlToImage: string
-    publishedAt: string
-    content: string
-}
+import { Article } from "../../models/article-interface"
 
 interface ArticlePreviewProps {
     article: Article
 }
 
-
 const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
     const { source, title, url, urlToImage, publishedAt, content } = article
     const [date, setDate] = useState('')
-    // const navigate = useNavigate()
 
     useEffect(() => {
         // firday jun 25, 2021
@@ -61,10 +44,13 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
                         borderRadius={'20px'}
                         padding={'10px 16px'}
                         children={'Navigate to dispatch'}
+                        fontSize={'14px'}
+                        fontWeight={'500'}
                         hover={'#0058B9'}
                         opacity={'0.8'}
                         width={'226px'}
                         onClick={handleClick}
+                        textTransform="uppercase"
                     />
                 </ButtonWrapper>
 
