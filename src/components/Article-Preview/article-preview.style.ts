@@ -16,7 +16,6 @@ margin: 30px 50px;
 export const ArticleContentWrapper = styled.div`
 display: flex;
 flex-direction: column;
-// flex: 1;
 width: 743px;
 padding: 8px 16px;
 box-sizing: border-box;
@@ -27,7 +26,7 @@ flex: 0 0 245px;
 `
 
 export const DateWrapper = styled.div<{ width?: string; }>`
-${({ width = 137 }) => `width: ${width}`};
+${({ width = 137 }) => `width: ${width}`}px;
 max-width: 200px;
 height: 22px;
 font-weight: 400;
@@ -50,7 +49,7 @@ margin-top: 14px;
 `
 
 export const StyledSourceWrapper = styled.div<{ width?: string; }>`
-${({ width = 67 }) => `width: ${width}`};
+${({ width = 270 }) => `width: ${width}`}px;
 height: 22px;
 font-size: 14px;
 line-height: 22px;
@@ -60,7 +59,7 @@ margin-bottom: 14px;
 `
 
 export const ParagraphWrapper = styled.p<{ width?: string; }>`
-${({ width }) => `width: ${width}`};
+${({ width }) => `width: ${width}`}px;
 max-width: 741px;
 height:32px;
 font-size: 14px;

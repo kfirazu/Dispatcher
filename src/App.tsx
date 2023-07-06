@@ -5,7 +5,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
 import { useEffect, useState } from 'react';
 import { mockArticle, newsService } from './services/news.service';
-import ArticlePreview, { Article } from './components/Article-Preview/article-preview';
+import ArticlePreview from './components/Article-Preview/article-preview';
+import { Article } from './models/article-interface';
 
 function App() {
 
@@ -18,7 +19,6 @@ function App() {
   useEffect(() => {
     ; (async () => {
       try {
-        console.log('hello')
         const newsFeed = await newsService.query()
         setNews(newsFeed)
       } catch (err) {

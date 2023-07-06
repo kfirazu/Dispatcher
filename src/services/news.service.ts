@@ -25,16 +25,16 @@ export const mockArticle = {
 }
 
 async function query() {
+    let news = localStorage.getItem(STROAGE_KEY)
     try {
-        var news = localStorage.getItem(STROAGE_KEY)
-        if (news) JSON.parse(news)
-        if (!news) {
-            const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
-            const newsFeed = res.data
-            console.log('res from service', newsFeed)
-            localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
-            news = newsFeed
+        if (news) {
+            return JSON.parse(news)
         }
+
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
+        const newsFeed = res.data
+        localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
+        news = newsFeed
 
         return news
 

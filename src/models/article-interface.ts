@@ -1,10 +1,9 @@
-export interface ArticleSource {
-    id: string
-    name: string
-}
 
 export interface Article {
-    source: ArticleSource
+    source: {
+        id: string
+        name: string
+    }
     title: string
     description: string,
     url: string
