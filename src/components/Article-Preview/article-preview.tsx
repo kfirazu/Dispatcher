@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, ButtonWrapper, StyledImg } from "./article-preview.style"
 import CustomButton from "../Button/button"
 import { newsService } from "../../services/news.service"
@@ -12,12 +12,12 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
     const { source, title, url, urlToImage, publishedAt, content } = article
 
-    const handleClick = () => {
-        const newTab = window.open(url, '_blank')
-        if (newTab !== null) {
-            newTab.focus()
-        }
-    }
+    // const handleClick = () => {
+    //     const newTab = window.open(url, '_blank')
+    //     if (newTab !== null) {
+    //         newTab.focus()
+    //     }
+    // }
 
     return (
         <ArticlePreviewWrapper>
@@ -32,17 +32,11 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
                 <ButtonWrapper>
 
                     <CustomButton
-                        backgroundColor={'#0058B9'}
-                        textColor={'#FFFFFF'}
-                        borderRadius={'20px'}
-                        padding={'10px 16px'}
                         children={'NAVIGATE TO DISPATCH'}
-                        fontSize={'14px'}
-                        fontWeight={'500'}
-                        hover={'#0058B9'}
-                        opacity={'0.8'}
-                        width={'226px'}
-                        onClick={handleClick}
+                        // onClick={handleClick}
+                        type="primary"
+                        url={url}
+
                     />
                 </ButtonWrapper>
 
@@ -52,3 +46,9 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 }
 
 export default ArticlePreview
+
+// onClick?: () => void
+// children?: ReactNode
+// sxProps?: SxProps
+// type: ButtonType
+// url: string

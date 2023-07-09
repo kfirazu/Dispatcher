@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-// import CustomDropdown, { CustomDrodownProps } from "./custom-dropdown";
 import CustomButton from "./button";
 
 export default {
@@ -7,7 +6,6 @@ export default {
     title: "Components/Button",
 } as Meta;
 
-// const Template: Story<CardProps> = (args) => <Card {...args} />;
 type Story = StoryObj<typeof CustomButton>
 
 // const Template: Story<CustomDrodownProps> = (args) => <CustomDropdown{ ...args } />
@@ -15,31 +13,15 @@ type Story = StoryObj<typeof CustomButton>
 
 export const PrimaryButton: Story = {
     args: {
-        backgroundColor: '#0058B9',
-        textColor: '#FFFFFF',
-        borderRadius: '20px',
-        padding: '10px 16px',
-        children: 'Primary',
-        hover: '#0058B9',
-        opacity: '0.8',
-        width: '226px'
+
     }
 }
 
 export const SecondaryButton: Story = {
-    args: {
-        backgroundColor: '#D9DBE9',
-        textColor: '#5A5A89',
-        borderRadius: '20px',
-        padding: '10px 16px',
-        children: 'Secondary',
-        hover: '#D9DBE9',
-        opacity: '0.8',
-        width: '226px'
+    // render: (args) => <CustomButton {...args}/> 
 
 
-    }
-   
 }
+
 
 
