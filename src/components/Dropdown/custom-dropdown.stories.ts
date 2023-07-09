@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import CustomDropdown, { CustomDrodownProps } from "./custom-dropdown";
+import CustomDropdown from "./custom-dropdown";
 
 export default {
     component: CustomDropdown,
@@ -14,7 +14,7 @@ type Story = StoryObj<typeof CustomDropdown>
 
 export const Category: Story = {
     args: {
-        id: 'u123',
+        id: 'category',
         label: 'category',
         labelId: 'category',
         children: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],

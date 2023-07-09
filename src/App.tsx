@@ -14,7 +14,14 @@ function App() {
   const [news, setNews] = useState<any>()
   const article: Article = mockArticle
   const category = [
-    'Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'
+    { value: 'business', name: 'Business' },
+    { value: 'entertainment', name: 'Entertainment' },
+    { value: 'general', name: 'General' },
+    { value: 'health', name: 'Health' },
+    { value: 'science', name: 'Science' },
+    { value: 'sports', name: 'Sports' },
+    { value: 'technology', name: 'Technology' }
+
   ]
   useEffect(() => {
     ; (async () => {
@@ -38,7 +45,7 @@ function App() {
         <AppContainer>
           <AppHeader />
           <MainContainer>
-            <CustomDropdown children={category} label={'country'} id='category' handleChange={handleChange} />
+            <CustomDropdown children={category} label={'Country'} id='category' labelId='category' />
             <ArticlePreview article={article} />
           </MainContainer>
         </AppContainer>
