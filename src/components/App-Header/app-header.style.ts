@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
-
-
 
 const StyledContainer = styled.div`
 max-width: 1920px;
@@ -20,6 +17,7 @@ export default StyledContainer
 
 export const StyledInputWrapper = styled.div`
 display: flex;
+position: relative;
 `
 
 // background-color: ${({ theme: { palette } }) => palette.primary.main};

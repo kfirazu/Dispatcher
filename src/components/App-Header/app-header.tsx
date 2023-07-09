@@ -1,4 +1,4 @@
-import CustomDropdown from "../Dropdown/custom-dropdown"
+import InputDropdown from "../Input-dropdown/input-dropdown"
 import CustomInput from "../Input/custom-input"
 import StyledContainer, { StyledInputWrapper } from "./app-header.style"
 
@@ -6,13 +6,12 @@ import StyledContainer, { StyledInputWrapper } from "./app-header.style"
 const AppHeader = () => {
 
     const options = [
-        'Everything',
-        'Top Headlines'
+        { value: 'everything', name: 'Everything', },
+        { value: 'top-headlines', name: 'Top Headlines', }
     ]
 
-    const handleChange = () => {
+    const handleChange = () => { }
 
-    }
     return (
         <StyledContainer>
             <svg width="66" height="50" viewBox="0 0 66 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +26,8 @@ const AppHeader = () => {
             </svg>
             <StyledInputWrapper>
                 <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleChange} label={'Text'} />
-                <CustomDropdown children={options} id='options' handleChange={handleChange} value="" />
+                <InputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} children={options} />
+
             </StyledInputWrapper>
 
         </StyledContainer>
