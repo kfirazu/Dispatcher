@@ -7,22 +7,13 @@ import { useEffect, useState } from 'react';
 import { mockArticle, newsService } from './services/news.service';
 import ArticlePreview from './components/Article-Preview/article-preview';
 import { Article } from './models/article-interface';
+import Filter from './components/Filter/filter';
 
 function App() {
 
   //Temporary to fetch mock data
   const [news, setNews] = useState<any>()
   const article: Article = mockArticle
-  const category = [
-    { value: 'business', name: 'Business' },
-    { value: 'entertainment', name: 'Entertainment' },
-    { value: 'general', name: 'General' },
-    { value: 'health', name: 'Health' },
-    { value: 'science', name: 'Science' },
-    { value: 'sports', name: 'Sports' },
-    { value: 'technology', name: 'Technology' }
-
-  ]
   useEffect(() => {
     ; (async () => {
       try {
@@ -34,10 +25,6 @@ function App() {
     })()
   }, [])
 
-  const handleChange = () => {
-
-  }
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -45,8 +32,9 @@ function App() {
         <AppContainer>
           <AppHeader />
           <MainContainer>
-            <CustomDropdown children={category} label={'Country'} id='category' labelId='category' />
+            <Filter />
             <ArticlePreview article={article} />
+            <button onClick={() => newsService.getTopHeadlinesByCountry('il')}>Country</button>
           </MainContainer>
         </AppContainer>
       </ThemeProvider>
