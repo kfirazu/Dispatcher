@@ -7,5 +7,7 @@ export interface CustomDropdownProps extends SelectProps {
     fontWeight?: string
     label?: ReactNode
     children: any //Fix - should fix type
+    placeholder?: any //Fix - should fix type
+
 
 }

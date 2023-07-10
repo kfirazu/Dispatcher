@@ -6,17 +6,14 @@ export default {
     title: "Components/Dropdown",
 } as Meta;
 
-// const Template: Story<CardProps> = (args) => <Card {...args} />;
 type Story = StoryObj<typeof CustomDropdown>
-
-// const Template: Story<CustomDrodownProps> = (args) => <CustomDropdown{ ...args } />
-
 
 export const Category: Story = {
     args: {
         id: 'category',
         label: 'category',
         labelId: 'category',
+        placeholder: 'Category',
         children: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
     }
 }

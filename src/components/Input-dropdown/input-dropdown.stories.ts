@@ -8,7 +8,6 @@ export default {
 
 type Story = StoryObj<typeof InputDropdown>
 
-
 export const SearchInputDropdown: Story = {
     args: {
         id: 'input dropdwon',

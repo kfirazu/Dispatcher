@@ -8,7 +8,7 @@ import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, labelId, children } = props
+    const { id, labelId, children, placeholder } = props
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
     const dropdownRef = useRef(null);
@@ -39,6 +39,10 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     labelId={labelId}
                     open={isOpen ? true : false}
                     onChange={handleChange}
+                    displayEmpty={true}
+                    renderValue={(value: unknown): React.ReactNode =>
+                        (value !== '' ? value as string : placeholder) as React.ReactNode
+                    }
                     ref={dropdownRef}
                     inputProps={{
                         MenuProps: {
