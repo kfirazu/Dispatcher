@@ -1,7 +1,6 @@
 import axios from "axios"
 import { format } from "date-fns"
-import { API_KEY } from "../api/api"
-
+const AUTHORIZATION_API_KEY = import.meta.env.VITE_API_KEY
 const STROAGE_KEY = 'top-headlines'
 
 export const newsService = {
@@ -31,7 +30,7 @@ async function query() {
             return JSON.parse(news)
         }
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${AUTHORIZATION_API_KEY}`)
         const newsFeed = res.data
         localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
         news = newsFeed

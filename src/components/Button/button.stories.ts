@@ -8,8 +8,6 @@ export default {
 
 type Story = StoryObj<typeof CustomButton>
 
-// const Template: Story<CustomDrodownProps> = (args) => <CustomDropdown{ ...args } />
-
 
 export const PrimaryButton: Story = {
     args: {

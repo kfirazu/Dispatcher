@@ -6,12 +6,18 @@ import StyledListItem, { StyledList } from '../Dropdown-List-Item/dropdown-list-
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 
 export interface CustomDrodownProps {
-    id: string
+    id?: string
     label?: ReactNode
     labelId?: string
     value?: string
-    handleChange: () => void
-    children: string[]
+    handleChange?: () => void
+    children: DropdownChildren[]
+    placeholder: ReactNode
+}
+
+interface DropdownChildren {
+    value: string
+    name: string
 }
 const CustomDropdown: FC<CustomDrodownProps> = (props) => {
 
