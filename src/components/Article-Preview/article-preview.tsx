@@ -12,13 +12,6 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
     const { source, title, url, urlToImage, publishedAt, content } = article
 
-    // const handleClick = () => {
-    //     const newTab = window.open(url, '_blank')
-    //     if (newTab !== null) {
-    //         newTab.focus()
-    //     }
-    // }
-
     return (
         <ArticlePreviewWrapper>
             <ImgWrapper>
@@ -33,7 +26,6 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
                     <CustomButton
                         children={'NAVIGATE TO DISPATCH'}
-                        // onClick={handleClick}
                         type="primary"
                         url={url}
 
@@ -46,9 +38,3 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 }
 
 export default ArticlePreview
-
-// onClick?: () => void
-// children?: ReactNode
-// sxProps?: SxProps
-// type: ButtonType
-// url: string

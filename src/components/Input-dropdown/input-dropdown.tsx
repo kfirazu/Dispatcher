@@ -3,9 +3,6 @@ import { CustomDropdownProps } from "../../models/custom-dropdown-interface"
 import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from "@mui/material"
 import { menuItemSX, StyledInputDropdown, StyledInputLabel } from "./input-dropdown.style"
 import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
-import { v4 as uuidv4 } from 'uuid';
-
-
 
 
 const InputDropdown: FC<CustomDropdownProps> = (props) => {
@@ -15,7 +12,7 @@ const InputDropdown: FC<CustomDropdownProps> = (props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
 
-    // This is the right type from material ui docs but typescript isn't happy with that
+    // This is the right type according to material ui docs but typescript isn't happy with that
     const handleOptionChange = (event: SelectChangeEvent<string>, child?: React.ReactNode) => {
 
     };
@@ -52,10 +49,10 @@ const InputDropdown: FC<CustomDropdownProps> = (props) => {
                     ref={dropdownRef}
 
                 >
-                    {children?.map((child: any) => (
+                    {children?.map((child: any, idx: number) => (
                         <MenuItem
                             sx={menuItemSX}
-                            key={uuidv4()}
+                            key={idx}
                             value={child.value}
 
                         >

@@ -6,7 +6,6 @@ export default {
     title: "Components/article-preview",
 } as Meta;
 
-// const Template: Story<CardProps> = (args) => <Card {...args} />;
 type Story = StoryObj<typeof ArticlePreview>
 
 export const ArticleCard: Story = {

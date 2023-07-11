@@ -1,14 +1,12 @@
 import axios from "axios"
 import { format } from "date-fns"
 
-const API_PRIVATE_KEY = import.meta.env.VITE_API_KEY
-
+const API_KEY = import.meta.env.VITE_API_KEY
 const STROAGE_KEY = 'top-headlines'
 
 export const newsService = {
     query,
     formatDate,
-    getTopHeadlinesByCountry
 }
 
 export const mockArticle = {
@@ -26,14 +24,25 @@ export const mockArticle = {
 
 }
 
-async function query() {
+async function query(filterBy: { country?: string, source?: string, category?: string, keyword?: string } = { keyword: "country=us" }) {
+
     let news = localStorage.getItem(STROAGE_KEY)
     try {
         if (news) {
             return JSON.parse(news)
         }
 
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_PRIVATE_KEY}`)
+        const config: {} = { //FIX: fix type 
+            headers: {
+                Authorization: `Bearer ${API_KEY}`
+            }
+        }
+
+        const { country, source, category, keyword } = filterBy;
+        // Temporary
+        const reqQuery = `https://newsapi.org/v2/top-headlines?${keyword}`
+
+        const res = await axios.get(reqQuery, config);
         const newsFeed = res.data
         localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
         news = newsFeed
@@ -44,19 +53,6 @@ async function query() {
         console.log('err', err)
     }
 
-}
-
-async function getTopHeadlinesByCountry(countryCode: string) {
-    console.log('countryCode', countryCode)
-    const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${API_PRIVATE_KEY}
-    `)
-    const countryNews = await res.data
-    console.log('counrty news from service', countryNews)
-    const sourceList = countryNews.articles.map((country: any) => {
-        return country.author
-    })
-
-    return countryNews
 }
 
 function formatDate(dateStr: string) {

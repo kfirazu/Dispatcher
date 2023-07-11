@@ -7,7 +7,7 @@ cursor: pointer;
 
 export default StyledArrowIcon
 
-export const StyledSvg = styled.svg<{ top?: string }>`
+export const StyledSvg = styled.img<{ top?: string }>`
 cursor: pointer;
 position: absolute; 
 z-index: 5;

@@ -19,5 +19,3 @@ export const StyledInputWrapper = styled.div`
 display: flex;
 position: relative;
 `
-
-// background-color: ${({ theme: { palette } }) => palette.primary.main};

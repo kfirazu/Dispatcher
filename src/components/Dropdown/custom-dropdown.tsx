@@ -1,7 +1,6 @@
 import { StyledDropdown, StyledMenuItemSX, StyledMenuListSX } from './custom-dropdown.styles'
 import { ClickAwayListener, FormControl, MenuItem } from '@mui/material'
 import { FC, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
@@ -53,10 +52,10 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     }}
 
                 >
-                    {children.map((child: any) => //FIX : fix prop type
+                    {children.map((child: any, idx: number) => //FIX : fix prop type
                         <MenuItem
                             sx={StyledMenuItemSX}
-                            key={uuidv4()}
+                            key={idx}
                             value={child.value}>
                             {child.name}
                         </MenuItem>)}
