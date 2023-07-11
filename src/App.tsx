@@ -8,8 +8,8 @@ import ArticlePreview from './components/Article-Preview/article-preview';
 import { Article } from './models/article-interface';
 import Filter from './components/Filter/filter';
 import DateSelector from './components/Date-Selector/date-selector';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+
+import SortBar from './components/Sort-Bar/sort-bar';
 
 function App() {
 
@@ -30,20 +30,19 @@ function App() {
 
   return (
     <>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <AppContainer>
             <AppHeader />
             <MainContainer>
               <Filter />
+              <SortBar />
               <ArticlePreview article={article} />
               {/* <button onClick={() => newsService.getTopHeadlinesByCountry('il')}>Country</button> */}
               <DateSelector />
             </MainContainer>
           </AppContainer>
         </ThemeProvider>
-      </LocalizationProvider>
 
 
     </>

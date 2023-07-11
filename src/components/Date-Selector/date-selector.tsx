@@ -2,6 +2,11 @@
 import { DatePicker } from '@mui/x-date-pickers'
 import type { } from '@mui/x-date-pickers/themeAugmentation'
 import { useEffect, useState } from 'react'
+import { styledDatePickerSX } from './date-selector.style'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { SxProps, TextField, TextFieldProps } from "@mui/material"
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 
 
@@ -10,11 +15,20 @@ const DateSelector = () => {
 
     useEffect(() => { console.log(selectedDate) }, [selectedDate])
     return (
-        <DatePicker
-            label={'Dates'}
-            onChange={(newValue: Date | null) => { setSelectedDate(newValue) }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
 
+            <DatePicker
+                label='Dates'
+                onChange={(newValue: Date | null) => { setSelectedDate(newValue) }}
+                sx={styledDatePickerSX}
+                showDaysOutsideCurrentMonth
+                slots={{
+                    openPickerIcon: CalendarMonthIcon,
+                    
+                }}
+                  
+            />
+        </LocalizationProvider>
     )
 }
 
