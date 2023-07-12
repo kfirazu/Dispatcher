@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { styledDatePickerSX } from './date-selector.style'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { SxProps, TextField, TextFieldProps } from "@mui/material"
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 

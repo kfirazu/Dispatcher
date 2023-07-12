@@ -16,17 +16,16 @@ function App() {
   //Temporary to fetch mock data
   const [news, setNews] = useState<any>()
   const article: Article = mockArticle
-
-  useEffect(() => {
-    ; (async () => {
-      try {
-        const newsFeed = await newsService.query()
-        setNews(newsFeed)
-      } catch (err) {
-        console.log('err from cmp', err)
-      }
-    })()
-  }, [])
+  // useEffect(() => {
+  //   ; (async (filterBy) => {
+  //     try {
+  //       const newsFeed = await newsService.query(filterBy)
+  //       setNews(newsFeed)
+  //     } catch (err) {
+  //       console.log('err from cmp', err)
+  //     }
+  //   })()
+  // }, [])
 
   return (
     <>
@@ -38,7 +37,6 @@ function App() {
               <Filter />
               <SortBar />
               <ArticlePreview article={article} />
-              {/* <button onClick={() => newsService.getTopHeadlinesByCountry('il')}>Country</button> */}
               <DateSelector />
             </MainContainer>
           </AppContainer>

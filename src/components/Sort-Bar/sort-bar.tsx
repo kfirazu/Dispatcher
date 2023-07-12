@@ -24,10 +24,6 @@ const SortBar = () => {
             <DateSelector />
             <CustomDropdown children={sourcesArr} placeholder="Sources" />
             <CustomDropdown children={sourcesArr} placeholder="Language" />
-
-
-
-
         </StyledSortBarContainer>
     )
 }
