@@ -8,19 +8,26 @@ export default {
 
 type Story = StoryObj<typeof CustomButton>
 
-// const Template: Story<CustomDrodownProps> = (args) => <CustomDropdown{ ...args } />
-
-
 export const PrimaryButton: Story = {
-    args: {
 
-    }
+args: {
+
+    children: 'NAVIGATE TO DISPATCH',
+    type: "primary",
+
+}
 }
 
 export const SecondaryButton: Story = {
     // render: (args) => <CustomButton {...args}/> 
+    args: {
 
+        children: 'NAVIGATE TO DISPATCH',
+        type: "secondary",
+        url: 'https://www.wgal.com/article/sheetz-drops-gas-prices-dollar1776-gallon-fourth-of-july/44419414',
+        sx: { width: '226px' }
 
+    }
 }
 
 
