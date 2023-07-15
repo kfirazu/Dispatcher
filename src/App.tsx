@@ -8,7 +8,6 @@ import ArticlePreview from './components/Article-Preview/article-preview';
 import { Article } from './models/article-interface';
 import Filter from './components/Filter/filter';
 import DateSelector from './components/Date-Selector/date-selector';
-
 import SortBar from './components/Sort-Bar/sort-bar';
 
 function App() {
@@ -38,6 +37,7 @@ function App() {
               <SortBar />
               <ArticlePreview article={article} />
               <DateSelector />
+
             </MainContainer>
           </AppContainer>
         </ThemeProvider>
