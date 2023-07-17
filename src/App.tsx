@@ -5,12 +5,12 @@ import AppHeader from './components/App-Header/app-header';
 import { useEffect, useState } from 'react';
 import Filter from './components/Filter/filter';
 import SortBar from './components/Sort-Bar/sort-bar'
-import NewsContext from './context/news-context'
+// import NewsContext from './context/news-context'
 import FeedList from './components/FeedList/feed-list'
 import newsData from './data/news.json'
 import Dashboard from './components/Dashboard/dashboard'
 import { newsService } from './services/news.service'
-import { filterByInterface } from './models/filter-by-interface'
+// import { filterByInterface } from './models/filter-by-interface'
 import { Article } from './models/article-interface'
 
 function App() {
@@ -52,11 +52,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppContainer>
-          <NewsContext.Provider value={{
+          {/* <NewsContext.Provider value={{
             filterBy: filterBy,
             updateFilterBy: onSetFilterBy
 
-          }}>
+          }}> */}
             <AppHeader />
             {IsEverything ?
               <SortBar />
@@ -68,7 +68,7 @@ function App() {
                 <Dashboard articleList={articleList} />
               </div>
             </MainContainer>
-          </NewsContext.Provider>
+          {/* </NewsContext.Provider> */}
         </AppContainer>
       </ThemeProvider>
     </>
