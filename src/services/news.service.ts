@@ -24,7 +24,7 @@ export const mockArticle = {
 
 }
 
-async function query(filterBy: { country?: string, source?: string, category?: string, keyword?: string } = { keyword: "country=us" }) {
+async function query(filterBy: { type?: string, country?: string, source?: string, category?: string, keyword?: string } = { keyword: "country=us" }) {
 
     let news = localStorage.getItem(STROAGE_KEY)
     try {
@@ -45,9 +45,9 @@ async function query(filterBy: { country?: string, source?: string, category?: s
         const res = await axios.get(reqQuery, config);
         const newsFeed = res.data
         localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
-        news = newsFeed
+ 
 
-        return news
+        return newsFeed
 
     } catch (err) {
         console.log('err', err)

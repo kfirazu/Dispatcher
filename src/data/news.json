@@ -1,0 +1,162 @@
+{
+    "status": "ok",
+    "totalResults": 36,
+    "articles": [
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Amir Tal, Hadas Gold, Richard Allen Greene",
+            "title": "Benjamin Netanyahu admitted to hospital for medical evaluation - CNN",
+            "description": "Israeli Prime Minister Benjamin Netanyahu was admitted to hospital suffering from suspected dehydration Saturday, his office said, as fierce heat grips the country.",
+            "url": "https://www.cnn.com/2023/07/15/middleeast/netanyahu-admitted-hospital-intl/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/230715103015-benjamin-netanyahu-0316-file.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2023-07-15T16:22:00Z",
+            "content": "Israeli Prime Minister Benjamin Netanyahu was admitted to hospital suffering from suspected dehydration Saturday, his office said, as fierce heat grips the country.\r\nNetanyahus initial tests came out… [+2275 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "New York Post"
+            },
+            "author": "Brooke Kato",
+            "title": "'Botched' doc Terry Dubrow issues Ozempic warning after Lisa Marie Presley autopsy - New York Post ",
+            "description": "“Nobody’s talking about this right now, but we need to talk about it.”",
+            "url": "https://nypost.com/2023/07/15/botched-doc-issues-ozempic-warning-after-lisa-marie-presley-autopsy/",
+            "urlToImage": "https://nypost.com/wp-content/uploads/sites/2/2023/07/newspress-collage-oeyxj2rpk-1689434808076.jpg?quality=75&strip=all&1689421309&w=1024",
+            "publishedAt": "2023-07-15T15:40:00Z",
+            "content": "The price of Ozempic is already sky-high but experts warn extreme weight loss could also cost your life.\r\nDr. Terry Dubrow, the mastermind plastic surgeon behind the hit series “Botched,” is slamming… [+3103 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Variety"
+            },
+            "author": "J. Kim Murphy",
+            "title": "Box Office: ‘Mission: Impossible — Dead Reckoning Part One’ Now Cruising to Projected $78 Million Five-Day Debut - Variety",
+            "description": "Paramount’s “Mission: Impossible — Dead Reckoning Part One” is defusing a bit at the domestic box office, readjusting for an estimated $78 million gross over its five-day opening.…",
+            "url": "https://variety.com/2023/film/box-office/mission-impossible-7-projected-opening-weekend-tom-cruise-1235670840/",
+            "urlToImage": "https://variety.com/wp-content/uploads/2023/06/mi7.jpg?w=1000&h=563&crop=1",
+            "publishedAt": "2023-07-15T15:22:00Z",
+            "content": "Paramount’s “Mission: Impossible — Dead Reckoning Part One” is defusing a bit at the domestic box office, readjusting for an estimated $78 million gross over its five-day opening. That’d be a substan… [+6658 chars]"
+        },
+        {
+            "source": {
+                "id": "the-verge",
+                "name": "The Verge"
+            },
+            "author": "Wes Davis",
+            "title": "Reddit removed your chat history from before 2023 - The Verge",
+            "description": "As part of a migration to a new architecture, Reddit chose not to migrate chat histories before 2023. Though it offers a way for users to request their old data, including chat histories, some users say they’re still missing messages.",
+            "url": "https://www.theverge.com/2023/7/15/23795883/reddit-chat-history-removed-protest-blackout-new-architecture",
+            "urlToImage": "https://cdn.vox-cdn.com/thumbor/boqfo7pe-KvvOaEwopHhZx9Bm0s=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/24720622/acastro_STK024_02.jpg",
+            "publishedAt": "2023-07-15T15:20:58Z",
+            "content": "Reddit removed your chat history from before 2023\r\nReddit removed your chat history from before 2023\r\n / An admin told users Reddit is making new chats better.\r\nByWes Davis, a weekend editor who cove… [+3240 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "The Guardian"
+            },
+            "author": "Robin McKie",
+            "title": "'Mindblowing': how James Webb telescope's snapshots of infant universe transformed astronomy - The Guardian",
+            "description": "Their light took more than 13bn years to reach Nasa’s £6.8bn James Webb probe and this snapshot of the infant universe is thrilling scientists",
+            "url": "https://www.theguardian.com/science/2023/jul/15/scientists-james-webb-space-telescope-birth-stars",
+            "urlToImage": "https://i.guim.co.uk/img/media/3f97c2569b15e034c93a7d9c240fbd584c5868a0/0_434_7306_4383/master/7306.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdG8tZGVmYXVsdC5wbmc&enable=upscale&s=9da72f58d5d6580438279b6dd66059e8",
+            "publishedAt": "2023-07-15T15:13:00Z",
+            "content": "It took a remarkably long time for the light emitted by a group of ancient galaxies to reach the James Webb space telescope last year. Astronomers have calculated that the photons were in transit for… [+13081 chars]"
+        },
+        {
+            "source": {
+                "id": "usa-today",
+                "name": "USA Today"
+            },
+            "author": "Jeanine Santucci",
+            "title": "US heat wave updates: Excessive heat warnings, heat advisories, safety - USA TODAY",
+            "description": "At least 45 places across the country are set to break heat records over the weekend. Officials warned about heat-related illness and death.",
+            "url": "https://www.usatoday.com/story/news/nation/2023/07/15/us-heat-wave-updates-excessive-heat-warnings/70416775007/",
+            "urlToImage": "https://www.usatoday.com/gcdn/presto/2023/07/15/USAT/de7d39c4-10ac-4498-a10e-fae71a74dccc-AFP_1532805637.jpg?crop=2929,1648,x0,y149&width=2929&height=1648&format=pjpg&auto=webp",
+            "publishedAt": "2023-07-15T15:11:37Z",
+            "content": "Dozens of heat records from Oregon to Florida could be broken this weekend as dangerous heat conditions threaten millions of Americans amid a heat wave in the West that is expanding to the east.\r\nAt … [+3502 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Dan Heching, Cheri Mossburg, Chloe Melas",
+            "title": "George Clooney says entertainment industry is at an ‘inflection point,’ as actors like Jason Sudeikis join picket lines - CNN",
+            "description": "Oscar winner George Clooney has joined the chorus of artists calling for change as actors hit the picket lines in their first strike against film and television studios since 1980.",
+            "url": "https://www.cnn.com/2023/07/14/entertainment/george-clooney-sag-strike-statement/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/230714140340-george-clooney-file-052423-restricted.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2023-07-15T15:05:00Z",
+            "content": "Oscar winner George Clooney has joined the chorus of artists calling for change as actors hit the picket lines in their first strike against film and television studios since 1980.\r\nThis is an inflec… [+2251 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": null,
+            "title": "Markéta Vondroušová beats Ons Jabeur to make Wimbledon history - CNN",
+            "description": "Markéta Vondroušová beat favorite Ons Jabeur to become the first unseeded player in the Open Era to win Wimbledon.",
+            "url": "https://www.cnn.com/2023/07/14/sport/wimbledon-women-final-marketa-vondrousova-ons-jabeur-spt-intl/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/230715104348-06-vondrousova-jabeur-wimbledon-final-0715.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2023-07-15T14:28:00Z",
+            "content": "Markéta Vondrouová had overcome the odds throughout the last fortnight at Wimbledon and the Czech did so again in the womens final on Saturday, beating favorite Ons Jabeur to become the first unseede… [+1609 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "CBS Sports"
+            },
+            "author": "Patrick McDonald",
+            "title": "2023 Scottish Open leaderboard, scores: Rory McIlroy holds one-shot lead heading into final round - CBS Sports",
+            "description": "McIlroy limped to the finish line in Round 3, but still holds a slim lead at 13 under over Tom Kim heading into the final 18 holes",
+            "url": "https://www.cbssports.com/golf/news/2023-scottish-open-leaderboard-scores-rory-mcilroy-holds-one-shot-lead-heading-into-final-round/live/",
+            "urlToImage": "https://sportshub.cbsistatic.com/i/r/2023/07/15/1c2f01cb-50a1-46ac-ae61-63c2ddc137e0/thumbnail/1200x675/6ed2021454a7a90ad94f04676c6a7c2a/gettyimages-1533193820-1.jpg",
+            "publishedAt": "2023-07-15T13:55:06Z",
+            "content": "There are not many things Rory McIlroy has not accomplished in his career. Winning in Scotland is one of them. The 34-year-old maintained his one-stroke lead heading into the final round of the 2023 … [+5385 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Ashley Strickland",
+            "title": "The sun’s activity is peaking sooner than expected - CNN",
+            "description": "The sun will reach solar maximum, or a peak in activity across its 11-year cycle, about a year sooner than originally predicted. Auroras, solar flares and space weather are all expected to increase.",
+            "url": "https://www.cnn.com/2023/07/14/world/solar-maximum-activity-2024-scn/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/230713121137-02-solar-cycle-flare.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2023-07-15T13:23:00Z",
+            "content": "Editors note: Sign up for CNNs Wonder Theory science newsletter. Explore the universe with news on fascinating discoveries, scientific advancements and more.\r\nAs the sun nears the peak of its current… [+9213 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Ashley Strickland",
+            "title": "The unlikely story of the first photo of Mars ever seen on TV - CNN",
+            "description": "When Mariner 4 flew by Mars on July 15, 1965, it captured the first images of another planet from space. But the first image of Mars ever seen on TV was different than expected.",
+            "url": "https://www.cnn.com/2023/07/15/world/nasa-mariner-4-photo-mars-anniversary-scn/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/230714124237-05-mariner-4-nasa-hand-colored.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2023-07-15T13:16:00Z",
+            "content": "Editors note: Sign up for CNNs Wonder Theory science newsletter. Explore the universe with news on fascinating discoveries, scientific advancements and more.\r\nPasadena, CaliforniaCNN\r\n  — \r\nJust step… [+6527 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "MacRumors"
+            },
+            "author": "MacRumors Staff",
+            "title": "Top Stories: iOS 17 Public Beta, iPhone 15 Pro Rumors, and More - MacRumors",
+            "description": "As promised for the month of July, Apple has released the first public betas of iOS 17, macOS Sonoma, and related updates, opening up testing to a...",
+            "url": "https://www.macrumors.com/2023/07/15/top-stories-ios-17-public-beta/",
+            "urlToImage": "https://images.macrumors.com/t/9NuCb7WT4biaMa-vVoYF_ZItmgQ=/1600x/article-new/2023/07/top-stories-15jul2023.jpg",
+            "publishedAt": "2023-07-15T13:00:00Z",
+            "content": "As promised for the month of July, Apple has released the first public betas of iOS 17, macOS Sonoma, and related updates, opening up testing to a wider range of users ahead of their official release… [+3582 chars]"
+        }
+    ]
+}
