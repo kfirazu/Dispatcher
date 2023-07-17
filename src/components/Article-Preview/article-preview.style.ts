@@ -9,7 +9,7 @@ border-radius: 20px;
 border: 1px solid #D9DBE9;
 box-shadow: 0px 32px 64px 0px #0000000D;
 display: flex;
-margin: 30px 50px;
+
 
 `
 
@@ -17,7 +17,7 @@ export const ArticleContentWrapper = styled.div`
 display: flex;
 flex-direction: column;
 width: 743px;
-padding: 8px 16px;
+padding: 16px 16px;
 box-sizing: border-box;
 `
 
@@ -79,7 +79,7 @@ justify-content: space-around;
 export const StyledImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit: fill;
+object-fit: cover;
 border-radius: 20px 0 0 20px;
 
 `
