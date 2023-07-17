@@ -22,7 +22,7 @@ export const Category: Story = {
         id: 'category',
         label: 'category',
         labelId: 'category',
-        placeholder: 'Category',
+        type: 'Category',
         children: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
     }
 }
