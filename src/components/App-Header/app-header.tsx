@@ -1,9 +1,10 @@
-import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
 import CustomInput from "../Input/custom-input"
-import StyledContainer, { StyledInputWrapper } from "./app-header.style"
-import logo from '../../assets/icon/logo.svg'
+import StyledContainer, { LogoWrapper, StyledInputWrapper } from "./app-header.style"
+import  logo  from '../../assets/icon/logo.svg'
 import RecentSearchDropdown from "../RecentSearchDropdown/recent-search-dropdown"
 import { FocusEvent, useState } from "react"
+import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
+
 
 
 const AppHeader = () => {
@@ -35,7 +36,7 @@ const AppHeader = () => {
             </LogoWrapper>
             <StyledInputWrapper>
                 <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
-                <InputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} children={options} />
+                <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} children={options} />
 
                 {isFocused &&
                     <RecentSearchDropdown />

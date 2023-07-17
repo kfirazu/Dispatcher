@@ -15,7 +15,7 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
     return (
         <ArticlePreviewWrapper>
             <ImgWrapper>
-                <StyledImg src="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WLNEBID3OQUSPOJLDK2H42GTZQ_size-normalized.jpg&w=1440" alt="article" />
+                <StyledImg src={urlToImage} alt="article" />
             </ImgWrapper>
             <ArticleContentWrapper>
                 <DateWrapper>{newsService.formatDate(publishedAt)}</DateWrapper>

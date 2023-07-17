@@ -83,7 +83,7 @@ justify-content: space-around;
 export const StyledImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit: fill;
+object-fit: cover;
 border-radius: 20px 0 0 20px;
 
 `
