@@ -1,7 +1,7 @@
 
 export interface Article {
     source: {
-        id: string
+        id: string | null
         name: string
     }
     title: string
