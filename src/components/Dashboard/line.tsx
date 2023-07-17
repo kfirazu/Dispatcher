@@ -67,14 +67,13 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
                 }
             },
         },
-
         title: {
             display: true,
             text: 'Dates',
         },
     }
 
-    const labels = ['', '', '', '', ''];
+    const labels = ['', '', '', '', '']
 
     const data = {
         labels: labels,
@@ -87,7 +86,7 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
                     if (!context.chart.chartArea) {
                         return
                     }
-                    const { ctx, data, chartArea: { top, bottom } } = context.chart
+                    const { ctx, chartArea: { top, bottom } } = context.chart
                     const gradeintBg = ctx.createLinearGradient(0, top, 0, bottom)
                     gradeintBg.addColorStop(0, bgColor[0])
                     gradeintBg.addColorStop(1, bgColor[1])
