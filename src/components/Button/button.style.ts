@@ -13,7 +13,7 @@ export interface CustomButtonProps {
 
 }
 
-enum StyledButtonColors {
+export enum StyledButtonColors {
     PRIMARY_BGC = '#0058B9',
     PRIMARY_TXT = '#FFFFFF',
     PRIMARY_BG_HOVER = '#0058B9',

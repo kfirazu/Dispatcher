@@ -1,13 +1,13 @@
 import React, { FC, useRef, useState } from "react"
 import { CustomDropdownProps } from "../../models/custom-dropdown-interface"
 import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from "@mui/material"
-import { menuItemSX, StyledInputDropdown, StyledInputLabel } from "./input-dropdown.style"
+import { menuItemSX, StyledInputDropdown, StyledInputLabel } from "./search-input-dropdown.style"
 import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 
-const InputDropdown: FC<CustomDropdownProps> = (props) => {
+const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, label, labelId, children } = props
+    const { id, label, labelId, children, placeholder } = props
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
@@ -33,7 +33,7 @@ const InputDropdown: FC<CustomDropdownProps> = (props) => {
 
     return (
         <ClickAwayListener onClickAway={handleClickAway} >
-            <FormControl style={{ position: 'relative', width: '0px' }}>
+            <FormControl style={{ position: 'relative' }}>
                 <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
 
                 <ArrowDownIcon top={"19"} handleClick={toggleDropdown} />
@@ -45,7 +45,12 @@ const InputDropdown: FC<CustomDropdownProps> = (props) => {
                     labelId={labelId}
                     label={label}
                     open={isOpen ? true : false}
+                    defaultValue={children[0]}
                     onChange={handleChange}
+                    displayEmpty={true}
+                    renderValue={(value: unknown): React.ReactNode =>
+                        (value !== '' ? value as string : placeholder) as React.ReactNode
+                    }
                     ref={dropdownRef}
 
                 >
@@ -65,4 +70,4 @@ const InputDropdown: FC<CustomDropdownProps> = (props) => {
     )
 }
 
-export default InputDropdown
+export default SearchInputDropdown

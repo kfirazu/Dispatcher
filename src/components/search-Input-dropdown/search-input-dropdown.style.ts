@@ -23,9 +23,9 @@ border-left: 0.5px solid ${InputDropdownColors.BORDER_COLOR};
 
 & .MuiOutlinedInput-notchedOutline {
     border: none;
-
-
 }
+
+
 
 `
 )

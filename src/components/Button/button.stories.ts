@@ -15,12 +15,7 @@ const meta = {
 
 } satisfies Meta<typeof CustomButton>
 
-export default meta
-
 type Story = StoryObj<typeof meta>
-
-// const Template: Story<CustomDrodownProps> = (args) => <CustomDropdown{ ...args } />
-
 
 export const PrimaryButton: Story = {
     args: {
@@ -29,14 +24,21 @@ export const PrimaryButton: Story = {
         type: 'primary',
         sx: {width: '226px'}
 
-    }
+
+}
 }
 
-// export const SecondaryButton: Story = {
-//     // render: (args) => <CustomButton {...args}/> 
+export const SecondaryButton: Story = {
+    // render: (args) => <CustomButton {...args}/> 
+    args: {
 
+        children: 'NAVIGATE TO DISPATCH',
+        type: "secondary",
+        url: 'https://www.wgal.com/article/sheetz-drops-gas-prices-dollar1776-gallon-fourth-of-july/44419414',
+        sx: { width: '226px' }
 
-// }
+    }
+}
 
 
 
