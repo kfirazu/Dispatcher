@@ -1,61 +1,76 @@
 import styled from 'styled-components'
-// import MuiButton from './components/Button/mui-button'
-// import Button from './components/Button/button'
-// import CustomiezedButton from './components/Button/button'
-import CustomDropdown from './components/Dropdown/custom-dropdown'
-import CustomInput from './components/Input/custom-input';
-import CustomButton from './components/Button/button';
-import theme from './styles/theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-// import { CustomTextField } from './components/Dropdown/custom-dropdown.styles'
+import theme from './styles/theme'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import AppHeader from './components/App-Header/app-header'
+import { useEffect, useState } from 'react'
+import { newsService } from './services/news.service'
+import { Article } from './models/article-interface'
+import Filter from './components/Filter/filter'
+import SortBar from './components/Sort-Bar/sort-bar'
+import NewsContext from './context/news-context'
+import { filterByInterface } from './models/filter-by-interface'
+import FeedList from './components/FeedList/feed-list'
+import newsData from './data/news.json'
+import Dashboard from './components/Dashboard/dashboard'
+
 
 function App() {
 
-  const category = [
-    'Business', 'Entertainment', 'General', 'Health', 'Science', 'Sports', 'Technology'
-  ]
+  //Temporary to fetch mock data
+  const [articleList, setArticleList] = useState<Article[]>([])
+  const [IsEverything, setIsEverything] = useState(false)
 
-  const handleChange = () => {
+  // Fetch Data
+  // useEffect(() => {
+  //   ; (async (filterBy) => {
+  //     try {
+  //       const newsFeed = await newsService.query(filterBy)
+  //       setNews(newsFeed)
+  //     } catch (err) {
+  //       console.log('err from cmp', err)
+  //     }
+  //   })()
+  // }, [])
 
+  useEffect(() => {
+    setArticleList(newsData.articles.slice(0, 10))
+  }, [])
+
+  const [filterBy, setFilterBy] = useState({
+    type: '',
+    country: '',
+    source: '',
+    category: '',
+    keyword: ''
+  })
+
+  const onSetFilterBy = (newFilterBy: any) => {
+    setFilterBy(newFilterBy)
   }
-
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppContainer>
-          <MainContainer>
-            {/* <CustomiezedButton color={"primary"}/> */}
-            {/* <CustomiezedButton color={"secondary"}/> */}
-            <CustomButton
-              backgroundColor={'#0058B9'}
-              textColor={'#FFFFFF'}
-              borderRadius={'20px'}
-              padding={'10px 16px'}
-              children={'Primary'}
-              hover={'#0058B9'}
-              opacity={'0.8'}
-              width={'226px'}
+          <NewsContext.Provider value={{
+            filterBy: filterBy,
+            updateFilterBy: onSetFilterBy
 
-            />
-            <CustomButton
-              variant='contained'
-              backgroundColor={'#D9DBE9'}
-              textColor={'#5A5A89'}
-              borderRadius={'20px'}
-              padding={'10px 16px'}
-              children={'Secondary'}
-              hover={'#D9DBE9'}
-              opacity={'0.8'}
-              width={'226px'}
-            />
+          }}>
+            <AppHeader />
+            {IsEverything ?
+              <SortBar />
+              : <Filter />
 
-            <CustomDropdown children={category} label={'country'} id='category' handleChange={handleChange} />
-            <br />
-            <br />
-            <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleChange} label={'Text'} />
-          </MainContainer>
+            }
+            <MainContainer>
+              <div style={{borderTop: '1px solid #D9DBE9', display: 'flex'}}>
+                <FeedList articleList={articleList} />
+                <Dashboard articleList={articleList} />
+              </div>
+            </MainContainer>
+          </NewsContext.Provider>
         </AppContainer>
       </ThemeProvider>
 
@@ -67,12 +82,16 @@ const AppContainer = styled.div`
 display: flex;
 flex-direction: column;
 min-height: 100vh;
-min-width: 100vw
+min-width: 100vw;
+background-color: #F3F3FF;
+
 `
 const MainContainer = styled.main`
 flex: 1;
-background-color: #F3F3FF;
+display: flex;
+// background-color: #F3F3FF;
 width: 100%;
+margin-top: 20px;
 
 
 `

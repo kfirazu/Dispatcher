@@ -1,50 +1,67 @@
-import { StyledDropdown, StyledInputLabel } from './custom-dropdown.styles'
-import { FormControl } from '@mui/material'
-import { FC, ReactNode, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import StyledListItem, { StyledList } from '../Dropdown-List-Item/dropdown-list-item.style';
+import { StyledDropdown, StyledMenuItemSX, StyledMenuListSX } from './custom-dropdown.styles'
+import { ClickAwayListener, FormControl, MenuItem } from '@mui/material'
+import { FC, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
+import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
-export interface CustomDrodownProps {
-    id: string
-    label?: ReactNode
-    labelId?: string
-    value?: string
-    handleChange: () => void
-    children: string[]
-}
-const CustomDropdown: FC<CustomDrodownProps> = (props) => {
 
-    const { id, label, labelId, handleChange, children, value } = props
+const CustomDropdown: FC<CustomDropdownProps> = (props) => {
+
+    const { id, labelId, children, placeholder } = props
     const [isOpen, setIsOpen] = useState(false)
+    const [selectedOption, setSelectedOption] = useState<string>('')
+    const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
-        setIsOpen(!isOpen)
+        setIsOpen((prevState) => !prevState)
+    }
+
+    const handleClickAway = () => {
+        setIsOpen(false)
+    }
+
+    const handleChange = (ev: any) => {  //FIX: fix type
+        const selectedItem = ev.target.value
+        setSelectedOption(selectedItem)
+
     }
 
     return (
-        <FormControl style={{ position: 'relative' }}>
-            <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
-            {/* <ArrowDownIcon /> */}
-            <StyledDropdown
-                IconComponent={ArrowDownIcon}
-                id={id}
-                value={value}
-                labelId={labelId}
-                label={label}
-                onChange={handleChange}
+        <ClickAwayListener onClickAway={handleClickAway} >
+            <FormControl style={{ position: 'relative' }}>
+                <ArrowDownIcon handleClick={toggleDropdown} />
+                <StyledDropdown
+                    onClick={toggleDropdown}
+                    IconComponent={() => null}
+                    id={id}
+                    value={selectedOption}
+                    labelId={labelId}
+                    open={isOpen ? true : false}
+                    onChange={handleChange}
+                    displayEmpty={true}
+                    renderValue={(value: unknown): React.ReactNode =>
+                        (value !== '' ? value as string : placeholder) as React.ReactNode
+                    }
+                    ref={dropdownRef}
+                    inputProps={{
+                        MenuProps: {
+                            MenuListProps: {
+                                sx: StyledMenuListSX
+                            }
+                        }
+                    }}
 
-            >
-                <StyledList >
-                    {children.map((child: any, idx) =>
-                        <StyledListItem
-                            key={uuidv4()}
-                            value={idx + 1}>
-                            {child}
-                        </StyledListItem>)}
-                </StyledList>
-            </StyledDropdown>
-        </FormControl>
+                >
+                    {children.map((child: any, idx: number) => //FIX : fix prop type
+                        <MenuItem
+                            sx={StyledMenuItemSX}
+                            key={idx}
+                            value={child.value}>
+                            {child.name}
+                        </MenuItem>)}
+                </StyledDropdown>
+            </FormControl>
+        </ClickAwayListener >
     )
 }
 
