@@ -20,10 +20,10 @@ const SortBar = () => {
     ]
     return (
         <StyledSortBarContainer>
-            <CustomDropdown children={sortByArr} placeholder="Sort by" />
+            <CustomDropdown items={sortByArr} type="Sort by" />
             <DateSelector />
-            <CustomDropdown children={sourcesArr} placeholder="Sources" />
-            <CustomDropdown children={sourcesArr} placeholder="Language" />
+            <CustomDropdown items={sourcesArr} type="Sources" />
+            <CustomDropdown items={sourcesArr} type="Language" />
         </StyledSortBarContainer>
     )
 }
