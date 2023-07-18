@@ -7,13 +7,13 @@ import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, labelId, children, type } = props
+    const { id, name, labelId, items, type } = props
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
-        setIsOpen((prevState) => !prevState)
+        setIsOpen((prevOpen) => !prevOpen)
     }
 
     const handleClickAway = () => {
@@ -35,8 +35,9 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     onClick={toggleDropdown}
                     IconComponent={() => null}
                     id={id}
-                    name={id}
+                    name={name}
                     value={selectedOption}
+                    // items={items}
                     labelId={labelId}
                     open={isOpen ? true : false}
                     onChange={handleChange}
@@ -54,7 +55,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     }}
 
                 >
-                    {children.map((child: any, idx: number) => //FIX : fix prop type
+                    {items?.map((child, idx: number) => //FIX : fix prop type
                         <MenuItem
                             sx={StyledMenuItemSX}
                             key={idx}

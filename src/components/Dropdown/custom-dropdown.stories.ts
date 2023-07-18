@@ -1,21 +1,28 @@
 import { Meta, StoryObj } from "@storybook/react";
 import CustomDropdown from "./custom-dropdown";
-import { MenuItem } from "@mui/material";
+import { StyledMenuListSX } from "./custom-dropdown.styles";
+// import * as MenuItem from './menu-item.stories'
 
-export default {
-    component: CustomDropdown,
+const meta = {
     title: "Components/Dropdown",
-    argTypes: {
-        children: { 
-            options: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
-            mapping: {
+    component: CustomDropdown,
 
-            }
-         }
-    }
-} as Meta;
+} satisfies Meta<typeof CustomDropdown>
 
-type Story = StoryObj<typeof CustomDropdown>
+export default meta
+type Story = StoryObj<typeof meta>
+
+
+const mockCategories = [
+    { value: 'business', name: 'Business' },
+    { value: 'entertainment', name: 'Entertainment' },
+    { value: 'general', name: 'General' },
+    { value: 'health', name: 'Health' },
+    { value: 'science', name: 'Science' },
+    { value: 'sports', name: 'Sports' },
+    { value: 'technology', name: 'Technology' }
+
+]
 
 export const Category: Story = {
     args: {
@@ -23,8 +30,14 @@ export const Category: Story = {
         label: 'category',
         labelId: 'category',
         type: 'Category',
-        children: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
+        items: mockCategories,
+        sx: StyledMenuListSX
+
     }
 }
+
+// export const WithArgs: Story = {
+//     render: (args: any) => <CustomDropdown {...args} />
+// }
 
 

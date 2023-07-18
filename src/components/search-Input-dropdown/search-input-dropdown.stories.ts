@@ -7,17 +7,22 @@ export default {
     tags: ['autodocs'],
     // decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
     argTypes: {
-        children: { control: 'text'}
+        children: { control: 'text' }
     }
 } as Meta;
 
 type Story = StoryObj<typeof SearchInputDropdown>
 
+const mockItems = [
+    { value: 'everything', name: 'Everything', },
+    { value: 'top-headlines', name: 'Top Headlines', }
+]
+
 export const DesktopSearchInputDropdown: Story = {
     args: {
         id: 'input dropdwon',
-        // value: "Everything",
-        children: ['Everything', 'Top Headlines'],
+        value: "Everything",
+        items: mockItems,
         width: '225px',
         height: '57px',
         fontWeight: '400'
