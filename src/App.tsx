@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
@@ -9,9 +8,10 @@ import SortBar from './components/Sort-Bar/sort-bar'
 import FeedList from './components/FeedList/feed-list'
 import newsData from './data/news.json'
 import Dashboard from './components/Dashboard/dashboard'
-import { newsService } from './services/news.service'
+// import { newsService } from './services/news.service'
 // import { filterByInterface } from './models/filter-by-interface'
 import { Article } from './models/article-interface'
+import { AppContainer, MainContainer } from './styles/global-styles';
 
 function App() {
 
@@ -60,7 +60,7 @@ function App() {
             <AppHeader />
             {IsEverything ?
               <SortBar />
-              : <Filter />
+              :<Filter />
             }
             <MainContainer>
               <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
@@ -75,22 +75,6 @@ function App() {
   )
 }
 
-const AppContainer = styled.div`
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-min-width: 100vw;
-background-color: #F3F3FF;
-`
-const MainContainer = styled.main`
-// flex: 1;
-display: flex;
-// background-color: #F3F3FF;
-height: calc(100vh - 74px);
-width: 100%;
-padding: 20px;
-margin-top: 20px;
 
-`
 
 export default App
