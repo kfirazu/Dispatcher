@@ -1,5 +1,6 @@
 import { styled, SxProps, Link } from '@mui/material'
 import { ReactNode } from 'react'
+import styledCmp from 'styled-components'
 
 
 type ButtonType = 'primary' | 'secondary'
@@ -26,6 +27,13 @@ export enum StyledButtonColors {
 const StyledButton = styled(Link)`
 list-style: none;
 position: relative;
+display: flex;
+align-items: center;
+
+`
+export const StyledChildrenWrapper = styledCmp.span`
+max-width: 180px;
+width: 100%;
 `
 
 export const sharedButtonStyles = {
@@ -35,6 +43,7 @@ export const sharedButtonStyles = {
     fontWeight: '500',
     cursor: 'pointer',
     textDecoration: 'none',
+    width: '226px'
 
 }
 
@@ -42,7 +51,6 @@ export const ButtonTypesDictonary = {
     primary: {
         backgroundColor: StyledButtonColors.PRIMARY_BGC,
         color: StyledButtonColors.PRIMARY_TXT,
-        width: '226px',
 
         '&:hover': {
             color: StyledButtonColors.PRIMARY_TXT,
@@ -55,7 +63,6 @@ export const ButtonTypesDictonary = {
     secondary: {
         backgroundColor: StyledButtonColors.SECONDARY_BGC,
         color: StyledButtonColors.SECONDARY_TXT,
-        width: '226px',
 
         '&:hover': {
             color: StyledButtonColors.SECONDARY_TXT,
@@ -65,6 +72,17 @@ export const ButtonTypesDictonary = {
         }
     }
 }
+
+export const ArrowRightWrapper = styledCmp.span`
+cursor: pointer;
+display: flex;
+`
+
+export const StyledButtonWrapper = styledCmp.div`
+display:flex;
+max-width: 226px;
+`
+
 
 export default StyledButton
 
