@@ -4,9 +4,10 @@ import {
     StyledListItem, StyledRemoveIconWrapper, StyledUl, TitleContainerSX
 } from "./recent-search-dropdown.style";
 import CloseIcon from '@mui/icons-material/Close';
-import { Box } from "@mui/material";
+import { Box } from "@mui/material"
 
 interface RecentSearchDropdownProps {
+    // Should accept recent searches to display
 
 }
 
@@ -28,6 +29,7 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = (porps) => {
 
     ])
 
+    //Should accept as props
     const recentSearchToDisplay = recentSearchArr.slice(0, 3)
 
     const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {

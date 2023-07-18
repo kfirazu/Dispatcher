@@ -36,7 +36,7 @@ const AppHeader = () => {
             </LogoWrapper>
             <StyledInputWrapper>
                 <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
-                <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} children={options} />
+                <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
                 {isFocused &&
                     <RecentSearchDropdown />
