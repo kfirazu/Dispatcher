@@ -1,4 +1,4 @@
-import { FC, FocusEvent, MouseEvent } from "react"
+import { FC, FocusEvent } from "react"
 import { StyledInput, StyledIcon, InputWrapper } from "./custom-input.style"
 import serachIcon from '../../assets/icon/search-icon.svg'
 
@@ -28,6 +28,7 @@ const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, handleChange
                 onChange={handleChange}
                 onFocus={handleFocus}
                 onBlur={(ev) => handleBlur(ev)}
+                autoComplete="off"
 
             />
 

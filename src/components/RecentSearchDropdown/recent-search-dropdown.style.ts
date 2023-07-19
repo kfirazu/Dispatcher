@@ -27,7 +27,7 @@ export const StyledBoxSx = {
     padding: '16px 16px',
     position: 'absolute',
     top: '56px',
-    zIndex: '7',
+    zIndex: '14',
 
 }
 
@@ -63,6 +63,7 @@ display: flex;
 flex-direction: column;
 padding: 0;
 margin: 0;
+z-index: 12;
 
 // & :hover {
 //     background-color: #f2f2f2;

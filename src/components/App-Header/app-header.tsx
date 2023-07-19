@@ -1,6 +1,6 @@
 import CustomInput from "../Input/custom-input"
 import StyledContainer, { LogoWrapper, StyledInputWrapper } from "./app-header.style"
-import  logo  from '../../assets/icon/logo.svg'
+import logo from '../../assets/icon/logo.svg'
 import RecentSearchDropdown from "../RecentSearchDropdown/recent-search-dropdown"
 import { FocusEvent, useState } from "react"
 import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
@@ -9,7 +9,7 @@ import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
 
 const AppHeader = () => {
 
-    const [isFocused, setIsFocused] = useState(false)
+    const [isFocused, setIsFocused] = useState<boolean>(false)
     const options = [
         { value: 'everything', name: 'Everything', },
         { value: 'top-headlines', name: 'Top Headlines', }
@@ -27,7 +27,11 @@ const AppHeader = () => {
         //     setIsFocused(false)
         // }, 500)
     }
-    const handleChange = () => {console.log('clicked') }
+    const handleChange = () => { console.log('clicked') }
+
+    const onCloseModal = () => {
+        setIsFocused(false)
+    }
 
     return (
         <StyledContainer>
@@ -39,7 +43,7 @@ const AppHeader = () => {
                 <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
                 {isFocused &&
-                    <RecentSearchDropdown />
+                    <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
                 }
             </StyledInputWrapper>
 

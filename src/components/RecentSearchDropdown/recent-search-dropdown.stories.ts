@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RecentSearchDropdown from './recent-search-dropdown';
+
 const meta = {
     title: 'COMPONENTS/RecentSearchDropdown',
     component: RecentSearchDropdown,
@@ -10,8 +11,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const FilterStory: Story = {
+export const RecentSearchStory: Story = {
     args: {
+        isFocused: true
    
     }
 }
