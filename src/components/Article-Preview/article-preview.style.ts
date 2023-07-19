@@ -10,7 +10,6 @@ border-radius: 20px;
 border: 1px solid #D9DBE9;
 box-shadow: 0px 32px 64px 0px #0000000D;
 display: flex;
-margin-bottom: 24px;
 
 
 `
