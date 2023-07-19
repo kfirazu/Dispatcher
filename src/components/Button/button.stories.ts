@@ -39,6 +39,16 @@ export const SecondaryButton: Story = {
     }
 }
 
+export const MobileButton: Story = {
+    args: {
+        children: 'NAVIGATE TO DISPATCH',
+        type: "primary",
+        url: 'https://www.wgal.com/article/sheetz-drops-gas-prices-dollar1776-gallon-fourth-of-july/44419414',
+        sx: sharedButtonStyles
+
+    }
+}
+
 
 
 

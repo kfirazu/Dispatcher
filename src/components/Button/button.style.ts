@@ -11,7 +11,6 @@ export interface CustomButtonProps {
     sx?: SxProps
     type: ButtonType
     url: string
-
 }
 
 export enum StyledButtonColors {
@@ -21,29 +20,6 @@ export enum StyledButtonColors {
     SECONDARY_BGC = '#D9DBE9',
     SECONDARY_TXT = '#5A5A89',
     SECONDARY_BG_HOVER = '#D9DBE9'
-
-}
-
-const StyledButton = styled(Link)`
-list-style: none;
-position: relative;
-display: flex;
-align-items: center;
-
-`
-export const StyledChildrenWrapper = styledCmp.span`
-max-width: 180px;
-width: 100%;
-`
-
-export const sharedButtonStyles = {
-    borderRadius: '20px',
-    padding: '10px 16px',
-    fontSize: '14px',
-    fontWeight: '500',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    width: '226px'
 
 }
 
@@ -73,16 +49,38 @@ export const ButtonTypesDictonary = {
     }
 }
 
+export const sharedButtonStyles = {
+    borderRadius: '20px',
+    padding: '10px 16px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    width: '100%'
+
+}
+
+const StyledButton = styled(Link)`
+list-style: none;
+position: relative;
+display: flex;
+align-items: center;
+
+`
+export const StyledChildrenWrapper = styledCmp.span`
+max-width: 180px;
+width: 100%;
+`
+
 export const ArrowRightWrapper = styledCmp.span`
 cursor: pointer;
 display: flex;
 `
 
-export const StyledButtonWrapper = styledCmp.div`
+export const StyledButtonWrapper = styledCmp.div<{ isMobile?: boolean, maxWidth: string }>`
 display:flex;
-max-width: 226px;
+${({ maxWidth }) => `max-width: ${maxWidth}`}px
 `
-
 
 export default StyledButton
 
