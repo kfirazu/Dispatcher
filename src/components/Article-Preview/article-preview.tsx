@@ -3,6 +3,9 @@ import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, 
 import CustomButton from "../Button/button"
 import { newsService } from "../../services/news.service"
 import { Article } from "../../models/article-interface"
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
+import { StyledButtonWrapper } from "../Button/button.style"
 
 interface ArticlePreviewProps {
     article: Article
@@ -10,19 +13,22 @@ interface ArticlePreviewProps {
 
 const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
+
     const { source, title, url, urlToImage, publishedAt, content } = article
 
     return (
-        <ArticlePreviewWrapper>
-            <ImgWrapper>
-                <StyledImg src={urlToImage} alt="article" />
+        <ArticlePreviewWrapper isMobile={isMobile} isTablet={isTablet}>
+            <ImgWrapper isMobile={isMobile} isTablet={isTablet}>
+                <StyledImg src={urlToImage} alt="article" isMobile={isMobile} />
             </ImgWrapper>
-            <ArticleContentWrapper>
-                <DateWrapper>{newsService.formatDate(publishedAt)}</DateWrapper>
-                <StyledHeading3>{title}</StyledHeading3>
-                <StyledSourceWrapper>{source.name}</StyledSourceWrapper>
-                <ParagraphWrapper width="720px">{content}</ParagraphWrapper>
-                <ButtonWrapper>
+            <ArticleContentWrapper isMobile={isMobile} isTablet={isTablet}>
+                <DateWrapper >{newsService.formatDate(publishedAt)}</DateWrapper>
+                <StyledHeading3 isMobile={isMobile} isTablet={isTablet} >{title}</StyledHeading3>
+                <StyledSourceWrapper isMobile={isMobile} isTablet={isTablet}>{source.name}</StyledSourceWrapper>
+                <ParagraphWrapper isMobile={isMobile} isTablet={isTablet} width="720px">{content}</ParagraphWrapper>
+                <StyledButtonWrapper isMobile={isMobile}>
 
                     <CustomButton
                         children={'NAVIGATE TO DISPATCH'}
@@ -30,10 +36,10 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
                         url={url}
 
                     />
-                </ButtonWrapper>
+                </StyledButtonWrapper>
 
             </ArticleContentWrapper>
-        </ArticlePreviewWrapper>
+        </ArticlePreviewWrapper >
     )
 }
 

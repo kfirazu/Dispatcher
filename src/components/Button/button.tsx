@@ -17,15 +17,15 @@ const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url 
     const navigateToNewTab = '_balnk'
 
     return (
-        <StyledButtonWrapper isMobile={isMobile} maxWidth={isMobile ? '375' : '226'}>
+        <StyledButtonWrapper isMobile={isMobile}>
             <StyledButton
                 onClick={onClick}
                 sx={{ ...buttonStyles, ...sx }}
                 href={url}
                 target={navigateToNewTab}
-                // isMobile={isMobile}
+                isMobile={isMobile}
             >
-                <StyledChildrenWrapper>
+                <StyledChildrenWrapper isMobile={isMobile}>
                     {children}
                 </StyledChildrenWrapper>
 

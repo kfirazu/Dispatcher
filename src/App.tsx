@@ -12,12 +12,14 @@ import Dashboard from './components/Dashboard/dashboard'
 // import { filterByInterface } from './models/filter-by-interface'
 import { Article } from './models/article-interface'
 import { AppContainer, MainContainer } from './styles/global-styles';
+import useIsMobile from './hooks/useIsMobile';
 
 function App() {
 
   //Temporary to fetch mock data
   const [articleList, setArticleList] = useState<Article[]>([])
   const [IsEverything, setIsEverything] = useState(false)
+  const isMobile = useIsMobile()
 
   // Fetch Data
   // useEffect(() => {
@@ -57,17 +59,17 @@ function App() {
             updateFilterBy: onSetFilterBy
 
           }}> */}
-            <AppHeader />
-            {IsEverything ?
-              <SortBar />
-              :<Filter />
-            }
-            <MainContainer>
-              <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
-                <FeedList articleList={articleList} />
-                <Dashboard articleList={articleList} />
-              </div>
-            </MainContainer>
+          <AppHeader />
+          {IsEverything ?
+            <SortBar />
+            : <Filter />
+          }
+          <MainContainer isMobile={isMobile}>
+            <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
+              <FeedList articleList={articleList} />
+              {/* <Dashboard articleList={articleList} /> */}
+            </div>
+          </MainContainer>
           {/* </NewsContext.Provider> */}
         </AppContainer>
       </ThemeProvider>

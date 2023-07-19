@@ -60,15 +60,32 @@ export const sharedButtonStyles = {
 
 }
 
-const StyledButton = styled(Link)`
-list-style: none;
-position: relative;
-display: flex;
-align-items: center;
+export const StyledButtonWrapper = styledCmp.div<{ isMobile?: boolean }>`
+display:flex;
+align-self: flex-end;
+justify-content: space-around;
+${({ isMobile }) => isMobile ? 'align-self: center' : ''};
+${({ isMobile }) => isMobile ? 'height: 36px' : ''};
+${({ isMobile }) => isMobile ? 'max-width: 300px' : 'max-width: 226px'};
+${({ isMobile }) => isMobile ? 'width: 300px' : 'width: 226px'};
+${({ isMobile }) => isMobile ? 'margin-top: 0' : 'margin-top: 14px;'};
 
 `
-export const StyledChildrenWrapper = styledCmp.span`
+
+const StyledButton = styled(Link) <{ isMobile: boolean }>`
+list-style: none;
+display: flex;
+align-items: center;
+width: 100%;
+${({ isMobile }) => isMobile ? 'justify-content: space-around' : ''};
+
+
+
+`
+export const StyledChildrenWrapper = styledCmp.span<{ isMobile: boolean }>`
 max-width: 180px;
+${({ isMobile }) => isMobile ? 'text-align: end' : ''};
+
 width: 100%;
 `
 
@@ -77,10 +94,7 @@ cursor: pointer;
 display: flex;
 `
 
-export const StyledButtonWrapper = styledCmp.div<{ isMobile?: boolean, maxWidth: string }>`
-display:flex;
-${({ maxWidth }) => `max-width: ${maxWidth}`}px
-`
+
 
 export default StyledButton
 
