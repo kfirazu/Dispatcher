@@ -4,11 +4,16 @@ import logo from '../../assets/icon/logo.svg'
 import RecentSearchDropdown from "../RecentSearchDropdown/recent-search-dropdown"
 import { FocusEvent, useState } from "react"
 import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
+import MobileHeader from "./mobile-header"
 
 
 
 const AppHeader = () => {
 
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const options = [
         { value: 'everything', name: 'Everything', },
@@ -34,20 +39,23 @@ const AppHeader = () => {
     }
 
     return (
-        <StyledContainer>
-            <LogoWrapper>
-                <img src={logo} alt="" />
-            </LogoWrapper>
-            <StyledInputWrapper>
-                <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
-                <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
-                {isFocused &&
-                    <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
-                }
-            </StyledInputWrapper>
+        !isMobile ?
+            <StyledContainer isMobile={isMobile} isTablet={isTablet}>
+                < LogoWrapper >
+                    <img src={logo} alt="" />
+                </LogoWrapper >
+                <StyledInputWrapper>
+                    <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
+                    <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
-        </StyledContainer>
+                    {isFocused &&
+                        <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
+                    }
+                </StyledInputWrapper>
+
+            </StyledContainer >
+            : <MobileHeader />
     )
 }
 
