@@ -2,6 +2,7 @@ import CustomDropdown from "../Dropdown/custom-dropdown"
 import { StyledContainer } from "./filter.style"
 
 
+
 const Filter = () => {
 
     const categories = [
@@ -41,13 +42,12 @@ const Filter = () => {
 
     return (
         <StyledContainer>
-            <CustomDropdown children={countries} label={'Country'} placeholder="Country"/>
-            <CustomDropdown children={categories} label={'Category'} placeholder="Catrgory" />
-            <CustomDropdown children={sources} label={'Soruce'} placeholder="Source"/>
+            <CustomDropdown children={countries} id={'country'} type="Country" />
+            <CustomDropdown children={categories} id={'category'} type="Catrgory" />
+            <CustomDropdown children={sources} id={'soruce'} type="Source" />
 
         </StyledContainer>
     )
 
 }
-
 export default Filter

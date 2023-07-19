@@ -4,7 +4,8 @@ import styled from "styled-components";
 export const ArticlePreviewWrapper = styled.div`
 background-color: #FFFFFF;
 hieght: 242px;
-width: 988px;
+max-width: 988px;
+widht: 100%;
 border-radius: 20px;
 border: 1px solid #D9DBE9;
 box-shadow: 0px 32px 64px 0px #0000000D;
@@ -16,13 +17,16 @@ margin: 30px 50px;
 export const ArticleContentWrapper = styled.div`
 display: flex;
 flex-direction: column;
-width: 743px;
+flex: 1
+max-width: 743px;
+width: 100%;
 padding: 8px 16px;
 box-sizing: border-box;
 `
 
 export const ImgWrapper = styled.div`
-flex: 0 0 245px;
+flex-shrink: 0;
+max-width: 245px;
 `
 
 export const DateWrapper = styled.div<{ width?: string; }>`
@@ -79,7 +83,7 @@ justify-content: space-around;
 export const StyledImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit: fill;
+object-fit: cover;
 border-radius: 20px 0 0 20px;
 
 `

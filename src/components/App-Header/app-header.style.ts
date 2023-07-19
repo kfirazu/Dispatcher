@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
-
-
 
 const StyledContainer = styled.div`
 max-width: 1920px;
@@ -10,9 +7,17 @@ height: 74px;
 display: flex;
 align-items: center;
 background-color: #262146;
-padding-right; 20px;
+padding-right: 20px;
 padding-left: 20px;
 border: 1px;
+box-shadow: 0px 32px 64px 0px #0000000D;
+
+`
+
+export const LogoWrapper = styled.div`
+flex: 0;
+margin-right: 153px;
+
 
 `
 
@@ -20,6 +25,6 @@ export default StyledContainer
 
 export const StyledInputWrapper = styled.div`
 display: flex;
+position: relative;
+flex: 1
 `
-
-// background-color: ${({ theme: { palette } }) => palette.primary.main};
