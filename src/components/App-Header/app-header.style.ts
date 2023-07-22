@@ -13,25 +13,39 @@ border: 1px;
 box-shadow: 0px 32px 64px 0px #0000000D;
 
 ${({ isMobile, isTablet }) => {
-    if (isMobile) {
-        return css`
+        if (isMobile) {
+            return css`
     max-width: 375px;
     padding: 12px 16px;
+    justify-content: space-between;
 
 `
-    } else if (isTablet) {
-        return css`
-// max-width: 728px;
+        } else if (isTablet) {
+            return css`
+    max-width: 768px;
 `
-    }
-}}
+        }
+    }}
 
 `
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 flex: 1;
-// margin-right: 153px;
+max-width: 18%;
+width: 100%;
 
+${({ isMobile, isTablet }) => {
+        if (isMobile) {
+            return css`
+        max-width: 50%;
+
+`
+        } else if (isTablet) {
+            return css`
+        // max-width: 728px;
+`
+        }
+    }}
 
 `
 
@@ -44,11 +58,27 @@ flex: 1
 `
 
 
-export const IconsWrapper = styled.div`
-display: flex;
+export const IconsWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
+// display: flex;
 gap: 12px;
 align-items: center;
-// flex: end;
+display: none;
+
+${({ isMobile, isTablet }) => {
+        if (isMobile) {
+            return css`
+            max-width: 143px;
+            display: flex;
+
+`
+        } else if (isTablet) {
+            return css`
+            max-width: 122px;
+            height: 50px;
+            display: flex;
+            `
+        }
+    }}
 `
 
 export const StyledIcon = styled.img`
@@ -58,14 +88,25 @@ cursor: pointer;
 `
 
 
-export const StyledUserAvatarWrapper = styled.div`
+export const StyledUserAvatarWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 background-color: #0058B9;
 border-radius: 50%;
-width: 35px;
-height: 35px;
 display: flex;
 align-items: center;
 justify-content: center;
+${({ isMobile, isTablet }) => {
+        if (isMobile) {
+            return css`
+        width: 35px;
+        height: 35px;
+`
+        } else if (isTablet) {
+            return css`
+        width: 50px;
+        height: 50px
+        `
+        }
+    }}
 
 `
 
@@ -75,4 +116,10 @@ color: #FFFFFF;
 text-align: center;
 font-family: Roboto Mono Medium for Powerline;
 
+`
+
+export const StyledInputContainer = styled.div`
+width: 85%;
+ display: flex;
+justify-content: space-between;
 `

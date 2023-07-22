@@ -67,7 +67,7 @@ function App() {
           <MainContainer isMobile={isMobile}>
             <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
               <FeedList articleList={articleList} />
-              {/* <Dashboard articleList={articleList} /> */}
+              <Dashboard articleList={articleList} />
             </div>
           </MainContainer>
           {/* </NewsContext.Provider> */}

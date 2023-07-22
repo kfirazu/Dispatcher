@@ -24,14 +24,6 @@ const AppHeader = () => {
         setIsFocused(true)
     }
 
-    const handleBlur = (ev: FocusEvent<HTMLInputElement>) => {
-        // FIX: modal close and i cant choose term or remove a term because of on blur
-        // if(isFocused && ev.target !== )
-        // setTimeout(() => {
-
-        //     setIsFocused(false)
-        // }, 500)
-    }
     const handleChange = () => { console.log('clicked') }
 
     const onCloseModal = () => {
@@ -39,24 +31,42 @@ const AppHeader = () => {
     }
 
     return (
+        <>
+            {!isMobile && !isTablet && (
+                <StyledContainer isMobile={isMobile} isTablet={isTablet}>
+                    <LogoWrapper isMobile={isMobile} isTablet={isTablet}>
+                        <img src={logo} alt="" />
+                    </LogoWrapper>
+                    <StyledInputWrapper>
+                        <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus}  label={'Text'} />
+                        <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
-        !isMobile ?
-            <StyledContainer isMobile={isMobile} isTablet={isTablet}>
-                < LogoWrapper >
-                    <img src={logo} alt="" />
-                </LogoWrapper >
-                <StyledInputWrapper>
-                    <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
-                    <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
+                        {isFocused &&
+                            <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
+                        }
+                    </StyledInputWrapper>
+                </StyledContainer>
+            )}
 
-                    {isFocused &&
-                        <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
-                    }
-                </StyledInputWrapper>
-
-            </StyledContainer >
-            : <MobileHeader />
+            {(isMobile || isTablet) && <MobileHeader />}
+        </>
     )
 }
 
 export default AppHeader
+
+
+{/* <StyledContainer isMobile={isMobile} isTablet={isTablet}>
+< LogoWrapper isMobile={isMobile} isTablet={isTablet}>
+    <img src={logo} alt="" />
+</LogoWrapper >
+<StyledInputWrapper>
+    <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} handleBlur={handleBlur} label={'Text'} />
+    <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
+
+    {isFocused &&
+        <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
+    }
+</StyledInputWrapper>
+
+</StyledContainer >} */}
