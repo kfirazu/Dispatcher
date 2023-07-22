@@ -2,11 +2,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import CustomButton from "./button";
 import { sharedButtonStyles } from "./button.style";
 
-// export default {
-//     component: CustomButton,
-//     title: "Components/Button",
-// } as Meta;
-
 const meta = {
     title: "Components/Button",
     component: CustomButton,
