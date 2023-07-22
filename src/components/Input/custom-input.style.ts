@@ -1,11 +1,23 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 position: relative;
 display: flex;
 align-items: center;
 max-width: 663px;
 width: 100%;
+
+${({ isMobile, isTablet }) => {
+        if (isMobile) {
+            return css`
+
+`
+        } else if (isTablet) {
+            return css`
+            max-width: 423px;
+            `
+        }
+    }}
 
 `
 

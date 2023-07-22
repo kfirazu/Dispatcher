@@ -40,7 +40,7 @@ padding: 16px 16px;
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
-        max-width: 311px;
+        max-width: 100%;
         max-height: 299px;
         height: 100%;
         padding: 8px 16px;
@@ -180,11 +180,10 @@ ${({ isMobile, isTablet }) => {
         height: 100%;
         -webkit-line-clamp: 5;
         margin-block-end: 10px;
-  
-
     `
         } else if (isTablet) {
             return css`
+        -webkit-line-clamp: 3;
     `
         }
     }}
