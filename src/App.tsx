@@ -13,12 +13,13 @@ import Dashboard from './components/Dashboard/dashboard'
 import { Article } from './models/article-interface'
 import { AppContainer, MainContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
+import MobileSortBar from './components/Sort-Bar/mobile-sort-bar';
 
 function App() {
 
   //Temporary to fetch mock data
   const [articleList, setArticleList] = useState<Article[]>([])
-  const [IsEverything, setIsEverything] = useState(false)
+  const [IsEverything, setIsEverything] = useState(true)
   const isMobile = useIsMobile()
 
   // Fetch Data
@@ -61,7 +62,7 @@ function App() {
           }}> */}
           <AppHeader />
           {IsEverything ?
-            <SortBar />
+             <SortBar />
             : <Filter />
           }
           <MainContainer isMobile={isMobile}>

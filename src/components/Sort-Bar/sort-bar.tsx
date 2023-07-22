@@ -1,8 +1,14 @@
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
 import DateSelector from "../Date-Selector/date-selector"
 import CustomDropdown from "../Dropdown/custom-dropdown"
+import MobileSortBar from "./mobile-sort-bar"
 import { StyledSortBarContainer } from "./sort-bar.style"
 
 const SortBar = () => {
+
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
 
     const sortByArr = [
         { value: 'source', name: 'Source' },
@@ -19,12 +25,19 @@ const SortBar = () => {
 
     ]
     return (
-        <StyledSortBarContainer>
-            <CustomDropdown items={sortByArr} type="Sort by" />
-            <DateSelector />
-            <CustomDropdown items={sourcesArr} type="Sources" />
-            <CustomDropdown items={sourcesArr} type="Language" />
-        </StyledSortBarContainer>
+        <>
+            {!isMobile && !isTablet && (
+
+                <StyledSortBarContainer>
+                    <CustomDropdown items={sortByArr} type="Sort by" />
+                    <DateSelector />
+                    <CustomDropdown items={sourcesArr} type="Sources" />
+                    <CustomDropdown items={sourcesArr} type="Language" />
+                </StyledSortBarContainer>
+            )}
+            {(isMobile || isTablet) && <MobileSortBar />}
+
+        </>
     )
 }
 
