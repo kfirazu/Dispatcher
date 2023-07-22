@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 
-export const StyledList = styled.ul`
+export const StyledList = styled.ul<{isMobile: boolean}>`
 list-style: none;
 display:flex;
 flex-direction: column;
-gap: 24px;
+${({isMobile}) => isMobile ? 'gap: 20px' : 'gap: 24px'};
 overflow-y: auto;
 max-height: 1260px;
 height: 100%;
