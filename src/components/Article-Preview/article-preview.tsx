@@ -28,6 +28,7 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
                         children={'NAVIGATE TO DISPATCH'}
                         type="primary"
                         url={url}
+                        isIcon={true}
 
                     />
                 </ButtonWrapper>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.header<{ isMobile: boolean, isTablet: boolean }>`
 max-width: 1920px;
 width: 100%;
 height: 74px;

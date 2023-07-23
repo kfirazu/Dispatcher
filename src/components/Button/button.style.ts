@@ -9,8 +9,8 @@ export interface CustomButtonProps {
     children?: ReactNode
     sx?: SxProps
     type: ButtonType
-    url: string
-
+    url?: string
+    isIcon: boolean
 }
 
 export enum StyledButtonColors {

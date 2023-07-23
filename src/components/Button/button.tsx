@@ -3,7 +3,9 @@ import { ButtonTypesDictonary, CustomButtonProps, sharedButtonStyles } from './b
 import StyledButton from './button.style'
 import ArrowRightIcon from '../Arrow-Right-Icon/arrow-right'
 
-const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url }) => {
+const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url, isIcon }) => {
+
+    const isMobile = useIsMobile()
 
     const buttonStyles = {
         ...sharedButtonStyles,
@@ -20,8 +22,14 @@ const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url 
                 href={url}
                 target={navigateToNewTab}
             >
-                {children}
-                <ArrowRightIcon />
+                <StyledChildrenWrapper isMobile={isMobile}>
+                    {children}
+                </StyledChildrenWrapper>
+                {isIcon && (
+                    <ArrowRightWrapper>
+                        <ArrowRightIcon />
+                    </ArrowRightWrapper>
+                )}
             </StyledButton>
         </>
     )

@@ -4,7 +4,8 @@ import {
     StyledListItem, StyledRemoveIconWrapper, StyledUl, TitleContainerSX
 } from "./recent-search-dropdown.style";
 import CloseIcon from '@mui/icons-material/Close';
-import { Box } from "@mui/material";
+import { Box } from "@mui/material"
+import TransparentScreen from "../helpers/transparent-screen";
 
 interface RecentSearchDropdownProps {
 

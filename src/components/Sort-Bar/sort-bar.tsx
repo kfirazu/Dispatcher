@@ -1,8 +1,18 @@
+import { FC } from "react"
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
 import DateSelector from "../Date-Selector/date-selector"
 import CustomDropdown from "../Dropdown/custom-dropdown"
 import { StyledSortBarContainer } from "./sort-bar.style"
 
-const SortBar = () => {
+interface SortBarProps {
+    onOpenSideBar: () => void
+}
+
+const SortBar: FC<SortBarProps> = ({ onOpenSideBar }) => {
+
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
 
     const sortByArr = [
         { value: 'source', name: 'Source' },
@@ -19,12 +29,19 @@ const SortBar = () => {
 
     ]
     return (
-        <StyledSortBarContainer>
-            <CustomDropdown children={sortByArr} placeholder="Sort by" />
-            <DateSelector />
-            <CustomDropdown children={sourcesArr} placeholder="Sources" />
-            <CustomDropdown children={sourcesArr} placeholder="Language" />
-        </StyledSortBarContainer>
+        <>
+            {!isMobile && !isTablet && (
+
+                <StyledSortBarContainer>
+                    <CustomDropdown items={sortByArr} type="Sort by" />
+                    <DateSelector />
+                    <CustomDropdown items={sourcesArr} type="Sources" />
+                    <CustomDropdown items={sourcesArr} type="Language" />
+                </StyledSortBarContainer>
+            )}
+            {(isMobile || isTablet) && <MobileSortBar onOpenSideBar={onOpenSideBar}/>}
+
+        </>
     )
 }
 
