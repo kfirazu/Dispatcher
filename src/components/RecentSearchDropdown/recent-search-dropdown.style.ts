@@ -31,6 +31,22 @@ export const StyledBoxSx = {
 
 }
 
+export const TabletStyledBoxSx = {
+    maxWidth: '423px',
+    width: '100%',
+    maxHeight: '132px',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: `${RecentSearchStyleDictonary.BG_COLOR}`,
+    boxShadow: ' 0px 4px 12px 0px #00000014',
+    borderRadius: '10px',
+    overflowY: 'hidden',
+    padding: '16px 16px',
+    position: 'absolute',
+    top: '67px',
+    zIndex: '14',
+}
+
 export const TitleContainerSX = {
     display: 'flex',
     width: '100%',

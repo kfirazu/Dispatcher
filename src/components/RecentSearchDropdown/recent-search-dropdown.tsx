@@ -1,14 +1,15 @@
 import { FC, MouseEvent, useState } from "react";
 import {
     StyledBoxSx, StyledClearSpan, StyledHeading4,
-    StyledListItem, StyledRemoveIconWrapper, StyledUl, TitleContainerSX
+    StyledListItem, StyledRemoveIconWrapper, StyledUl, TabletStyledBoxSx, TitleContainerSX
 } from "./recent-search-dropdown.style";
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/material"
 import TransparentScreen from "./transparent-screen";
+import { UseIsTablet } from "../../hooks/useIsTablet";
 
 interface RecentSearchDropdownProps {
-    // Should accept recent searches to display
+    //FIX : Should accept recent searches to display
     isFocused: boolean
     onCloseModal: () => void
 
@@ -20,6 +21,7 @@ interface recentSearchTerm {
 }
 const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onCloseModal }) => {
 
+    const isTablet = UseIsTablet()
     const [searchText, setSearchText] = useState<string | null>(null)
     const [recentSearchArr, setRecentSearchArr] = useState<recentSearchTerm[]>([
         { id: 'u101', searchTerm: 'soccer' },
@@ -32,7 +34,7 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
 
     ])
 
-    //Should accept as props
+    //FIX :Should accept as props
     const recentSearchToDisplay = recentSearchArr.slice(0, 3)
 
     const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
@@ -57,7 +59,7 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
             {isFocused && (
                 <>
                     <TransparentScreen onCloseModal={onCloseModal} />
-                    <Box sx={StyledBoxSx}>
+                    <Box sx={isTablet ? TabletStyledBoxSx : StyledBoxSx}>
                         <Box sx={TitleContainerSX}>
                             <StyledHeading4>RECENT SEARCHES</StyledHeading4>
                             <StyledClearSpan onClick={onClearRecentSearch}>CLEAR</StyledClearSpan>
