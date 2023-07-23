@@ -37,7 +37,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     id={id}
                     name={name}
                     value={selectedOption}
-                    // items={items}
                     labelId={labelId}
                     open={isOpen ? true : false}
                     onChange={handleChange}

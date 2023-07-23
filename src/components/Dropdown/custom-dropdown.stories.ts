@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import CustomDropdown from "./custom-dropdown";
 import { StyledMenuListSX } from "./custom-dropdown.styles";
-// import * as MenuItem from './menu-item.stories'
 
 const meta = {
     title: "Components/Dropdown",
@@ -35,9 +34,5 @@ export const Category: Story = {
 
     }
 }
-
-// export const WithArgs: Story = {
-//     render: (args: any) => <CustomDropdown {...args} />
-// }
 
 

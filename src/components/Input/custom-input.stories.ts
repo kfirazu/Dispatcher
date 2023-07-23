@@ -15,6 +15,5 @@ export const Input: Story = {
         id: 'search',
         handleChange:() => console.log('Changed!!'),
         handleFocus:() => console.log('Focus!'),
-        handleBlur: () => (console.log('Blured'))
     }
 }

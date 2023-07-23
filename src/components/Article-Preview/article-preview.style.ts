@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 
-
 export const ArticlePreviewWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 background-color: #FFFFFF;
 hieght: 242px;
@@ -21,9 +20,6 @@ ${({ isMobile, isTablet }) => {
         } else if (isTablet) {
             return css`
         max-width: 728px;`
-        } else {
-            return css`
-        // max-width: 988px;`
         }
     }}
 
@@ -37,7 +33,7 @@ max-width: 743px;
 width: 100%;
 padding: 16px 16px;
 
-${({ isMobile, isTablet }) => {
+${({ isMobile }) => {
         if (isMobile) {
             return css`
         max-width: 100%;
@@ -46,10 +42,6 @@ ${({ isMobile, isTablet }) => {
         padding: 8px 16px;
 
 `
-        } else if (isTablet) {
-            return css`
-// max-width: 728px;
-`
         }
     }}
 `
@@ -57,16 +49,11 @@ ${({ isMobile, isTablet }) => {
 export const ImgWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 flex-shrink: 0;
 max-width: 245px;
-${({ isMobile, isTablet }) => {
+${({ isMobile }) => {
         if (isMobile) {
             return css`
             max-width: 343px;
             max-height: 150px;
- 
-    `
-        } else if (isTablet) {
-            return css`
-    // max-width: 728px;
     `
         }
     }}
@@ -198,12 +185,6 @@ ${({ isMobile }) => isMobile ? 'align-self: center' : ''};
 ${({ isMobile }) => isMobile ? 'height: 36px' : ''};
 ${({ isMobile }) => isMobile ? 'max-width: 100%' : ''};
 ${({ isMobile }) => isMobile ? 'margin-top: 0' : 'margin-top: 14px;'};
-
-
-
-
-
-
 `
 
 

@@ -44,9 +44,9 @@ const MobileHeader = () => {
                 
                     <StyledInputContainer>
                         <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus} label={'Text'} />
-                        {/* {isFocused &&
+                        {isFocused &&
                             <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
-                        } */}
+                        }
                         <IconContainer children={[settingsIcon, notificationIcon]} />
                     </StyledInputContainer>
                 

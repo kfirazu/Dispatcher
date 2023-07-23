@@ -12,7 +12,6 @@ export interface CustomInputProps {
     id: string
     handleChange: () => void
     handleFocus: () => void
-    // handleBlur?: (ev: FocusEvent<HTMLInputElement>) => void
     label: string
 }
 
