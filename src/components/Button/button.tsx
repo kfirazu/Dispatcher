@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { ButtonTypesDictonary, CustomButtonProps, sharedButtonStyles } from './button.style'
+import { ArrowRightWrapper, ButtonTypesDictonary, CustomButtonProps, StyledChildrenWrapper, sharedButtonStyles } from './button.style'
 import StyledButton from './button.style'
 import ArrowRightIcon from '../Arrow-Right-Icon/arrow-right'
+import useIsMobile from '../../hooks/useIsMobile'
 
 const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url, isIcon }) => {
 
@@ -21,6 +22,7 @@ const CustomButton: FC<CustomButtonProps> = ({ onClick, children, type, sx, url,
                 sx={{ ...buttonStyles, ...sx }}
                 href={url}
                 target={navigateToNewTab}
+                isMobile={isMobile}
             >
                 <StyledChildrenWrapper isMobile={isMobile}>
                     {children}
