@@ -13,8 +13,6 @@ const FeedList: FC<FeedListProps> = ({ articleList }) => {
 
     const isMobile = useIsMobile()
 
-
-
     return (
         <div>
             {/* FIX: Change true condition in h3 to newsData.totalResults */}
