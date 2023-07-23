@@ -1,10 +1,17 @@
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
+import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
 import { StyledContainer } from "./filter.style"
 
 
 
 const Filter = () => {
 
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
+
+    // Should accept children as props / The dropdowns type so it will be generic for changes.
     const categories = [
         { value: 'business', name: 'Business' },
         { value: 'entertainment', name: 'Entertainment' },
@@ -41,12 +48,21 @@ const Filter = () => {
     ]
 
     return (
-        <StyledContainer>
-            <CustomDropdown children={countries} id={'country'} type="Country" />
-            <CustomDropdown children={categories} id={'category'} type="Catrgory" />
-            <CustomDropdown children={sources} id={'soruce'} type="Source" />
+        <>
+            {!isMobile && !isTablet && (
 
-        </StyledContainer>
+                <StyledContainer>
+                    <CustomDropdown items={countries} name={'country'} id={'country'} type="Country" />
+                    <CustomDropdown items={categories} name={'category'} id={'category'} type="Catrgory" />
+                    <CustomDropdown items={sources} name={'soruce'} id={'source'} type="Source" />
+
+                </StyledContainer>
+            )}
+            {(isMobile || isTablet) && <MobileSortBar />}
+        </>
+
+
+
     )
 
 }

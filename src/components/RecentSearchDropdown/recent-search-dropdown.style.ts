@@ -27,8 +27,24 @@ export const StyledBoxSx = {
     padding: '16px 16px',
     position: 'absolute',
     top: '56px',
-    zIndex: '7',
+    zIndex: '14',
 
+}
+
+export const TabletStyledBoxSx = {
+    maxWidth: '423px',
+    width: '100%',
+    maxHeight: '132px',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: `${RecentSearchStyleDictonary.BG_COLOR}`,
+    boxShadow: ' 0px 4px 12px 0px #00000014',
+    borderRadius: '10px',
+    overflowY: 'hidden',
+    padding: '16px 16px',
+    position: 'absolute',
+    top: '67px',
+    zIndex: '14',
 }
 
 export const TitleContainerSX = {
@@ -63,6 +79,7 @@ display: flex;
 flex-direction: column;
 padding: 0;
 margin: 0;
+z-index: 12;
 
 // & :hover {
 //     background-color: #f2f2f2;

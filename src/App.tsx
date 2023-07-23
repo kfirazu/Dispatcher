@@ -8,7 +8,7 @@ import SortBar from './components/Sort-Bar/sort-bar'
 import FeedList from './components/FeedList/feed-list'
 import newsData from './data/news.json'
 import Dashboard from './components/Dashboard/dashboard'
-import { newsService } from './services/news.service'
+// import { newsService } from './services/news.service'
 // import { filterByInterface } from './models/filter-by-interface'
 import { Article } from './models/article-interface'
 import { AppContainer, MainContainer } from './styles/global-styles';
@@ -88,6 +88,7 @@ function App() {
     </>
   )
 }
+
 
 
 export default App

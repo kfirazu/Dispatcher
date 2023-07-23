@@ -7,7 +7,7 @@ import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, label, labelId, children, placeholder } = props
+    const { id, label, labelId, items, placeholder } = props
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
@@ -45,7 +45,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                     labelId={labelId}
                     label={label}
                     open={isOpen ? true : false}
-                    defaultValue={children[0]}
+                    defaultValue={items}
                     onChange={handleChange}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
@@ -54,7 +54,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                     ref={dropdownRef}
 
                 >
-                    {children?.map((child: any, idx: number) => (
+                    {items?.map((child, idx: number) => (
                         <MenuItem
                             sx={menuItemSX}
                             key={idx}

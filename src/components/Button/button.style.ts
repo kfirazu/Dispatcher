@@ -32,6 +32,7 @@ export const sharedButtonStyles = {
     fontWeight: '500',
     cursor: 'pointer',
     textDecoration: 'none',
+    width: '100%'
 
 }
 
@@ -39,7 +40,6 @@ export const ButtonTypesDictonary = {
     primary: {
         backgroundColor: StyledButtonColors.PRIMARY_BGC,
         color: StyledButtonColors.PRIMARY_TXT,
-        width: '226px',
 
         '&:hover': {
             color: StyledButtonColors.PRIMARY_TXT,
@@ -52,7 +52,6 @@ export const ButtonTypesDictonary = {
     secondary: {
         backgroundColor: StyledButtonColors.SECONDARY_BGC,
         color: StyledButtonColors.SECONDARY_TXT,
-        width: '226px',
 
         '&:hover': {
             color: StyledButtonColors.SECONDARY_TXT,

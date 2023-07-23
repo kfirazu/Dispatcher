@@ -1,13 +1,17 @@
 import { FC, MouseEvent, useState } from "react";
 import {
     StyledBoxSx, StyledClearSpan, StyledHeading4,
-    StyledListItem, StyledRemoveIconWrapper, StyledUl, TitleContainerSX
+    StyledListItem, StyledRemoveIconWrapper, StyledUl, TabletStyledBoxSx, TitleContainerSX
 } from "./recent-search-dropdown.style";
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/material"
-import TransparentScreen from "../helpers/transparent-screen";
+import TransparentScreen from "./transparent-screen";
+import { UseIsTablet } from "../../hooks/useIsTablet";
 
 interface RecentSearchDropdownProps {
+    //FIX : Should accept recent searches to display
+    isFocused: boolean
+    onCloseModal: () => void
 
 }
 
@@ -15,8 +19,9 @@ interface recentSearchTerm {
     id: string
     searchTerm: string
 }
-const RecentSearchDropdown: FC<RecentSearchDropdownProps> = (porps) => {
+const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onCloseModal }) => {
 
+    const isTablet = UseIsTablet()
     const [searchText, setSearchText] = useState<string | null>(null)
     const [recentSearchArr, setRecentSearchArr] = useState<recentSearchTerm[]>([
         { id: 'u101', searchTerm: 'soccer' },
@@ -29,11 +34,13 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = (porps) => {
 
     ])
 
+    //FIX :Should accept as props
     const recentSearchToDisplay = recentSearchArr.slice(0, 3)
 
     const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
         ev.stopPropagation()
         setSearchText(searchTerm)
+        onCloseModal()
 
     }
 
@@ -47,27 +54,38 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = (porps) => {
     const onClearRecentSearch = () => {
         setRecentSearchArr([])
     }
-
     return (
-        <Box sx={StyledBoxSx}>
-            <Box sx={TitleContainerSX}>
-                <StyledHeading4>RECENT SEARCHES</StyledHeading4>
-                <StyledClearSpan onClick={onClearRecentSearch}>CLEAR</StyledClearSpan>
-            </Box>
-            {recentSearchToDisplay.length ?
-                <StyledUl>{recentSearchToDisplay.map((term: recentSearchTerm, idx) => (
-                    <StyledListItem key={idx} onClick={(ev) => handleSearchTermClick(ev, term.searchTerm)}>
-                        {term.searchTerm}
-                        <StyledRemoveIconWrapper onClick={(ev) => onRemoveRecentSearch(ev, term.id)}>
-                            <CloseIcon style={{ fontSize: '1.2rem' }} />
-                        </StyledRemoveIconWrapper>
-                    </StyledListItem>
-                ))}
-                </StyledUl>
-                : ''}
-        </Box>
+        <>
+            {isFocused && (
+                <>
+                    <TransparentScreen onCloseModal={onCloseModal} />
+                    <Box sx={isTablet ? TabletStyledBoxSx : StyledBoxSx}>
+                        <Box sx={TitleContainerSX}>
+                            <StyledHeading4>RECENT SEARCHES</StyledHeading4>
+                            <StyledClearSpan onClick={onClearRecentSearch}>CLEAR</StyledClearSpan>
+                        </Box>
+                        {recentSearchToDisplay.length > 0 && (
+                            <StyledUl>
+                                {recentSearchToDisplay.map((term: recentSearchTerm, idx) => (
+                                    <StyledListItem
+                                        key={idx}
+                                        onClick={(ev) => handleSearchTermClick(ev, term.searchTerm)}
+                                    >
+                                        {term.searchTerm}
+                                        <StyledRemoveIconWrapper
+                                            onClick={(ev) => onRemoveRecentSearch(ev, term.id)}
+                                        >
+                                            <CloseIcon style={{ fontSize: '1.2rem' }} />
+                                        </StyledRemoveIconWrapper>
+                                    </StyledListItem>
+                                ))}
+                            </StyledUl>
+                        )}
+                    </Box>
+                </>
+            )}
+        </>
     )
-
 }
 
 export default RecentSearchDropdown

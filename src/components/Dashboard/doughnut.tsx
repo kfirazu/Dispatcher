@@ -53,7 +53,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                 ctx.textAlign = 'center'
                 ctx.baseLine = 'middle'
                 ctx.borderWidth = '120px'
-                ctx.fillText('Sum', meta.data[0].x, meta.data[0].y)
+                ctx.fillText(articleList.length, meta.data[0].x, meta.data[0].y)
             }
         }
     }

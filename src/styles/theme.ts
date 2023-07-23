@@ -6,6 +6,7 @@ declare module '@mui/material/styles' {
         appHeaderBackground?: PaletteColorOptions;
         appBackgroundColor?: PaletteColorOptions
         dropdownScrollbar?: PaletteColorOptions
+        white: PaletteColorOptions
     }
 }
 
@@ -27,9 +28,9 @@ const theme = createTheme({
         dropdownScrollbar: {
             main: '#5A5A89'
         },
-        // anotherColorWhite: {
-        //     main: '#F8F8FF'
-        // }
+        white: {
+            main: '#FFFFFF'
+        }
     },
     // components: {
     //     MuiCssBaseline: {
