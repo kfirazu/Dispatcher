@@ -2,7 +2,7 @@ import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
 import { useEffect, useState } from 'react';
-import Filter from './components/Filter/filter';
+import FilterBar from './components/Filter/filter-bar';
 import SortBar from './components/Sort-Bar/sort-bar'
 // import NewsContext from './context/news-context'
 import FeedList from './components/FeedList/feed-list'
@@ -20,7 +20,7 @@ function App() {
   //Temporary to fetch mock data
   const [articleList, setArticleList] = useState<Article[]>([])
   const [IsEverything, setIsEverything] = useState(true)
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const isMobile = useIsMobile()
 
   // Fetch Data
@@ -73,7 +73,7 @@ function App() {
 
           {IsEverything ?
             <SortBar onOpenSideBar={onOpenSideBar}/>
-            : <Filter />
+            : <FilterBar onOpenSideBar={onOpenSideBar}/>
           }
           {isMobile && <SideBar onCloseSideBar={onCloseSideBar} isSideBarOpen={isSideBarOpen} />}
           <MainContainer isMobile={isMobile}>
