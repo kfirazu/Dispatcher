@@ -7,7 +7,8 @@ width: 100%
 height: 47px;
 display: flex;
 gap: 20px;
-margin-top: 20px;
+ align-self: start;
+ margin: 20px 0;
 
 & > * {
     flex-shrink: 1;
@@ -15,7 +16,7 @@ margin-top: 20px;
 
 `
 
-export const MobileSortBarContainer = styled.div<{isMobile: boolean, isTablet: boolean}>`
+export const MobileSortBarContainer = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -29,13 +30,13 @@ box-shadow: 0px 32px 64px 0px #0000000D;
 
 ${({ isMobile, isTablet }) => {
 
-     if (isTablet) {
-        return css`
+        if (isTablet) {
+            return css`
         max-width: 768px;
         
 `
-    }
-}}
+        }
+    }}
 `
 
 export const StyledTextContainer = styled.span`

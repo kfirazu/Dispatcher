@@ -14,6 +14,7 @@ import { Article } from './models/article-interface'
 import { AppContainer, MainContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
 import SideBar from './components/side-bar/side-bar';
+import { UseIsTablet } from './hooks/useIsTablet';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   const [IsEverything, setIsEverything] = useState(true)
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const isMobile = useIsMobile()
+  const isTablet = UseIsTablet()
 
   // Fetch Data
   // useEffect(() => {
@@ -63,22 +65,21 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppContainer>
-          {/* <NewsContext.Provider value={{
-            filterBy: filterBy,
-            updateFilterBy: onSetFilterBy
-
-          }}> */}
+        <AppContainer isMobile={isMobile} isTablet={isTablet}>
           <AppHeader />
-
-          {IsEverything ?
-            <SortBar onOpenSideBar={onOpenSideBar}/>
-            : <FilterBar onOpenSideBar={onOpenSideBar}/>
-          }
-          {isMobile && <SideBar onCloseSideBar={onCloseSideBar} isSideBarOpen={isSideBarOpen} />}
-          <MainContainer isMobile={isMobile}>
-            <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
-              <FeedList articleList={articleList} />
+          {isMobile || isTablet && <SideBar onCloseSideBar={onCloseSideBar} isSideBarOpen={isSideBarOpen} />}
+          <MainContainer isMobile={isMobile} isTablet={isTablet}>
+            {IsEverything
+              ? <SortBar onOpenSideBar={onOpenSideBar} />
+              : <FilterBar onOpenSideBar={onOpenSideBar} />
+            }
+            {/* <NewsContext.Provider value={{
+              filterBy: filterBy,
+              updateFilterBy: onSetFilterBy
+              
+            }}> */}
+            <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' , justifyContent:'center'}} className='identifyMe'>
+              <FeedList articleList={articleList} isSideBarOpen={isSideBarOpen} />
               <Dashboard articleList={articleList} />
             </div>
           </MainContainer>

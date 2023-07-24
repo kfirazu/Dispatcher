@@ -13,7 +13,7 @@ display: flex;
 flex-direction: column;
 gap: 30px;
 max-height: 783px;
-margin-left: 20px;
+padding-left: 1rem;
 `
 
 export const StyledChartWrapper = styled.div`
