@@ -2,9 +2,7 @@ import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
 import { useEffect, useState } from 'react';
-import Filter from './components/Filter/filter';
 import SortBar from './components/Sort-Bar/sort-bar'
-// import NewsContext from './context/news-context'
 import FeedList from './components/FeedList/feed-list'
 import newsData from './data/news.json'
 import Dashboard from './components/Dashboard/dashboard'
@@ -13,6 +11,9 @@ import Dashboard from './components/Dashboard/dashboard'
 import { Article } from './models/article-interface'
 import { AppContainer, MainContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
+import FilterBar from './components/Filter/filter-bar';
+import { store } from './store/store';
+import { Provider } from 'react-redux'
 
 function App() {
 
@@ -56,28 +57,24 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppContainer>
-          {/* <NewsContext.Provider value={{
-            filterBy: filterBy,
-            updateFilterBy: onSetFilterBy
-
-          }}> */}
-          <AppHeader />
-          {IsEverything ?
-             <SortBar onOpenSideBar={onOpenSideBar}/>
-            : <Filter />
-          }
-          <MainContainer isMobile={isMobile}>
-            <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
-              <FeedList articleList={articleList} />
-              <Dashboard articleList={articleList} />
-            </div>
-          </MainContainer>
-          {/* </NewsContext.Provider> */}
-        </AppContainer>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppContainer>
+            <AppHeader />
+            {IsEverything ?
+              <SortBar onOpenSideBar={onOpenSideBar} />
+              : <FilterBar onOpenSideBar={onOpenSideBar} />
+            }
+            <MainContainer isMobile={isMobile}>
+              <div style={{ borderTop: '1px solid #D9DBE9', display: 'flex' }}>
+                <FeedList articleList={articleList} />
+                <Dashboard articleList={articleList} />
+              </div>
+            </MainContainer>
+          </AppContainer>
+        </ThemeProvider>
+      </Provider>
     </>
   )
 }
