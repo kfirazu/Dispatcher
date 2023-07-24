@@ -14,7 +14,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
     const toggleDropdown = () => {
         setIsOpen((prevOpen) => !prevOpen)
-        setIsOpen((prevOpen) => !prevOpen)
     }
 
     const handleClickAway = () => {
