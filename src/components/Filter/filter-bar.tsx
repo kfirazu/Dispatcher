@@ -1,19 +1,18 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
 import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
-import { StyledContainer } from "./filter.style"
 import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
+import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
 
 interface FilterBarrops {
-    onOpenSideBar: () => void
 }
 
-const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
+const FilterBar: FC<FilterBarrops> = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
@@ -24,10 +23,6 @@ const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
 
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
 
-
-    useEffect(() => {
-        console.log('filterBy in the store:', filterBy);
-      }, [filterBy]);
     // Should accept children as props / The dropdowns type so it will be generic for changes.
     const categories = [
         { value: 'business', title: 'Business' },
@@ -81,7 +76,7 @@ const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
         <>
             {!isMobile && !isTablet && (
 
-                <StyledContainer>
+                <StyledSortBarContainer>
                     <CustomDropdown
                         items={countries}
                         name={'country'}
@@ -105,9 +100,9 @@ const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
                         handleChange={handleChange}
                     />
 
-                </StyledContainer>
+                </StyledSortBarContainer>
             )}
-            {(isMobile || isTablet) && <MobileSortBar onOpenSideBar={onOpenSideBar} />}
+            {(isMobile || isTablet) && <MobileSortBar />}
         </>
 
 

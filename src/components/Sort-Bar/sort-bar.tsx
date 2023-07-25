@@ -11,11 +11,10 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 
 interface SortBarProps {
-    onOpenSideBar: () => void
 }
 
 
-const SortBar: FC<SortBarProps> = ({ onOpenSideBar }) => {
+const SortBar: FC<SortBarProps> = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
@@ -89,7 +88,7 @@ const SortBar: FC<SortBarProps> = ({ onOpenSideBar }) => {
                     <CustomDropdown items={languageArr} type="Language" handleChange={handleChange} />
                 </StyledSortBarContainer>
             )}
-            {(isMobile || isTablet) && <MobileSortBar onOpenSideBar={onOpenSideBar} />}
+            {(isMobile || isTablet) && <MobileSortBar />}
 
         </>
     )

@@ -6,12 +6,19 @@ import StyledIcon from "../icon/icon.style"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { FC } from "react"
+import { useAppDispatch } from "../../store/hooks.store"
+import { setIsSideBarOpen } from "../../store/system/system.reducer"
 
 
 interface MobileSortBarPeops {
-    onOpenSideBar: () => void
 }
-const MobileSortBar: FC<MobileSortBarPeops> = ({ onOpenSideBar }) => {
+const MobileSortBar: FC<MobileSortBarPeops> = () => {
+
+    const dispatch = useAppDispatch()
+
+    const onOpenSideBar = () => {
+        dispatch(setIsSideBarOpen(true))
+    }
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()

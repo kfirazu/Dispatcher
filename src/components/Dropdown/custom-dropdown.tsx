@@ -1,9 +1,8 @@
 import { StyledDropdown, StyledMenuItemSX, StyledMenuListSX } from './custom-dropdown.styles'
 import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from '@mui/material'
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
-import { useAppSelector } from '../../store/hooks.store';
 
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
@@ -55,8 +54,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
                         findTitleByValue(String(value)) ? findTitleByValue(String(value)) : type
-
-                        // (value !== '' ? value as string : type) as React.ReactNode
                     }
                     ref={dropdownRef}
                     inputProps={{
