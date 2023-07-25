@@ -11,12 +11,6 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
-
-    // This is the right type according to material ui docs but typescript isn't happy with that
-    const handleOptionChange = (event: SelectChangeEvent<string>, child?: React.ReactNode) => {
-
-    };
-
     const handleChange = (ev: any) => {  //FIX: fix type
         const selectedItem = ev.target.value
         setSelectedOption(selectedItem)
@@ -61,7 +55,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                             value={child.value}
 
                         >
-                            {child.name}
+                            {child.title}
                         </MenuItem>
                     ))}
                 </StyledInputDropdown>

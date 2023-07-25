@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Filter from './filter'
+import Filter from './filter-bar'
 
 const meta = {
     title: 'COMPONENTS/Filter',

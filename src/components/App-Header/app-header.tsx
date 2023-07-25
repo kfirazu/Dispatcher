@@ -7,6 +7,9 @@ import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import MobileHeader from "./mobile-header"
+import { utilService } from "../../services/util.service"
+import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
+import { updateSearchQuery } from "../../store/news/filter.reducer"
 
 
 
@@ -14,17 +17,29 @@ const AppHeader = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
+    const dispatch = useAppDispatch()
+    const searchQuery = useAppSelector(state => state.filter.searchQuery)
+    const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
+
+
     const options = [
-        { value: 'everything', name: 'Everything', },
-        { value: 'top-headlines', name: 'Top Headlines', }
+        { value: 'everything', title: 'Everything', },
+        { value: 'top-headlines', title: 'Top Headlines', }
     ]
 
     const handleFocus = () => {
         setIsFocused(true)
     }
 
-    const handleChange = () => { console.log('clicked') }
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = ev.target
+        setSearchTerm(value)
+        dispatch(updateSearchQuery(value))
+
+    }
+
+    const debounceOnChange = utilService.debounce(handleChange, 500)
 
     const onCloseModal = () => {
         setIsFocused(false)
@@ -38,7 +53,7 @@ const AppHeader = () => {
                         <img src={logo} alt="" />
                     </LogoWrapper>
                     <StyledInputWrapper>
-                        <CustomInput name='search' id='search' placeholder='Search' handleChange={handleChange} handleFocus={handleFocus}  label={'Text'} />
+                        <CustomInput name='search' id='search' placeholder={searchTerm ? searchTerm : 'Search'} debounceOnChange={debounceOnChange} handleFocus={handleFocus} label={'Text'} />
                         <SearchInputDropdown id={"input-dropdown"} label={"Everything"} labelId={"input-dropdown"} items={options} />
 
                         {isFocused &&

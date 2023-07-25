@@ -1,16 +1,20 @@
 import { StyledDropdown, StyledMenuItemSX, StyledMenuListSX } from './custom-dropdown.styles'
-import { ClickAwayListener, FormControl, MenuItem } from '@mui/material'
-import { FC, useRef, useState } from 'react';
+import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from '@mui/material'
+import { FC, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
+import { useAppSelector } from '../../store/hooks.store';
 
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, name, labelId, items, type } = props
+    const { id, name, labelId, items, type, handleChange } = props
+
+    const dropdownRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
-    const dropdownRef = useRef(null);
+
+
 
     const toggleDropdown = () => {
         setIsOpen((prevOpen) => !prevOpen)
@@ -20,12 +24,20 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
         setIsOpen(false)
     }
 
-    const handleChange = (ev: any) => {  //FIX: fix type
-        // const { name, value } = ev.target
-        // console.log('name', name)
-        // setFilterBy((prevFilterBy) => ({ ...prevFilterBy, [name]: value }))
 
+    // Function to find the corresponding title in the countries array
+    const findTitleByValue = (value: string) => {
+        const obj = items?.find((item) => item.value === value);
+        return obj ? obj.title : value;
     }
+
+    const handleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
+        const { value } = ev.target
+        const strValue = String(value)
+        setSelectedOption(strValue)
+        handleChange!(ev)
+    }
+
 
     return (
         <ClickAwayListener onClickAway={handleClickAway} >
@@ -39,10 +51,12 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     value={selectedOption}
                     labelId={labelId}
                     open={isOpen ? true : false}
-                    onChange={handleChange}
+                    onChange={(ev) => handleDropdownchange!(ev)}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
-                        (value !== '' ? value as string : type) as React.ReactNode
+                        findTitleByValue(String(value)) ? findTitleByValue(String(value)) : type
+
+                        // (value !== '' ? value as string : type) as React.ReactNode
                     }
                     ref={dropdownRef}
                     inputProps={{
@@ -59,7 +73,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                             sx={StyledMenuItemSX}
                             key={idx}
                             value={child.value}>
-                            {child.name}
+                            {child.title}
                         </MenuItem>)}
                 </StyledDropdown>
             </FormControl>
