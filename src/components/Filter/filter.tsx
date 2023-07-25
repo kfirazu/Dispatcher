@@ -2,7 +2,7 @@ import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
 import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
-import { StyledContainer } from "./filter.style"
+import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
 
 
 
@@ -51,12 +51,12 @@ const Filter = () => {
         <>
             {!isMobile && !isTablet && (
 
-                <StyledContainer>
+                <StyledSortBarContainer>
                     <CustomDropdown items={countries} name={'country'} id={'country'} type="Country" />
                     <CustomDropdown items={categories} name={'category'} id={'category'} type="Catrgory" />
                     <CustomDropdown items={sources} name={'soruce'} id={'source'} type="Source" />
 
-                </StyledContainer>
+                </StyledSortBarContainer>
             )}
             {(isMobile || isTablet) && <MobileSortBar />}
         </>
