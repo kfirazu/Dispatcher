@@ -10,7 +10,6 @@ interface SortBarProps {
     onOpenSideBar: () => void
 }
 
-
 const SortBar: FC<SortBarProps> = ({ onOpenSideBar }) => {
 
     const isMobile = useIsMobile()

@@ -1,12 +1,15 @@
+import { FC } from "react"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
 import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
 import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
 
+interface FilterBarrops {
+    onOpenSideBar: () => void
+}
 
-
-const Filter = () => {
+const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
@@ -58,7 +61,7 @@ const Filter = () => {
 
                 </StyledSortBarContainer>
             )}
-            {(isMobile || isTablet) && <MobileSortBar />}
+            {(isMobile || isTablet) && <MobileSortBar onOpenSideBar={onOpenSideBar} />}
         </>
 
 
@@ -66,4 +69,4 @@ const Filter = () => {
     )
 
 }
-export default Filter
+export default FilterBar

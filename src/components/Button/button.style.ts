@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import styledCmp from 'styled-components'
 
 
+
 type ButtonType = 'primary' | 'secondary'
 
 export interface CustomButtonProps {
@@ -10,7 +11,8 @@ export interface CustomButtonProps {
     children?: ReactNode
     sx?: SxProps
     type: ButtonType
-    url: string
+    url?: string
+    isIcon: boolean
 }
 
 export enum StyledButtonColors {
@@ -20,6 +22,17 @@ export enum StyledButtonColors {
     SECONDARY_BGC = '#D9DBE9',
     SECONDARY_TXT = '#5A5A89',
     SECONDARY_BG_HOVER = '#D9DBE9'
+
+}
+
+export const sharedButtonStyles = {
+    borderRadius: '20px',
+    padding: '10px 16px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    width: '100%'
 
 }
 
@@ -47,17 +60,6 @@ export const ButtonTypesDictonary = {
 
         }
     }
-}
-
-export const sharedButtonStyles = {
-    borderRadius: '20px',
-    padding: '10px 16px',
-    fontSize: '14px',
-    fontWeight: '500',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    width: '100%'
-
 }
 
 export const StyledButtonWrapper = styledCmp.div<{ isMobile?: boolean }>`
@@ -93,7 +95,6 @@ export const ArrowRightWrapper = styledCmp.span`
 cursor: pointer;
 display: flex;
 `
-
 
 
 export default StyledButton

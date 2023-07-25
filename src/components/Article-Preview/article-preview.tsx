@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, ButtonWrapper, StyledImg } from "./article-preview.style"
+import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, StyledImg } from "./article-preview.style"
 import CustomButton from "../Button/button"
 import { newsService } from "../../services/news.service"
 import { Article } from "../../models/article-interface"
@@ -34,6 +34,7 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
                         children={'NAVIGATE TO DISPATCH'}
                         type="primary"
                         url={url}
+                        isIcon={true}
 
                     />
                 </StyledButtonWrapper>
