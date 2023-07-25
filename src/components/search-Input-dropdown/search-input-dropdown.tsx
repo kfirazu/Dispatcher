@@ -7,14 +7,18 @@ import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, label, labelId, items, placeholder } = props
+    const { id, label, labelId, items, placeholder, handleChange, name } = props
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
-    const handleChange = (ev: any) => {  //FIX: fix type
-        const selectedItem = ev.target.value
-        setSelectedOption(selectedItem)
 
+
+
+    const handleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
+        const { value } = ev.target
+        const strValue = String(value)
+        setSelectedOption(strValue)
+        handleChange!(ev)
     }
 
     const toggleDropdown = () => {
@@ -35,15 +39,15 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                     onClick={toggleDropdown}
                     IconComponent={() => null}
                     id={id}
+                    name={name}
                     value={selectedOption}
                     labelId={labelId}
-                    label={label}
                     open={isOpen ? true : false}
-                    defaultValue={items}
-                    onChange={handleChange}
+                    onChange={handleDropdownchange}
+                    defaultValue={items![0]}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
-                        (value !== '' ? value as string : placeholder) as React.ReactNode
+                        (value !== '' ? String(value) : placeholder) as React.ReactNode
                     }
                     ref={dropdownRef}
 
