@@ -3,10 +3,21 @@ import { format } from "date-fns"
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const STROAGE_KEY = 'top-headlines'
+const BASE_URL = 'https://newsapi.org/v2/'
+const PAGE_SIZE = 10
+const DEFAULT_COUNTRY_CODE = 'us'
+
+
+const config: { [key: string]: any } = {
+    headers: {
+        Authorization: `Bearer ${API_KEY}`
+    },
+}
 
 export const newsService = {
     query,
     formatDate,
+    fetchInitialArticles
 }
 
 export const mockArticle = {
@@ -24,7 +35,7 @@ export const mockArticle = {
 
 }
 
-async function query(filterBy: { type?: string, country?: string, source?: string, category?: string, keyword?: string } = { keyword: "country=us" }) {
+async function query() {
 
     let news = localStorage.getItem(STROAGE_KEY)
     try {
@@ -32,20 +43,12 @@ async function query(filterBy: { type?: string, country?: string, source?: strin
             return JSON.parse(news)
         }
 
-        const config: {} = { //FIX: fix type 
-            headers: {
-                Authorization: `Bearer ${API_KEY}`
-            }
-        }
-
-        const { country, source, category, keyword } = filterBy;
+        // const { country, source, category, keyword } = filterBy;
         // Temporary
-        const reqQuery = `https://newsapi.org/v2/top-headlines?${keyword}`
-
+        const reqQuery = `https://newsapi.org/v2/top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`
         const res = await axios.get(reqQuery, config);
         const newsFeed = res.data
         localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
- 
 
         return newsFeed
 
@@ -59,4 +62,34 @@ function formatDate(dateStr: string) {
     const formatedDate = format(new Date(dateStr), 'eeee MMM dd, yyyy')
     return formatedDate
 
+}
+
+async function fetchInitialArticles() {
+    let news = localStorage.getItem(STROAGE_KEY)
+    try {
+        if (news) {
+            console.log('localStorage:',JSON.parse(news))
+            return JSON.parse(news)
+        }
+
+        const res = await axios.get(`${BASE_URL}top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`, config)
+        const newsFeed = res.data
+        localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed.articles))
+        return newsFeed.articles
+    } catch (err) {
+        console.log('Cannot get default articles', err)
+        throw err
+    }
+}
+
+async function getSources() {
+    try {
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines/sources?`, config)
+        console.log(res.data)
+
+    } catch (err) {
+        console.log('Cannot get sources', err)
+        throw err
+
+    }
 }
