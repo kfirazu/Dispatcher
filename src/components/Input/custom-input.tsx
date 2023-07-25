@@ -10,12 +10,12 @@ export interface CustomInputProps {
     name: string
     placeholder: string
     id: string
-    handleChange: () => void
+    debounceOnChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
     handleFocus: () => void
     label: string
 }
 
-const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, handleChange, handleFocus }) => {
+const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, debounceOnChange, handleFocus }) => {
 
     const isTablet = UseIsTablet()
     const isMobile = useIsMobile()
@@ -29,7 +29,7 @@ const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, handleChange
                 max={40}
                 placeholder={placeholder}
                 id={id}
-                onChange={handleChange}
+                onChange={(ev) => debounceOnChange(ev)}
                 onFocus={handleFocus}
                 autoComplete="off"
 
