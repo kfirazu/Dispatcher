@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy, setSearchQuery } from "../../store/news/filter.reducer"
 import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
+import { newsService } from "../../services/news.service"
 
 
 
@@ -22,6 +23,7 @@ const AppHeader = () => {
 
     const dispatch = useAppDispatch()
     const searchQuery = useAppSelector(state => state.filter.searchQuery)
+    const isEverything = useAppSelector(state => state.system.isEverything)
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -91,7 +93,7 @@ const AppHeader = () => {
                             name="type"
                             labelId={"input-dropdown"}
                             items={options}
-                            placeholder="Everything"
+                            placeholder={isEverything ? "Everything" : "Top-headlines"}
                             handleChange={handleChange}
                         />
 

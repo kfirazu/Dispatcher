@@ -1,11 +1,23 @@
 import axios from "axios"
 import { format } from "date-fns"
+import { FilterBy } from "../models/filter-by"
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const STROAGE_KEY = 'top-headlines'
 const BASE_URL = 'https://newsapi.org/v2/'
 const PAGE_SIZE = 10
 const DEFAULT_COUNTRY_CODE = 'us'
+
+export enum FilterOptions {
+    EVERYTHING = "everything",
+    TOP_HEADLONES = "top-headlines",
+    COUNTRY = "country",
+    CATEGORY = "category",
+    SOURCE = "source",
+    LANGUAGE = "language",
+
+
+}
 
 
 const config: { [key: string]: any } = {
@@ -35,25 +47,47 @@ export const mockArticle = {
 
 }
 
-async function query() {
+async function query(filterBy: FilterBy) {
+    console.log('filterBy from service query', filterBy)
 
-    let news = localStorage.getItem(STROAGE_KEY)
+    // let news = localStorage.getItem(STROAGE_KEY)
     try {
-        if (news) {
-            return JSON.parse(news)
-        }
+        // if (news) {
+        //     return JSON.parse(news)
+        // }
+        const { country, source, category, type, languages } = filterBy
 
         // const { country, source, category, keyword } = filterBy;
         // Temporary
-        const reqQuery = `https://newsapi.org/v2/top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`
-        const res = await axios.get(reqQuery, config);
-        const newsFeed = res.data
-        localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed))
+        const everythingUrl = `${BASE_URL}${FilterOptions.EVERYTHING}`
+        const topHeadlinesUrl = `${BASE_URL}${FilterOptions.TOP_HEADLONES}`
+        let reqQuery: string = ''
 
-        return newsFeed
+        if (type.value === FilterOptions.TOP_HEADLONES) {
+
+            if (country.value !== '') {
+                reqQuery = `${topHeadlinesUrl}?country=${country.value}&pageSize=${PAGE_SIZE}`
+            }
+            else if (category.value !== '') {
+                reqQuery = `${topHeadlinesUrl}?category=${category.value}&pageSize=${PAGE_SIZE}`
+            }
+            else if (source.value !== '') {
+                reqQuery = `${topHeadlinesUrl}?source=${source.value}&pageSize=${PAGE_SIZE}`
+            }
+        }
+
+        // const hardReqQuery = `https://newsapi.org/v2/top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`
+        if (reqQuery !== '') {
+            const res = await axios.get(reqQuery, config);
+            const topHeadlines = res.data
+            // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
+
+            return topHeadlines
+        }
 
     } catch (err) {
-        console.log('err', err)
+        console.log('Failed to load articles', err)
+        throw err
     }
 
 }
@@ -68,7 +102,7 @@ async function fetchInitialArticles() {
     let news = localStorage.getItem(STROAGE_KEY)
     try {
         if (news) {
-            console.log('localStorage:',JSON.parse(news))
+            console.log('localStorage:', JSON.parse(news))
             return JSON.parse(news)
         }
 

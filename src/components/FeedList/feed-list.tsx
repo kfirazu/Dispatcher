@@ -4,14 +4,15 @@ import newsData from '../../data/news.json'
 import ArticlePreview from "../Article-Preview/article-preview"
 import { StyledHeading3, StyledList, TotalResultsWrapper } from "./feed-list.style"
 import useIsMobile from "../../hooks/useIsMobile"
+import { useAppSelector } from "../../store/hooks.store"
 
 interface FeedListProps {
-    articleList: Article[]
 }
 
-const FeedList: FC<FeedListProps> = ({ articleList }) => {
+const FeedList: FC<FeedListProps> = () => {
 
     const isMobile = useIsMobile()
+    const articleList = useAppSelector(state => state.news.articleList)
 
     return (
         <div>

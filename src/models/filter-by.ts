@@ -1,3 +1,5 @@
+import { FilterOptions } from "../services/news.service"
+
 export interface FilterBy {
     [key: string]: FilterOption
     type: FilterOption
@@ -14,4 +16,5 @@ interface FilterOption {
     title?: string
     value?: string
     options?: string[]
+    optionType?: FilterOptions
 }

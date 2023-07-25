@@ -8,7 +8,7 @@ export interface SystemState {
 }
 
 const initialState: SystemState = {
-    isEverything: true,
+    isEverything: false,
     isSideBarOpen: false
 
 }

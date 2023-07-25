@@ -10,7 +10,7 @@ export interface FilterState {
 
 const initialState: FilterState = {
     filterBy: {
-        type: { title: 'Everything', value: 'Everything', options: ['Everything', 'Top-Headlines'] },
+        type: { title: 'top-headlines', value: 'top-headlines', options: ['Everything', 'Top-Headlines'] },
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
@@ -35,6 +35,7 @@ export const FilterSlice = createSlice({
 
 
     },
+   
 })
 
 

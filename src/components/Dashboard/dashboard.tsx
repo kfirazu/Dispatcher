@@ -7,22 +7,25 @@ import { dashboardService } from "../../services/dashboard-service"
 import SorucePercentageList from "./source-pecentage-list"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
+import { useAppSelector } from "../../store/hooks.store"
 
 interface DashboardProps {
-    articleList: Article[]
+
 }
 
-const Dashboard: FC<DashboardProps> = ({ articleList }) => {
+const Dashboard: FC<DashboardProps> = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
+    const articleList = useAppSelector(state => state.news.articleList)
+
 
     const lineChartMonths = dashboardService.getPastSixMonth()
 
     return (
         (!isMobile && !isTablet) &&
         <div>
-            <div style={{height: '30px'}}></div>
+            <div style={{ height: '30px' }}></div>
             <StyledDashboardWrapper>
                 <StyledChartWrapper>
                     <StyledHeadingWrapper>

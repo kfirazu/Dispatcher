@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
@@ -8,6 +8,8 @@ import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
+import { newsService } from "../../services/news.service"
+import { fetchArticles } from "../../store/thunks/fetchDataThunk"
 
 interface FilterBarrops {
 }
@@ -19,9 +21,14 @@ const FilterBar: FC<FilterBarrops> = () => {
 
     const dispatch = useAppDispatch()
     const filterBy = useAppSelector(state => state.filter.filterBy)
-
-
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
+    const articleList = useAppSelector(state => state.news.articleList)
+
+    useEffect(() => {
+        dispatch(fetchArticles(updatedFilterBy))
+        console.log('articleList when change', articleList)
+    }, [dispatch, updatedFilterBy])
+
 
     // Should accept children as props / The dropdowns type so it will be generic for changes.
     const categories = [

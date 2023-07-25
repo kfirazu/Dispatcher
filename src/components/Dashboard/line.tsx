@@ -11,7 +11,7 @@ import {
     Filler
 } from 'chart.js'
 import { Article } from '../../models/article-interface';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { dashboardService } from '../../services/dashboard-service';
 import { StyledLineChartWrapper } from './dashboard.style';
 
@@ -32,8 +32,11 @@ interface LineChartProps {
 
 const LineChart: FC<LineChartProps> = ({ articleList }) => {
 
+    const [articleDates, setArticleDates] = useState<string[]>([])
+
     useEffect(() => {
-        dashboardService.getArticlesDates(articleList)
+        const articleDateList = dashboardService.getArticlesDates(articleList)
+        setArticleDates(articleDateList)
     }, [])
 
     const options = {
@@ -104,7 +107,7 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
     };
     return (
         <StyledLineChartWrapper>
-            <Line 
+            <Line
                 options={options}
                 data={data}
             >

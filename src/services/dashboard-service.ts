@@ -38,6 +38,7 @@ function getSourceCount(articleList: Article[]): SourceCount {
         return acc
     }, {} as SourceCount)
     return sourceCount
+    return {'hello' : 8}
 }
 
 
