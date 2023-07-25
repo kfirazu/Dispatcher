@@ -65,7 +65,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     }}
 
                 >
-                    {items?.map((child, idx: number) =>
+                    {items?.map((child: any, idx: number) => 
                         <MenuItem
                             sx={StyledMenuItemSX}
                             key={idx}

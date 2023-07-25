@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 
 interface SortBarProps {
+
 }
 
 

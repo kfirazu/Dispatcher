@@ -1,3 +1,4 @@
+
 import { FC, useEffect, useState } from "react"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
@@ -8,10 +9,10 @@ import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
-import { newsService } from "../../services/news.service"
 import { fetchArticles } from "../../store/thunks/fetchDataThunk"
 
 interface FilterBarrops {
+
 }
 
 const FilterBar: FC<FilterBarrops> = () => {
@@ -26,7 +27,7 @@ const FilterBar: FC<FilterBarrops> = () => {
 
     useEffect(() => {
         dispatch(fetchArticles(updatedFilterBy))
-        console.log('articleList when change', articleList)
+        // console.log('articleList when change', articleList)
     }, [dispatch, updatedFilterBy])
 
 
@@ -109,7 +110,7 @@ const FilterBar: FC<FilterBarrops> = () => {
 
                 </StyledSortBarContainer>
             )}
-            {(isMobile || isTablet) && <MobileSortBar />}
+            {(isMobile || isTablet) && <MobileSortBar  />}
         </>
 
 

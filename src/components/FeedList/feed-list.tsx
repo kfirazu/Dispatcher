@@ -12,17 +12,17 @@ interface FeedListProps {
 const FeedList: FC<FeedListProps> = () => {
 
     const isMobile = useIsMobile()
+    const isSideBarOpen = useAppSelector(state => state.system.isSideBarOpen)
     const articleList = useAppSelector(state => state.news.articleList)
 
     return (
         <div>
             {/* FIX: Change true condition in h3 to newsData.totalResults */}
-            <TotalResultsWrapper>
-                <div style={{ flex: '0 0 45px' }}></div>
+            <TotalResultsWrapper >
                 <StyledHeading3>{newsData.totalResults ? articleList.length : '0'} Total results</StyledHeading3>
             </TotalResultsWrapper>
             {articleList.length &&
-                <StyledList isMobile={isMobile}>
+                <StyledList isMobile={isMobile} isSideBarOpen={isSideBarOpen}>
                     {articleList.map((article: Article, idx: number) => (
                         <li key={idx}>
                             <ArticlePreview article={article} />

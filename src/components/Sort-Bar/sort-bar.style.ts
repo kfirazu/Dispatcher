@@ -15,7 +15,7 @@ margin: 20px 0;
 
 `
 
-export const MobileSortBarContainer = styled.div<{isMobile: boolean, isTablet: boolean}>`
+export const MobileSortBarContainer = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -29,13 +29,13 @@ box-shadow: 0px 32px 64px 0px #0000000D;
 
 ${({ isMobile, isTablet }) => {
 
-     if (isTablet) {
-        return css`
+        if (isTablet) {
+            return css`
         max-width: 768px;
         
 `
-    }
-}}
+        }
+    }}
 `
 
 export const StyledTextContainer = styled.span`
