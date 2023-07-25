@@ -7,8 +7,8 @@ width: 100%
 height: 47px;
 display: flex;
 gap: 20px;
-margin-top: 20px;
-
+align-self: start;
+margin: 20px 0;
 & > * {
     flex-shrink: 1;
 }

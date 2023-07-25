@@ -21,6 +21,7 @@ const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, debounceOnCh
     const isMobile = useIsMobile()
 
     return (
+        
         <InputWrapper isMobile={isMobile} isTablet={isTablet}>
             <StyledIcon src={serachIcon} />
 
