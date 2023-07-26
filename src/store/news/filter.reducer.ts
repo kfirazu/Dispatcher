@@ -10,7 +10,7 @@ export interface FilterState {
 
 const initialState: FilterState = {
     filterBy: {
-        type: { title: 'top-headlines', value: 'top-headlines', options: ['Everything', 'Top-Headlines'] },
+        type: { title: 'Everything', value: 'everything', options: ['Everything', 'Top-Headlines'] },
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },

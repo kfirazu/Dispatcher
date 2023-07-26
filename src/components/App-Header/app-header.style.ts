@@ -38,6 +38,7 @@ ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
         max-width: 50%;
+        min-width: 75px;
 
 `
         } else if (isTablet) {

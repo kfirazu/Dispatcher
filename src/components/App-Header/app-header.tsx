@@ -15,6 +15,7 @@ import { FilterBy } from "../../models/filter-by"
 import { newsService } from "../../services/news.service"
 import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
+import { setIsEverything } from "../../store/system/system.reducer"
 
 
 
@@ -53,9 +54,8 @@ const AppHeader = () => {
     const onCloseModal = () => {
         setIsFocused(false)
     }
-    const handleChange = (ev: SelectChangeEvent<unknown>) => {
+    const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
         const { name, value } = ev.target
-        console.log(name)
         const strValue = String(value)
 
         setUpdatedFilterBy((prevFilterBy) => ({
@@ -63,6 +63,7 @@ const AppHeader = () => {
             [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
         dispatch(updateFilterBy(updatedFilterBy))
+        dispatch(setIsEverything(!isEverything))
 
     }
 
@@ -103,7 +104,7 @@ const AppHeader = () => {
                             labelId={"input-dropdown"}
                             items={options}
                             placeholder={isEverything ? "Everything" : "Top-headlines"}
-                            handleChange={handleChange}
+                            handleDropdownChange={handleDropdownChange}
                         />
 
                         {isFocused &&

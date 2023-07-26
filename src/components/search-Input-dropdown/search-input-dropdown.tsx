@@ -7,7 +7,7 @@ import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, label, labelId, items, placeholder, handleChange, name } = props
+    const { id, label, labelId, items, placeholder, handleDropdownChange, name } = props
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const dropdownRef = useRef(null);
@@ -18,7 +18,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
         const { value } = ev.target
         const strValue = String(value)
         setSelectedOption(strValue)
-        handleChange!(ev)
+        handleDropdownChange!(ev)
     }
 
     const toggleDropdown = () => {

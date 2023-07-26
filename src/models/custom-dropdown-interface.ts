@@ -9,11 +9,10 @@ export interface CustomDropdownProps extends SelectProps {
     items?: { value: string, title: string }[]
     name?: string
     type?: string
-    type?: string
     onClick?: () => void
     ref?: React.RefObject<HTMLSelectElement>
     placeholder?: string
-    handleChange?: (ev: SelectChangeEvent<unknown>) => void
+    handleDropdownChange?: (ev: SelectChangeEvent<unknown>) => void
 
 
 

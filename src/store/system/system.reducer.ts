@@ -8,7 +8,7 @@ export interface SystemState {
 }
 
 const initialState: SystemState = {
-    isEverything: false,
+    isEverything: true,
     isSideBarOpen: false
 
 }
@@ -21,14 +21,11 @@ export const systemSlice = createSlice({
             state.isEverything = action.payload
         },
         setIsSideBarOpen: (state, action: PayloadAction<boolean>) => {
-            console.log(action.payload)
             state.isSideBarOpen = action.payload
         },
     }
 })
 
-
-// Action creators are generated for each case reducer function
 
 const { actions, reducer } = systemSlice
 
