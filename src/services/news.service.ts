@@ -47,8 +47,7 @@ export const mockArticle = {
 
 }
 
-async function query(filterBy: FilterBy) {
-    console.log('filterBy from service query', filterBy)
+async function query(filterBy: FilterBy, searchQuery?: string) {
 
     // let news = localStorage.getItem(STROAGE_KEY)
     try {
@@ -56,9 +55,6 @@ async function query(filterBy: FilterBy) {
         //     return JSON.parse(news)
         // }
         const { country, source, category, type, languages } = filterBy
-
-        // const { country, source, category, keyword } = filterBy;
-        // Temporary
         const everythingUrl = `${BASE_URL}${FilterOptions.EVERYTHING}`
         const topHeadlinesUrl = `${BASE_URL}${FilterOptions.TOP_HEADLONES}`
         let reqQuery: string = ''
@@ -73,6 +69,9 @@ async function query(filterBy: FilterBy) {
             }
             else if (source.value !== '') {
                 reqQuery = `${topHeadlinesUrl}?source=${source.value}&pageSize=${PAGE_SIZE}`
+            }
+            else if (searchQuery !== '') {
+                reqQuery = `${topHeadlinesUrl}?q=${searchQuery}&pageSize=${PAGE_SIZE}`
             }
         }
 
@@ -99,16 +98,15 @@ function formatDate(dateStr: string) {
 }
 
 async function fetchInitialArticles() {
-    let news = localStorage.getItem(STROAGE_KEY)
+    // let news = localStorage.getItem(STROAGE_KEY)
     try {
-        if (news) {
-            console.log('localStorage:', JSON.parse(news))
-            return JSON.parse(news)
-        }
+        // if (news) {
+        //     return JSON.parse(news)
+        // }
 
         const res = await axios.get(`${BASE_URL}top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`, config)
         const newsFeed = res.data
-        localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed.articles))
+        // localStorage.setItem(STROAGE_KEY, JSON.stringify(newsFeed.articles))
         return newsFeed.articles
     } catch (err) {
         console.log('Cannot get default articles', err)

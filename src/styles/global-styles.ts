@@ -11,9 +11,6 @@ ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
             overflow-y: hidden;
-    
-
-
 `
         } else if (isTablet) {
             return css`
@@ -39,7 +36,6 @@ ${({ isMobile, isTablet }) => {
         margin-top: 0;
         height: 100vh;
         overflow-y: hidden;
-
 
     `
         } else if (isTablet) {
@@ -81,6 +77,22 @@ background-color: #303032;
 opacity: 0.7;
 z-index: 10;
 cursor: pointer;
+`
+
+export const ContentWrapper = styled.div<{isMobile: boolean}>`
+
+${({ isMobile }) => {
+    if (isMobile) {
+        return css`
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+
+
+`
+    }
+}}
+
 `
 
 

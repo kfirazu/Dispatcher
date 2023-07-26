@@ -19,7 +19,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
 
 
 
-    useMemo(() => {
+    useMemo(async () => {
         const sourceCountArr = dashboardService.getSourceCount(articleList)
         const sourcePercentageArr = dashboardService.calcSourcePercentage(articleList)
         setSourcePersentage(sourcePercentageArr)
@@ -53,24 +53,24 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                 ctx.textAlign = 'center'
                 ctx.baseLine = 'middle'
                 ctx.borderWidth = '120px'
-                ctx.fillText(articleList.length, meta.data[0].x, meta.data[0].y)
+                // ctx.fillText(articleList.length, meta.data[0].x, meta.data[0].y)
             }
         }
     }
 
-    const sliceThickness = {
-        id: 'sliceThickness',
-        beforeDraw(chart: any) {
-            if (sourcePercentage.length > 0) {
-                let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320)
-                const meta = chart.getDatasetMeta(0)
-                sliceThicknessPixel.forEach((thickness, idx) => {
-                    return meta.data[idx].outerRadius = (chart.chartArea.width / thickness) * 100
+    // const sliceThickness = {
+    //     id: 'sliceThickness',
+    //     beforeDraw(chart: any) {
+    //         if (sourcePercentage.length > 0) {
+    //             let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320)
+    //             const meta = chart.getDatasetMeta(0)
+    //             sliceThicknessPixel.forEach((thickness, idx) => {
+    //                 return meta.data[idx].outerRadius = (chart.chartArea.width / thickness) * 100
 
-                })
-            }
-        }
-    }
+    //             })
+    //         }
+    //     }
+    // }
     const options = {
         responsive: true,
         title: {
@@ -94,7 +94,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                 <Doughnut
                     options={options}
                     data={data}
-                    plugins={[textCenter, sliceThickness]}
+                    plugins={[textCenter]}
                 >
 
                 </Doughnut>

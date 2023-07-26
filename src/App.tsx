@@ -6,7 +6,7 @@ import SortBar from './components/Sort-Bar/sort-bar'
 import FeedList from './components/FeedList/feed-list'
 import Dashboard from './components/Dashboard/dashboard'
 import { Article } from './models/article-interface'
-import { AppContainer, MainContainer, StyledContentContainer } from './styles/global-styles';
+import { AppContainer, ContentWrapper, MainContainer, StyledContentContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
 import FilterBar from './components/Filter/filter-bar';
 import { useAppDispatch, useAppSelector } from './store/hooks.store';
@@ -34,7 +34,7 @@ function App() {
     if (initialArticles) {
       dispatch(setInitialArticleList(initialArticles))
     }
-  }, [dispatch, initialArticles]);
+  }, [initialArticles]);
 
   return (
     <>
@@ -42,23 +42,18 @@ function App() {
         <CssBaseline />
         <AppContainer isMobile={isMobile} isTablet={isTablet}>
           <AppHeader />
-          {(isMobile || isTablet) && <SideBar  />}
+          {(isMobile || isTablet) && <SideBar />}
           <MainContainer isMobile={isMobile} isTablet={isTablet}>
-            {/* <NewsContext.Provider value={{
-              filterBy: filterBy,
-              updateFilterBy: onSetFilterBy
-              
-            }}> */}
-            <div>
+            <ContentWrapper isMobile={isMobile}>
               {IsEverything
-                ? <SortBar  />
-                : <FilterBar  />
+                ? <SortBar />
+                : <FilterBar />
               }
               <StyledContentContainer >
-                <FeedList  />
-                <Dashboard  />
+                <FeedList />
+                <Dashboard />
               </StyledContentContainer>
-            </div>
+            </ContentWrapper>
           </MainContainer>
         </AppContainer>
       </ThemeProvider>

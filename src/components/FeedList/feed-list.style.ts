@@ -10,7 +10,7 @@ ${({ isSideBarOpen }) => isSideBarOpen ? 'overflow-y: hidden' : 'overflow-y: aut
 max-height: 1260px;
 height: 100%;
 overflow-x: hidden;
-padding: 0 1rem 0 0;
+${({ isMobile }) => isMobile ? 'padding: 0 1rem 0 1rem' : 'padding: 0 1rem 0 0'};
 
 
 scrollbar-width: thin; /* For Firefox */

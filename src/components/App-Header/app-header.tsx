@@ -13,6 +13,8 @@ import { updateFilterBy, setSearchQuery } from "../../store/news/filter.reducer"
 import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
 import { newsService } from "../../services/news.service"
+import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
+import { addRecentSearch } from "../../store/news/recent-serach.reducer"
 
 
 
@@ -28,6 +30,10 @@ const AppHeader = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
+
+    useEffect(() => {
+        dispatch(fetchArticlesBySearchQuery(searchTerm))
+    }, [dispatch, searchTerm])
 
 
     const options = [
@@ -62,6 +68,9 @@ const AppHeader = () => {
 
     const handleSerachSubmit = (searchQuery: string) => {
         dispatch(setSearchQuery(searchQuery))
+        const newSearchTerm = { id: utilService.makeId(), searchTerm: searchQuery }
+        dispatch(addRecentSearch(newSearchTerm))
+        setIsFocused(false)
 
 
     }

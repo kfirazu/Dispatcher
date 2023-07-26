@@ -1,5 +1,6 @@
 export const utilService = {
-    debounce
+    debounce,
+    makeId
 }
 
 function debounce(cb: any, delay: number) {
@@ -12,4 +13,8 @@ function debounce(cb: any, delay: number) {
         clearTimeout(timeout)
         timeout = setTimeout(later, delay)
     }
+}
+
+function makeId() {
+    return Math.random().toString(36).substring(2, 13)
 }

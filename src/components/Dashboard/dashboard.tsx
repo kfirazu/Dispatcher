@@ -10,7 +10,6 @@ import { UseIsTablet } from "../../hooks/useIsTablet"
 import { useAppSelector } from "../../store/hooks.store"
 
 interface DashboardProps {
-
 }
 
 const Dashboard: FC<DashboardProps> = () => {
@@ -18,7 +17,6 @@ const Dashboard: FC<DashboardProps> = () => {
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
     const articleList = useAppSelector(state => state.news.articleList)
-
 
     const lineChartMonths = dashboardService.getPastSixMonth()
 

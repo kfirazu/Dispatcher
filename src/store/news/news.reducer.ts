@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Article } from '../../models/article-interface'
-import { fetchArticles } from '../thunks/fetchDataThunk'
+import { fetchArticles, fetchArticlesBySearchQuery } from '../thunks/fetchDataThunk'
 
-enum Status {
+export enum Status {
     IDLE = 'idle',
     LOADING = 'loading',
     SUCCEEDED = 'succeeded',
@@ -51,8 +51,20 @@ export const newsSlice = createSlice({
             state.error = action.error.message || null
             state.status = Status.FAILED
         })
-    }
+        builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action) => {
+            state.articleList = [...action.payload]
+            state.status = Status.SUCCEEDED
+            state.error = null
+        })
+        builder.addCase(fetchArticlesBySearchQuery.pending, state => {
+            state.status = Status.LOADING
+        })
+        builder.addCase(fetchArticlesBySearchQuery.rejected, (state, action) => {
+            state.error = action.error.message || null
+            state.status = Status.FAILED
+        })
 
+    }
 })
 
 // Action creators are generated for each case reducer function

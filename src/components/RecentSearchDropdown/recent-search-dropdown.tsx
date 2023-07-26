@@ -7,6 +7,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/material"
 import TransparentScreen from "./transparent-screen";
 import { UseIsTablet } from "../../hooks/useIsTablet";
+import { useAppDispatch, useAppSelector } from "../../store/hooks.store";
+import { clearRecentSearch, removeRecentSearch } from "../../store/news/recent-serach.reducer";
 
 interface RecentSearchDropdownProps {
     //FIX : Should accept recent searches to display
@@ -22,17 +24,20 @@ interface recentSearchTerm {
 const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onCloseModal }) => {
 
     const isTablet = UseIsTablet()
+    const dispatch = useAppDispatch()
+    const recentSearchArr = useAppSelector(state => state.recentSearch.recentSearches)
+
     const [searchText, setSearchText] = useState<string | null>(null)
-    const [recentSearchArr, setRecentSearchArr] = useState<recentSearchTerm[]>([
-        { id: 'u101', searchTerm: 'soccer' },
-        { id: 'u102', searchTerm: 'Bibi' },
-        { id: 'u103', searchTerm: 'crypto' },
-        { id: 'u104', searchTerm: 'crypto' },
-        { id: 'u105', searchTerm: 'crypto' },
-        { id: 'u106', searchTerm: 'crypto' }
+    // const [recentSearchArr, setRecentSearchArr] = useState<recentSearchTerm[]>([
+    //     { id: 'u101', searchTerm: 'soccer' },
+    //     { id: 'u102', searchTerm: 'Bibi' },
+    //     { id: 'u103', searchTerm: 'crypto' },
+    //     { id: 'u104', searchTerm: 'crypto' },
+    //     { id: 'u105', searchTerm: 'crypto' },
+    //     { id: 'u106', searchTerm: 'crypto' }
 
 
-    ])
+    // ])
 
     //FIX :Should accept as props
     const recentSearchToDisplay = recentSearchArr.slice(0, 3)
@@ -46,13 +51,15 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
 
     const onRemoveRecentSearch = (ev: MouseEvent<HTMLElement>, searchTermId: string) => {
         ev.stopPropagation()
-        const updatedSearchArr = recentSearchArr.filter((item) => item.id !== searchTermId);
-        setRecentSearchArr(updatedSearchArr);
+        // const updatedSearchArr = recentSearchArr.filter((item) => item.id !== searchTermId);
+        // setRecentSearchArr(updatedSearchArr);
+        dispatch(removeRecentSearch(searchTermId))
 
     }
 
     const onClearRecentSearch = () => {
-        setRecentSearchArr([])
+        // setRecentSearchArr([])
+        dispatch(clearRecentSearch())
     }
     return (
         <>
