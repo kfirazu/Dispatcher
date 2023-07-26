@@ -29,6 +29,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 
+
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
@@ -79,19 +80,20 @@ z-index: 10;
 cursor: pointer;
 `
 
-export const ContentWrapper = styled.div<{isMobile: boolean}>`
+export const ContentWrapper = styled.div<{ isMobile: boolean }>`
 
 ${({ isMobile }) => {
-    if (isMobile) {
-        return css`
+        if (isMobile) {
+            return css`
     display: flex;
     flex-direction: column;
     align-items:center;
 
 
+
 `
-    }
-}}
+        }
+    }}
 
 `
 

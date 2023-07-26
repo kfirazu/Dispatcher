@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <App />
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
 
-    </QueryClientProvider>,
+    </QueryClientProvider>
 
   </Provider>
 

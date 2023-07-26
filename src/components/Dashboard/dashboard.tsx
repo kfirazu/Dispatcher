@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { Article } from "../../models/article-interface"
 import DoughnutChart from "./doughnut"
 import LineChart from "./line"
 import { StyledChartHeading, StyledChartWrapper, StyledDashboardWrapper, StyledHeadingWrapper, StyledMonthListWrapper, StyledMonthName, StyledSourceListWrapper } from "./dashboard.style"
