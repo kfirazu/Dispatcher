@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 
-export const StyledList = styled.ul<{ isMobile: boolean, isSideBarOpen: boolean }>`
+export const StyledList = styled.ul<{ isMobile: boolean, isTablet: boolean, isSideBarOpen: boolean }>`
 list-style: none;
 display:flex;
 flex-direction: column;
@@ -10,7 +10,18 @@ ${({ isSideBarOpen }) => isSideBarOpen ? 'overflow-y: hidden' : 'overflow-y: aut
 max-height: 1260px;
 height: 100%;
 overflow-x: hidden;
-${({ isMobile }) => isMobile ? 'padding: 0 1rem 0 1rem' : 'padding: 0 1rem 0 0'};
+padding: 0 1rem 0 0;
+${({ isMobile, isTablet }) => {
+    if (isMobile) {
+      return css`
+      padding: 0 1rem 0 1rem;
+  `
+    } else if (isTablet) {
+      return css`
+      padding: 0 1rem 0 1rem;
+`
+  }
+}}
 
 
 scrollbar-width: thin; /* For Firefox */
@@ -37,8 +48,8 @@ scrollbar-color: #a0a3bd transparent; /* For Firefox */
   }
 
   ${({ isMobile, }) => {
-    if (isMobile) {
-      return css`
+          if (isMobile) {
+            return css`
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
         ::-webkit-scrollbar {
@@ -47,11 +58,11 @@ scrollbar-color: #a0a3bd transparent; /* For Firefox */
 
         max-height: 100vh; 
     `
-    }
-  }}
+          }
+        }}
 `
 
-export const StyledHeading3 = styled.h3`
+      export const StyledHeading3 = styled.h3`
 margin: 0;
 color: #a9a9c4;
 font-size: 0.8rem;
@@ -62,7 +73,7 @@ padding-left: 1rem;
 
 `
 
-export const TotalResultsWrapper = styled.div`
+      export const TotalResultsWrapper = styled.div`
 height: 17px;
 display: flex;
 `
