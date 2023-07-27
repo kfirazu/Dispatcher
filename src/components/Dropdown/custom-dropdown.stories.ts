@@ -1,22 +1,38 @@
 import { Meta, StoryObj } from "@storybook/react";
 import CustomDropdown from "./custom-dropdown";
+import { StyledMenuListSX } from "./custom-dropdown.styles";
 
-export default {
-    component: CustomDropdown,
+const meta = {
     title: "Components/Dropdown",
-} as Meta;
+    component: CustomDropdown,
 
-type Story = StoryObj<typeof CustomDropdown>
+} satisfies Meta<typeof CustomDropdown>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+
+const mockCategories = [
+    { value: 'business', name: 'Business' },
+    { value: 'entertainment', name: 'Entertainment' },
+    { value: 'general', name: 'General' },
+    { value: 'health', name: 'Health' },
+    { value: 'science', name: 'Science' },
+    { value: 'sports', name: 'Sports' },
+    { value: 'technology', name: 'Technology' }
+
+]
 
 export const Category: Story = {
     args: {
         id: 'category',
         label: 'category',
         labelId: 'category',
-        placeholder: 'Category',
-        children: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
+        type: 'Category',
+        items: mockCategories,
+        sx: StyledMenuListSX
+
     }
 }
-
 
 

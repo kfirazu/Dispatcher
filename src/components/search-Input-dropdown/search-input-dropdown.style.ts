@@ -1,4 +1,4 @@
-import { styled, Select, InputLabel, SelectProps } from "@mui/material";
+import { styled, Select, InputLabel } from "@mui/material";
 import { CustomDropdownProps } from "../../models/custom-dropdown-interface";
 
 enum InputDropdownColors {
@@ -23,15 +23,16 @@ border-left: 0.5px solid ${InputDropdownColors.BORDER_COLOR};
 
 & .MuiOutlinedInput-notchedOutline {
     border: none;
-
-
 }
+
+
 
 `
 )
 
 export const StyledInputLabel = styled(InputLabel)(({ theme }) => `
-color: #ffffff;
+color: #FFFFFF;
+
 `)
 
 

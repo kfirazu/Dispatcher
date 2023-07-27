@@ -1,21 +1,31 @@
-import styled from 'styled-components'
-import theme from './styles/theme';
+import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
 import { useEffect, useState } from 'react';
-import { mockArticle, newsService } from './services/news.service';
-import ArticlePreview from './components/Article-Preview/article-preview';
-import { Article } from './models/article-interface';
-import Filter from './components/Filter/filter';
-import DateSelector from './components/Date-Selector/date-selector';
-
-import SortBar from './components/Sort-Bar/sort-bar';
+import FilterBar from './components/Filter/filter-bar';
+import SortBar from './components/Sort-Bar/sort-bar'
+// import NewsContext from './context/news-context'
+import FeedList from './components/FeedList/feed-list'
+import newsData from './data/news.json'
+import Dashboard from './components/Dashboard/dashboard'
+// import { newsService } from './services/news.service'
+// import { filterByInterface } from './models/filter-by-interface'
+import { Article } from './models/article-interface'
+import { AppContainer, MainContainer, StyledContentContainer } from './styles/global-styles';
+import useIsMobile from './hooks/useIsMobile';
+import SideBar from './components/side-bar/side-bar';
+import { UseIsTablet } from './hooks/useIsTablet';
 
 function App() {
 
   //Temporary to fetch mock data
-  const [news, setNews] = useState<any>()
-  const article: Article = mockArticle
+  const [articleList, setArticleList] = useState<Article[]>([])
+  const [IsEverything, setIsEverything] = useState(false)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
+  const isMobile = useIsMobile()
+  const isTablet = UseIsTablet()
+
+  // Fetch Data
   // useEffect(() => {
   //   ; (async (filterBy) => {
   //     try {
@@ -27,37 +37,61 @@ function App() {
   //   })()
   // }, [])
 
+  useEffect(() => {
+    setArticleList(newsData.articles.slice(0, 10))
+  }, [])
+
+  const [filterBy, setFilterBy] = useState({
+    type: '',
+    country: '',
+    source: '',
+    category: '',
+    keyword: ''
+  })
+
+  const onSetFilterBy = (newFilterBy: any) => {
+    setFilterBy(newFilterBy)
+  }
+
+  const onCloseSideBar = () => {
+    setIsSideBarOpen(false)
+  }
+
+  const onOpenSideBar = () => {
+    setIsSideBarOpen(true)
+  }
+
   return (
     <>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AppContainer>
-            <AppHeader />
-            <MainContainer>
-              <Filter />
-              <SortBar />
-              <ArticlePreview article={article} />
-              <DateSelector />
-            </MainContainer>
-          </AppContainer>
-        </ThemeProvider>
-
-
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppContainer isMobile={isMobile} isTablet={isTablet}>
+          <AppHeader />
+          {(isMobile || isTablet) && <SideBar onCloseSideBar={onCloseSideBar} isSideBarOpen={isSideBarOpen} />}
+          <MainContainer isMobile={isMobile} isTablet={isTablet}>
+            {/* <NewsContext.Provider value={{
+              filterBy: filterBy,
+              updateFilterBy: onSetFilterBy
+              
+            }}> */}
+            <div>
+              {IsEverything
+                ? <SortBar onOpenSideBar={onOpenSideBar} />
+                : <FilterBar onOpenSideBar={onOpenSideBar} />
+              }
+              <StyledContentContainer >
+                <FeedList articleList={articleList} isSideBarOpen={isSideBarOpen} />
+                <Dashboard articleList={articleList} />
+              </StyledContentContainer>
+            </div>
+          </MainContainer>
+          {/* </NewsContext.Provider> */}
+        </AppContainer>
+      </ThemeProvider>
     </>
   )
 }
 
-const AppContainer = styled.div`
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-min-width: 100vw
-`
-const MainContainer = styled.main`
-flex: 1;
-background-color: #F3F3FF;
-width: 100%;
 
-`
 
 export default App

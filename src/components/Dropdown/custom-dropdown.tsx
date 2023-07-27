@@ -7,13 +7,13 @@ import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, labelId, children, placeholder } = props
+    const { id, name, labelId, items, type } = props
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
-        setIsOpen((prevState) => !prevState)
+        setIsOpen((prevOpen) => !prevOpen)
     }
 
     const handleClickAway = () => {
@@ -21,8 +21,9 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     }
 
     const handleChange = (ev: any) => {  //FIX: fix type
-        const selectedItem = ev.target.value
-        setSelectedOption(selectedItem)
+        // const { name, value } = ev.target
+        // console.log('name', name)
+        // setFilterBy((prevFilterBy) => ({ ...prevFilterBy, [name]: value }))
 
     }
 
@@ -34,13 +35,14 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     onClick={toggleDropdown}
                     IconComponent={() => null}
                     id={id}
+                    name={name}
                     value={selectedOption}
                     labelId={labelId}
                     open={isOpen ? true : false}
                     onChange={handleChange}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
-                        (value !== '' ? value as string : placeholder) as React.ReactNode
+                        (value !== '' ? value as string : type) as React.ReactNode
                     }
                     ref={dropdownRef}
                     inputProps={{
@@ -52,7 +54,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     }}
 
                 >
-                    {children.map((child: any, idx: number) => //FIX : fix prop type
+                    {items?.map((child: any, idx: number) => 
                         <MenuItem
                             sx={StyledMenuItemSX}
                             key={idx}

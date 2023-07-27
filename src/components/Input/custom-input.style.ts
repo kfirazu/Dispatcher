@@ -1,9 +1,28 @@
-// import { styled } from "@mui/material";
+import styled, { css } from "styled-components";
 
-import styled from "styled-components";
+export const InputWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
+position: relative;
+display: flex;
+align-items: center;
+max-width: 663px;
+width: 100%;
+
+${({ isMobile, isTablet }) => {
+        if (isMobile) {
+            return css`
+
+`
+        } else if (isTablet) {
+            return css`
+            max-width: 423px;
+            `
+        }
+    }}
+
+`
 
 export const StyledInput = styled.input`
-width: 423px;
+flex-grow: 1;
 height: 50px;
 border: 1px solid #D9DBE9;
 border-radius: 10px;
@@ -12,34 +31,26 @@ padding: 8px 8px 8px 55px;
 gap: 10px;
 background-color: #FFFFFF;
 color: #5A5A89;
-position: relative;
+min-width: 280px;
 
 & ::placeholder {
     color: #5A5A89;
     font-size: 14px;
     line-height: 22px;
-    letter: 0.25px;
+    letter-spacing: 0.25px;
 }
-
 
 `
 
-// export const StyledLabel = styled.label`
-// color: 
-// `
-
-export const StyledIcon = styled.div`
+export const StyledIcon = styled.img`
 height: 24px;
 width: 24.5px;
 background-color: transparent;
-box-sizing:border-box;
 position: absolute;
+border: 2px;
 z-index: 5;
+color: #5A5A89;
 left:16.75px;
 top: 15px;
 `
 
-export const InputWrapper = styled.div`
-position: relative;
-
-`

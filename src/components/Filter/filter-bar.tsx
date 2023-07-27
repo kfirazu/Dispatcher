@@ -1,9 +1,20 @@
+import { FC } from "react"
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
 import CustomDropdown from "../Dropdown/custom-dropdown"
-import { StyledContainer } from "./filter.style"
+import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
+import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
 
+interface FilterBarrops {
+    onOpenSideBar: () => void
+}
 
-const Filter = () => {
+const FilterBar: FC<FilterBarrops> = ({ onOpenSideBar }) => {
 
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
+
+    // Should accept children as props / The dropdowns type so it will be generic for changes.
     const categories = [
         { value: 'business', name: 'Business' },
         { value: 'entertainment', name: 'Entertainment' },
@@ -40,14 +51,22 @@ const Filter = () => {
     ]
 
     return (
-        <StyledContainer>
-            <CustomDropdown children={countries} label={'Country'} placeholder="Country"/>
-            <CustomDropdown children={categories} label={'Category'} placeholder="Catrgory" />
-            <CustomDropdown children={sources} label={'Soruce'} placeholder="Source"/>
+        <>
+            {!isMobile && !isTablet && (
 
-        </StyledContainer>
+                <StyledSortBarContainer>
+                    <CustomDropdown items={countries} name={'country'} id={'country'} type="Country" />
+                    <CustomDropdown items={categories} name={'category'} id={'category'} type="Catrgory" />
+                    <CustomDropdown items={sources} name={'soruce'} id={'source'} type="Source" />
+
+                </StyledSortBarContainer>
+            )}
+            {(isMobile || isTablet) && <MobileSortBar onOpenSideBar={onOpenSideBar} />}
+        </>
+
+
+
     )
 
 }
-
-export default Filter
+export default FilterBar

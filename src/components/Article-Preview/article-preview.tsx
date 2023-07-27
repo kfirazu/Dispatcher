@@ -1,8 +1,11 @@
 import { FC } from "react"
-import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, ButtonWrapper, StyledImg } from "./article-preview.style"
+import { ArticleContentWrapper, ArticlePreviewWrapper, DateWrapper, ImgWrapper, StyledHeading3, ParagraphWrapper, StyledSourceWrapper, StyledImg } from "./article-preview.style"
 import CustomButton from "../Button/button"
 import { newsService } from "../../services/news.service"
 import { Article } from "../../models/article-interface"
+import useIsMobile from "../../hooks/useIsMobile"
+import { UseIsTablet } from "../../hooks/useIsTablet"
+import { StyledButtonWrapper } from "../Button/button.style"
 
 interface ArticlePreviewProps {
     article: Article
@@ -10,30 +13,34 @@ interface ArticlePreviewProps {
 
 const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
 
+    const isMobile = useIsMobile()
+    const isTablet = UseIsTablet()
+
     const { source, title, url, urlToImage, publishedAt, content } = article
 
     return (
-        <ArticlePreviewWrapper>
-            <ImgWrapper>
-                <StyledImg src="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WLNEBID3OQUSPOJLDK2H42GTZQ_size-normalized.jpg&w=1440" alt="article" />
+        <ArticlePreviewWrapper isMobile={isMobile} isTablet={isTablet}>
+            <ImgWrapper isMobile={isMobile} isTablet={isTablet}>
+                <StyledImg src={urlToImage} alt="article" isMobile={isMobile} />
             </ImgWrapper>
-            <ArticleContentWrapper>
-                <DateWrapper>{newsService.formatDate(publishedAt)}</DateWrapper>
-                <StyledHeading3>{title}</StyledHeading3>
-                <StyledSourceWrapper>{source.name}</StyledSourceWrapper>
-                <ParagraphWrapper width="720px">{content}</ParagraphWrapper>
-                <ButtonWrapper>
+            <ArticleContentWrapper isMobile={isMobile} isTablet={isTablet}>
+                <DateWrapper >{newsService.formatDate(publishedAt)}</DateWrapper>
+                <StyledHeading3 isMobile={isMobile} isTablet={isTablet} >{title}</StyledHeading3>
+                <StyledSourceWrapper isMobile={isMobile} isTablet={isTablet}>{source.name}</StyledSourceWrapper>
+                <ParagraphWrapper isMobile={isMobile} isTablet={isTablet} width="720px">{content}</ParagraphWrapper>
+                <StyledButtonWrapper isMobile={isMobile}>
 
                     <CustomButton
                         children={'NAVIGATE TO DISPATCH'}
                         type="primary"
                         url={url}
+                        isIcon={true}
 
                     />
-                </ButtonWrapper>
+                </StyledButtonWrapper>
 
             </ArticleContentWrapper>
-        </ArticlePreviewWrapper>
+        </ArticlePreviewWrapper >
     )
 }
 
