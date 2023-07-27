@@ -12,12 +12,11 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy, setSearchQuery } from "../../store/news/filter.reducer"
 import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
-import { newsService } from "../../services/news.service"
-import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
+import { fetchArticles, fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
-import { setIsEverything } from "../../store/system/system.reducer"
-
-
+import { setIsEverything, setIsNoData } from "../../store/system/system.reducer"
+import { updateArticleList } from "../../store/news/news.reducer"
+import { newsService } from "../../services/news.service"
 
 const AppHeader = () => {
 
@@ -31,10 +30,40 @@ const AppHeader = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
+    const [newFilterBy, setNewFilterBy] = useState<FilterBy>({
+        type: { title: 'Top-headlines', value: 'top-headlines', options: ['Everything', 'Top-Headlines'] },
+        country: { title: 'Country', value: '', options: [] },
+        source: { title: 'Sources', value: '', options: [] },
+        category: { title: 'Category', value: '', options: [] },
+        language: { title: 'Langugaes', value: '', options: [] },
+    },)
 
     useEffect(() => {
         dispatch(fetchArticlesBySearchQuery(searchTerm))
-    }, [dispatch, searchTerm])
+    }, [searchTerm])
+
+    useEffect(() => {
+        console.log('newFilterBy appHeader', newFilterBy)
+        dispatch(updateFilterBy(newFilterBy))
+    }, [newFilterBy])
+
+    useEffect(() => {
+        // dispatch(fetchArticles(updatedFilterBy));
+        const fetchArticlesFromApi = async () => {
+            console.log('Fetched!')
+            // const res = await newsService.query(updatedFilterBy)
+            // if (res === undefined) {
+            // dispatch(setIsNoData(true))
+            // } else {
+            // dispatch(setIsNoData(false))
+            // dispatch(updateArticleList(res.articles))
+
+            // }
+        }
+        fetchArticlesFromApi()
+    }, [filterBy]);
+
+
 
 
     const options = [
@@ -54,17 +83,22 @@ const AppHeader = () => {
     const onCloseModal = () => {
         setIsFocused(false)
     }
+
+
     const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
         const { name, value } = ev.target
         const strValue = String(value)
 
-        setUpdatedFilterBy((prevFilterBy) => ({
+        // setUpdatedFilterBy((prevFilterBy) => ({
+        //     ...prevFilterBy,
+        //     [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
+        // }))
+        setNewFilterBy((prevFilterBy) => ({
             ...prevFilterBy,
             [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
-        dispatch(updateFilterBy(updatedFilterBy))
-        dispatch(setIsEverything(!isEverything))
 
+        // dispatch(setIsEverything(!isEverything))
     }
 
     const handleSerachSubmit = (searchQuery: string) => {
@@ -72,7 +106,6 @@ const AppHeader = () => {
         const newSearchTerm = { id: utilService.makeId(), searchTerm: searchQuery }
         dispatch(addRecentSearch(newSearchTerm))
         setIsFocused(false)
-
 
     }
 

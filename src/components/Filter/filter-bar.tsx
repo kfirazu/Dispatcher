@@ -7,9 +7,11 @@ import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
 import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
-import { updateFilterBy } from "../../store/news/filter.reducer"
 import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
+import { newsService } from "../../services/news.service"
+import { setArticleList, updateArticleList } from "../../store/news/news.reducer"
 import { fetchArticles } from "../../store/thunks/fetchDataThunk"
+import { updateFilterBy } from "../../store/news/filter.reducer"
 
 interface FilterBarrops {
 
@@ -22,16 +24,45 @@ const FilterBar: FC<FilterBarrops> = () => {
 
     const dispatch = useAppDispatch()
     const filterBy = useAppSelector(state => state.filter.filterBy)
+
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
     const articleList = useAppSelector(state => state.news.articleList)
+    const isEverything = useAppSelector(state => state.system.isEverything)
+    const [newFilterBy, setNewFilterBy] = useState<FilterBy>({
+        type: {
+            title: isEverything ? 'Everything' : 'Top-headlines',
+            value: isEverything ? 'Everything' : 'Top-headlines',
+            options: ['Everything', 'Top-Headlines']
+        },
+        country: { title: 'Country', value: '', options: [] },
+        source: { title: 'Sources', value: '', options: [] },
+        category: { title: 'Category', value: '', options: [] },
+        language: { title: 'Langugaes', value: '', options: [] },
+    },)
 
     useEffect(() => {
-        dispatch(fetchArticles(updatedFilterBy))
-        // console.log('articleList when change', articleList)
-    }, [dispatch, updatedFilterBy])
+        dispatch(updateFilterBy(newFilterBy));
+    }, [newFilterBy]);
+
+    useEffect(() => {
+        // dispatch(fetchArticles(updatedFilterBy));
+        fetchArticlesFromApi()
+    }, [newFilterBy]);
+
+    const fetchArticlesFromApi = async () => {
+        try {
+            const res = await newsService.query(newFilterBy)
+            console.log('res from filterBar', res)
+            dispatch(setArticleList(res.articles))
+
+        } catch (err) {
+            console.log('Cannot fetch articles', err)
+        }
+    }
 
 
-    // Should accept children as props / The dropdowns type so it will be generic for changes.
+
+    // Export to constants
     const categories = [
         { value: 'business', title: 'Business' },
         { value: 'entertainment', title: 'Entertainment' },
@@ -44,7 +75,7 @@ const FilterBar: FC<FilterBarrops> = () => {
     ]
 
     const sources = [
-        { value: 'וואלה', title: 'וואלה! חדשות' }, { value: 'וואלה', title: 'וואלה! תרבות' },
+        { value: 'walla', title: 'וואלה! חדשות' }, { value: 'וואלה', title: 'וואלה! תרבות' },
         { value: "הארץ", title: 'הארץ' }, { value: 'ספורט 5', title: 'ספורט 5' },
         { value: '"ynet ידיעות אחרונות"', title: '"ynet ידיעות אחרונות"' }, { value: '"כלכליסט"', title: '"כלכליסט"' },
         { value: '"mako"', title: '"mako"' }, { value: '"TheMarker"', title: '"TheMarker"' },
@@ -67,17 +98,18 @@ const FilterBar: FC<FilterBarrops> = () => {
 
     ]
 
-    const handleChange = (ev: SelectChangeEvent<unknown>) => {
+    const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
         const { name, value } = ev.target
         const strValue = String(value)
 
-        setUpdatedFilterBy((prevFilterBy) => ({
+        // setUpdatedFilterBy((prevFilterBy) => ({
+        //     ...prevFilterBy,
+        //     [name]: { ...prevFilterBy[name], value: strValue },
+        // }))
+        setNewFilterBy((prevFilterBy) => ({
             ...prevFilterBy,
-            [name]: { ...prevFilterBy[name], value: strValue },
+            [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
-        dispatch(updateFilterBy(updatedFilterBy))
-
-
     }
 
     return (
@@ -90,7 +122,7 @@ const FilterBar: FC<FilterBarrops> = () => {
                         name={'country'}
                         id={'country'}
                         type="Country"
-                        handleChange={handleChange}
+                        handleDropdownChange={handleDropdownChange}
 
                     />
                     <CustomDropdown
@@ -98,19 +130,19 @@ const FilterBar: FC<FilterBarrops> = () => {
                         name={'category'}
                         id={'category'}
                         type="Catrgory"
-                        handleChange={handleChange}
+                        handleDropdownChange={handleDropdownChange}
                     />
                     <CustomDropdown
                         items={sources}
-                        name={'soruce'}
+                        name={'source'}
                         id={'source'}
                         type="Source"
-                        handleChange={handleChange}
+                        handleDropdownChange={handleDropdownChange}
                     />
 
                 </StyledSortBarContainer>
             )}
-            {(isMobile || isTablet) && <MobileSortBar  />}
+            {(isMobile || isTablet) && <MobileSortBar />}
         </>
 
 

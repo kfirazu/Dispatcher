@@ -32,7 +32,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
     const data = {
         labels: isValidData ? Object.keys(sourceCount!) : [],
         datasets: [{
-            label: 'Poll',
+            label: '',
             data: isValidData ? sourcePercentage : [],
             backgroundColor: ['#DDF3FE', '#FF9800', '#030035', '#E8E8E8', '#343A6E'],
             borderColor: ['none'],

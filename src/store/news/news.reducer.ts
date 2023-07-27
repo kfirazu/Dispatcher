@@ -10,14 +10,14 @@ export enum Status {
     FAILED = 'failed'
 }
 
-export interface FilterState {
+export interface NewsState {
     articleList: Article[]
     status: Status
     error: string | null
 
 }
 
-const initialState: FilterState = {
+const initialState: NewsState = {
     articleList: [],
     status: Status.IDLE,
     error: null
@@ -36,21 +36,25 @@ export const newsSlice = createSlice({
         updateArticleList: (state, action: PayloadAction<Article[]>) => {
             state.articleList = [...state.articleList, ...action.payload]
         },
+        setArticleList: (state, action: PayloadAction<Article[]>) => {
+            state.articleList = action.payload
+        },
+
 
     },
     extraReducers: builder => {
-        builder.addCase(fetchArticles.fulfilled, (state, action) => {
-            state.articleList = [...action.payload]
-            state.status = Status.SUCCEEDED
-            state.error = null
-        })
-        builder.addCase(fetchArticles.pending, state => {
-            state.status = Status.LOADING
-        })
-        builder.addCase(fetchArticles.rejected, (state, action) => {
-            state.error = action.error.message || null
-            state.status = Status.FAILED
-        })
+        // builder.addCase(fetchArticles.fulfilled, (state, action) => {
+        //     state.articleList = [...action.payload]
+        //     state.status = Status.SUCCEEDED
+        //     state.error = null
+        // })
+        // builder.addCase(fetchArticles.pending, state => {
+        //     state.status = Status.LOADING
+        // })
+        // builder.addCase(fetchArticles.rejected, (state, action) => {
+        //     state.error = action.error.message || null
+        //     state.status = Status.FAILED
+        // })
         builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action) => {
             state.articleList = [...action.payload]
             state.status = Status.SUCCEEDED
@@ -71,6 +75,6 @@ export const newsSlice = createSlice({
 
 const { actions, reducer } = newsSlice
 
-export const { setInitialArticleList, updateArticleList } = actions
+export const { setInitialArticleList, updateArticleList, setArticleList } = actions
 
 export default reducer

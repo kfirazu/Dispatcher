@@ -6,7 +6,7 @@ export interface FilterBy {
     source: FilterOption
     category: FilterOption
     country: FilterOption
-    languages: FilterOption
+    language: FilterOption
     // dates: DateOptions
 
 }

@@ -10,11 +10,11 @@ export interface FilterState {
 
 const initialState: FilterState = {
     filterBy: {
-        type: { title: 'Everything', value: 'everything', options: ['Everything', 'Top-Headlines'] },
+        type: { title: 'Top-headlines', value: '', options: ['Everything', 'Top-Headlines'] },
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
-        languages: { title: 'Langugaes', value: '', options: [] },
+        language: { title: 'Languages', value: '', options: [] },
     },
     searchQuery: ''
 }
@@ -25,6 +25,7 @@ export const FilterSlice = createSlice({
     reducers: {
         updateFilterBy: (state, action: PayloadAction<FilterBy>) => {
             state.filterBy = { ...state.filterBy, ...action.payload }
+            console.log('fiterBy FilterReducer', state.filterBy)
         },
         updateSource: (state, action: PayloadAction<string[]>) => {
             state.filterBy.source.options = action.payload
@@ -35,7 +36,7 @@ export const FilterSlice = createSlice({
 
 
     },
-   
+
 })
 
 

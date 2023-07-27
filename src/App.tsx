@@ -1,7 +1,7 @@
 import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import SortBar from './components/Sort-Bar/sort-bar'
 import FeedList from './components/FeedList/feed-list'
 import Dashboard from './components/Dashboard/dashboard'
@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query'
 import { UseIsTablet } from './hooks/useIsTablet';
 import { setInitialArticleList } from './store/news/news.reducer';
 import SideBar from './components/side-bar/side-bar';
+import NoData from './components/No-Data/no-data';
 
 
 function App() {
@@ -23,9 +24,11 @@ function App() {
   const isTablet = UseIsTablet()
   const dispatch = useAppDispatch()
   const IsEverything = useAppSelector(state => state.system.isEverything)
-
+  const articleList = useAppSelector(state => state.news.articleList)
+  const isNoData = useAppSelector(state => state.system.isNoData)
+  const [isNewEverything, setIsNewEverything] = useState<boolean>(false)
   // Fetch initial articles using react-query
-  const { data: initialArticles } = useQuery<Article[]>(["initialArticles"], newsService.fetchInitialArticles, {
+  const { data: initialArticles, isLoading } = useQuery<Article[]>(["initialArticles"], newsService.fetchInitialArticles, {
     staleTime: 300000, // 5 minutes (how long the data is considered fresh)
   });
 
@@ -34,7 +37,7 @@ function App() {
     if (initialArticles) {
       dispatch(setInitialArticleList(initialArticles))
     }
-  }, [initialArticles]);
+  }, [isLoading]);
 
   return (
     <>
@@ -44,17 +47,21 @@ function App() {
           <AppHeader />
           {(isMobile || isTablet) && <SideBar />}
           <MainContainer isMobile={isMobile} isTablet={isTablet}>
-            <ContentWrapper isMobile={isMobile}>
-              {IsEverything
-                ? <SortBar />
-                : <FilterBar />
-              }
-              <StyledContentContainer >
-                <FeedList />
-                <Dashboard />
-              </StyledContentContainer>
-            </ContentWrapper>
+            {/* {!isNoData ? */}
+            {articleList.length ?
+              <ContentWrapper isMobile={isMobile}>
+                {IsEverything
+                  ? <SortBar />
+                  : <FilterBar />
+                }
+                <StyledContentContainer >
+                  <FeedList />
+                  <Dashboard />
+                </StyledContentContainer>
+              </ContentWrapper>
+              : <NoData />}
           </MainContainer>
+
         </AppContainer>
       </ThemeProvider>
     </>

@@ -5,6 +5,7 @@ import { menuItemSX, StyledInputDropdown, StyledInputLabel } from "./search-inpu
 import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 
+
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
     const { id, label, labelId, items, placeholder, handleDropdownChange, name } = props
@@ -13,8 +14,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
     const dropdownRef = useRef(null);
 
 
-
-    const handleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
+    const onHandleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
         const { value } = ev.target
         const strValue = String(value)
         setSelectedOption(strValue)
@@ -43,8 +43,8 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                     value={selectedOption}
                     labelId={labelId}
                     open={isOpen ? true : false}
-                    onChange={handleDropdownchange}
-                    defaultValue={items![0]}
+                    onChange={onHandleDropdownchange}
+                    // defaultValue={items![1]}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
                         (value !== '' ? String(value) : placeholder) as React.ReactNode

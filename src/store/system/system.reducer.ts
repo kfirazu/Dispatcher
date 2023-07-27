@@ -4,12 +4,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface SystemState {
     isEverything: boolean
     isSideBarOpen: boolean
+    isNoData: boolean
 
 }
 
 const initialState: SystemState = {
-    isEverything: true,
-    isSideBarOpen: false
+    isEverything: false,
+    isSideBarOpen: false,
+    isNoData: false
 
 }
 
@@ -23,12 +25,15 @@ export const systemSlice = createSlice({
         setIsSideBarOpen: (state, action: PayloadAction<boolean>) => {
             state.isSideBarOpen = action.payload
         },
+        setIsNoData: (state, action: PayloadAction<boolean>) => {
+            state.isNoData = action.payload
+        },
     }
 })
 
 
 const { actions, reducer } = systemSlice
 
-export const { setIsEverything, setIsSideBarOpen } = actions
+export const { setIsEverything, setIsSideBarOpen, setIsNoData } = actions
 
 export default reducer

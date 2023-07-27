@@ -7,7 +7,7 @@ import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, name, labelId, items, type, handleChange } = props
+    const { id, name, labelId, items, type, handleDropdownChange } = props
 
     const dropdownRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false)
@@ -34,7 +34,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
         const { value } = ev.target
         const strValue = String(value)
         setSelectedOption(strValue)
-        handleChange!(ev)
+        handleDropdownChange!(ev)
     }
 
 
