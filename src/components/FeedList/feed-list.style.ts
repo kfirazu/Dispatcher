@@ -69,7 +69,6 @@ font-size: 0.8rem;
 font-weight: 400;
 line-height: 22px;
 letter-spacing: 0.25px;
-padding-left: 1rem;
 
 `
 
