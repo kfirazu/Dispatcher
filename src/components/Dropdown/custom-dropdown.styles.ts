@@ -25,10 +25,16 @@ padding-left: 5px;
     outline: none;
   };
 
-//   & .MuiPaper-rounded {
-//     margin-top: 30px;
-//     border-radius: 8px;
-//   }
+  & .MuiPaper-elevationX {
+    margin-top: 30px;
+    border-radius: 30px;
+  };
+
+  & .MuiPopover-root {
+    margin-top: 30px;
+    border-radius: 30px;
+  };
+ 
 `
 )
 
@@ -50,7 +56,8 @@ export const StyledMenuListSX = {
 
     '&::-webkit-scrollbar-track': {
         webkitBorderRadius: '5px',
-        borderRadius: '5px'
+        borderRadius: '5px',
+        marginTop: '10px'
     },
 
     '&::-webkit-scrollbar-thumb': {

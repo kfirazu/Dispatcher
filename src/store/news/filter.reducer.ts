@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { FilterBy } from '../../models/filter-by'
+import { DropdownOption, FilterBy } from '../../models/filter-by'
 
 export interface FilterState {
     filterBy: FilterBy,
@@ -10,7 +10,11 @@ export interface FilterState {
 
 const initialState: FilterState = {
     filterBy: {
-        type: { title: 'Top-headlines', value: '', options: ['Everything', 'Top-Headlines'] },
+        type: {
+            title: 'Top-headlines', value: '', options: [
+                { value: 'Everything', title: 'Everything', },
+                { value: 'Top-headlines', title: 'Top Headlines', }]
+        },
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
@@ -25,9 +29,13 @@ export const FilterSlice = createSlice({
     reducers: {
         updateFilterBy: (state, action: PayloadAction<FilterBy>) => {
             state.filterBy = { ...state.filterBy, ...action.payload }
-            console.log('fiterBy FilterReducer', state.filterBy)
         },
-        updateSource: (state, action: PayloadAction<string[]>) => {
+        setFilterCountries: (state, action: PayloadAction<DropdownOption[]>) => {
+            console.log('im a payloaddd', action.payload)
+            state.filterBy.country.options = action.payload
+            console.log('state.filterBy.country.options:', state.filterBy.country.options)
+        },
+        updateFilterSources: (state, action: PayloadAction<DropdownOption[]>) => {
             state.filterBy.source.options = action.payload
         },
         setSearchQuery: (state, action: PayloadAction<string>) => {
@@ -42,6 +50,6 @@ export const FilterSlice = createSlice({
 
 const { actions, reducer } = FilterSlice
 
-export const { updateFilterBy, updateSource, setSearchQuery } = actions
+export const { updateFilterBy, setFilterCountries, setSearchQuery, updateFilterSources } = actions
 
 export default reducer

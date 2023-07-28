@@ -14,9 +14,6 @@ import { SelectChangeEvent } from "@mui/material"
 import { FilterBy } from "../../models/filter-by"
 import { fetchArticles, fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
-import { setIsEverything, setIsNoData } from "../../store/system/system.reducer"
-import { updateArticleList } from "../../store/news/news.reducer"
-import { newsService } from "../../services/news.service"
 
 const AppHeader = () => {
 
@@ -31,7 +28,11 @@ const AppHeader = () => {
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
     const [newFilterBy, setNewFilterBy] = useState<FilterBy>({
-        type: { title: 'Top-headlines', value: 'top-headlines', options: ['Everything', 'Top-Headlines'] },
+        type: {
+            title: 'Top-headlines', value: 'top-headlines', options: [
+                { value: 'Everything', title: 'Everything', },
+                { value: 'Top-headlines', title: 'Top Headlines', }]
+        },
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
@@ -43,14 +44,12 @@ const AppHeader = () => {
     }, [searchTerm])
 
     useEffect(() => {
-        console.log('newFilterBy appHeader', newFilterBy)
         dispatch(updateFilterBy(newFilterBy))
     }, [newFilterBy])
 
     useEffect(() => {
         // dispatch(fetchArticles(updatedFilterBy));
         const fetchArticlesFromApi = async () => {
-            console.log('Fetched!')
             // const res = await newsService.query(updatedFilterBy)
             // if (res === undefined) {
             // dispatch(setIsNoData(true))

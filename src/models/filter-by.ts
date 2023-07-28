@@ -15,6 +15,14 @@ export interface FilterBy {
 interface FilterOption {
     title?: string
     value?: string
-    options?: string[]
+    options?: DropdownOption[]
     optionType?: FilterOptions
 }
+
+export interface DropdownOption {
+    value: string | null
+    title: string
+
+}
+
+

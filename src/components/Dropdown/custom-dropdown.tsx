@@ -1,6 +1,6 @@
 import { StyledDropdown, StyledMenuItemSX, StyledMenuListSX } from './custom-dropdown.styles'
 import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from '@mui/material'
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
 
@@ -13,8 +13,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
 
-
-
     const toggleDropdown = () => {
         setIsOpen((prevOpen) => !prevOpen)
     }
@@ -26,8 +24,9 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
     // Function to find the corresponding title in the countries array
     const findTitleByValue = (value: string) => {
-        const obj = items?.find((item) => item.value === value);
-        return obj ? obj.title : value;
+        const dropdownOption = items?.find((item) => item.value === value);
+        console.log('the fuck is obj?',dropdownOption)
+        return dropdownOption ? dropdownOption.title : value;
     }
 
     const handleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
@@ -36,7 +35,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
         setSelectedOption(strValue)
         handleDropdownChange!(ev)
     }
-
 
     return (
         <ClickAwayListener onClickAway={handleClickAway} >
@@ -65,7 +63,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     }}
 
                 >
-                    {items?.map((child: any, idx: number) => 
+                    {items?.map((child: any, idx: number) =>
                         <MenuItem
                             sx={StyledMenuItemSX}
                             key={idx}

@@ -31,7 +31,7 @@ ${({ isMobile, isTablet }) => {
 
 export const LogoWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 flex: 1;
-max-width: 11.6%;
+max-width: 12.1%;
 width: 100%;
 
 ${({ isMobile, isTablet }) => {
@@ -40,10 +40,13 @@ ${({ isMobile, isTablet }) => {
         max-width: 50%;
         min-width: 75px;
 
+
 `
         } else if (isTablet) {
             return css`
         // max-width: 728px;
+        min-width: 75px;
+
 `
         }
     }}
@@ -76,6 +79,8 @@ ${({ isMobile, isTablet }) => {
             max-width: 122px;
             height: 50px;
             display: flex;
+            margin-inline-start: 7px;
+
             `
         }
     }}

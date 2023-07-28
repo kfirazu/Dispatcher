@@ -10,12 +10,14 @@ import { AppContainer, ContentWrapper, MainContainer, StyledContentContainer } f
 import useIsMobile from './hooks/useIsMobile';
 import FilterBar from './components/Filter/filter-bar';
 import { useAppDispatch, useAppSelector } from './store/hooks.store';
-import { newsService } from './services/news.service';
-import { useQuery } from '@tanstack/react-query'
+import { PAGE_SIZE, newsService } from './services/news.service';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
 import { UseIsTablet } from './hooks/useIsTablet';
 import { setInitialArticleList } from './store/news/news.reducer';
 import SideBar from './components/side-bar/side-bar';
 import NoData from './components/No-Data/no-data';
+import { setFilterCountries, updateFilterSources } from './store/news/filter.reducer';
+import { countries } from './constants/constants';
 
 
 function App() {
@@ -25,8 +27,12 @@ function App() {
   const dispatch = useAppDispatch()
   const IsEverything = useAppSelector(state => state.system.isEverything)
   const articleList = useAppSelector(state => state.news.articleList)
-  const isNoData = useAppSelector(state => state.system.isNoData)
-  const [isNewEverything, setIsNewEverything] = useState<boolean>(false)
+  // const filterBy = useAppSelector(state => state.filter.filterBy)
+  // const searchQuery = useAppSelector(state => state.filter.searchQuery)
+
+  // const isNoData = useAppSelector(state => state.system.isNoData)
+  // const [isNewEverything, setIsNewEverything] = useState<boolean>(false)
+
   // Fetch initial articles using react-query
   const { data: initialArticles, isLoading } = useQuery<Article[]>(["initialArticles"], newsService.fetchInitialArticles, {
     staleTime: 300000, // 5 minutes (how long the data is considered fresh)
@@ -37,7 +43,25 @@ function App() {
     if (initialArticles) {
       dispatch(setInitialArticleList(initialArticles))
     }
-  }, [isLoading]);
+    dispatch(setFilterCountries(countries))
+
+  }, [isLoading])
+
+  useEffect(() => {
+    const sources = newsService.getCurrArticleListSources(articleList)
+    dispatch(updateFilterSources(sources))
+  }, [articleList])
+
+  useEffect(() => {
+    (async () => {
+      const sources = await newsService.getSources()
+      IsEverything && (
+        dispatch(updateFilterSources(sources))
+
+      )
+    })()
+
+  }, [])
 
   return (
     <>
@@ -59,7 +83,8 @@ function App() {
                   <Dashboard />
                 </StyledContentContainer>
               </ContentWrapper>
-              : <NoData />}
+              : <NoData />
+            }
           </MainContainer>
 
         </AppContainer>
