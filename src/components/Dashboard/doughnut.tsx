@@ -6,6 +6,9 @@ import { Article } from '../../models/article-interface';
 import { FC, useMemo, useState } from 'react';
 import { SourceCount, dashboardService } from '../../services/dashboard-service';
 import { StyledDoughnutWrapper } from './dashboard.style';
+import NoData from '../No-Data/no-data';
+import { useAppSelector } from '../../store/hooks.store';
+import DashbaordNoData from '../No-Data/dashboard-no-data';
 
 interface DoughnutProps {
     articleList: Article[]
@@ -90,7 +93,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
 
     return (
         <StyledDoughnutWrapper >
-            {isValidData ?
+            {isValidData &&
                 <Doughnut
                     options={options}
                     data={data}
@@ -98,7 +101,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                 >
 
                 </Doughnut>
-                : <div>Loading...</div>}
+            }
         </StyledDoughnutWrapper>
 
     )

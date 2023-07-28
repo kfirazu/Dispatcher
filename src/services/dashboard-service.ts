@@ -61,7 +61,7 @@ function getPastSixMonth() {
     for (let i = 0; i < 6; i++) {
         const pastMonth = subMonths(currDate, i)
         const monthName = format(pastMonth, 'LLL')
-        pastMonthArr.push(monthName)
+        pastMonthArr.unshift(monthName)
     }
     return pastMonthArr
 }

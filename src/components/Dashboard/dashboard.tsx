@@ -7,6 +7,7 @@ import SorucePercentageList from "./source-pecentage-list"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { useAppSelector } from "../../store/hooks.store"
+import DashbaordNoData from "../No-Data/dashboard-no-data"
 
 interface DashboardProps {
 }
@@ -16,41 +17,47 @@ const Dashboard: FC<DashboardProps> = () => {
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
     const articleList = useAppSelector(state => state.news.articleList)
+    const isNoData = useAppSelector(state => state.system.isNoData)
+
 
     const lineChartMonths = dashboardService.getPastSixMonth()
 
     return (
-        (!isMobile && !isTablet) &&
-        <div>
-            <div style={{ height: '30px' }}></div>
-            <StyledDashboardWrapper>
-                <StyledChartWrapper>
-                    <StyledHeadingWrapper>
-                        <StyledChartHeading>
-                            Sources
-                        </StyledChartHeading>
-                    </StyledHeadingWrapper>
-                    <DoughnutChart articleList={articleList} />
-                    <StyledSourceListWrapper>
-                        <SorucePercentageList articleList={articleList} />
-                    </StyledSourceListWrapper>
-                </StyledChartWrapper>
+        <>
+            {!isNoData ?
+                (!isMobile && !isTablet) &&
+                <div>
+                    <div style={{ height: '30px' }}></div>
+                    <StyledDashboardWrapper>
+                        <StyledChartWrapper>
+                            <StyledHeadingWrapper>
+                                <StyledChartHeading>
+                                    Sources
+                                </StyledChartHeading>
+                            </StyledHeadingWrapper>
+                            <DoughnutChart articleList={articleList} />
+                            <StyledSourceListWrapper>
+                                <SorucePercentageList articleList={articleList} />
+                            </StyledSourceListWrapper>
+                        </StyledChartWrapper>
 
-                <StyledChartWrapper>
-                    <StyledHeadingWrapper>
-                        <StyledChartHeading>
-                            Dates
-                        </StyledChartHeading>
-                    </StyledHeadingWrapper>
-                    <LineChart articleList={articleList} />
-                    <StyledMonthListWrapper>
-                        {lineChartMonths.map((month: string) => (
-                            <StyledMonthName key={month}>{month}</StyledMonthName>
-                        ))}
-                    </StyledMonthListWrapper>
-                </StyledChartWrapper>
-            </StyledDashboardWrapper>
-        </div>
+                        <StyledChartWrapper>
+                            <StyledHeadingWrapper>
+                                <StyledChartHeading>
+                                    Dates
+                                </StyledChartHeading>
+                            </StyledHeadingWrapper>
+                            <LineChart articleList={articleList} />
+                            <StyledMonthListWrapper>
+                                {lineChartMonths.map((month: string) => (
+                                    <StyledMonthName key={month}>{month}</StyledMonthName>
+                                ))}
+                            </StyledMonthListWrapper>
+                        </StyledChartWrapper>
+                    </StyledDashboardWrapper>
+                </div>
+                : <DashbaordNoData />}
+        </>
     )
 }
 

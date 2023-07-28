@@ -35,6 +35,7 @@ ${({ isMobile, isTablet }) => {
             return css`
         padding: 0;
         margin-top: 0;
+        // height: calc(100vh - 74px);
         height: 100vh;
         overflow-y: hidden;
 
@@ -50,37 +51,8 @@ ${({ isMobile, isTablet }) => {
 
 `
 
-
-export const StyledContentContainer = styled.div`
-border-top: 1px solid #D9DBE9;
-display: flex;
-margin-top: 20px;
-`
-
-export const StyledTransparentScreen = styled.div`
-position: fixed; 
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: transparent;
-z-index: 10;
-
-`
-
-export const StyledMobileBlackScreen = styled.div`
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: #303032;
-opacity: 0.7;
-z-index: 10;
-cursor: pointer;
-`
-
 export const ContentWrapper = styled.div<{ isMobile: boolean }>`
+height: 100%;
 
 ${({ isMobile }) => {
         if (isMobile) {
@@ -96,5 +68,35 @@ ${({ isMobile }) => {
     }}
 
 `
+
+export const StyledContentContainer = styled.div`
+border-top: 1px solid #D9DBE9;
+display: flex;
+margin-top: 20px;
+`
+
+export const StyledTransparentScreen = styled.div`
+position: fixed; 
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: transparent;
+z-index: 10;
+`
+
+export const StyledMobileBlackScreen = styled.div`
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #303032;
+opacity: 0.7;
+z-index: 10;
+cursor: pointer;
+`
+
+
 
 
