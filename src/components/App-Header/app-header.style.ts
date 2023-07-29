@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const StyledContainer = styled.header<{ isMobile: boolean, isTablet: boolean }>`
+const StyledContainer = styled.header<{ isMobile: boolean, isTablet: boolean, isFocused?: boolean }>`
 max-width: 1920px;
 width: 100%;
 height: 74px;
@@ -12,18 +12,28 @@ padding-left: 20px;
 border: 1px;
 box-shadow: 0px 32px 64px 0px #0000000D;
 
-${({ isMobile, isTablet }) => {
+${({ isMobile, isTablet, isFocused }) => {
+        if ((isMobile && isFocused)) {
+            return css`
+        padding: 0;
+        max-width: 375px;
+        background-color: transparent;
+        border: 1px solid #D9DBE9;
+        box-shadow: 0px 32px 64px 0px #0000000D;
+
+
+        `
+        }
         if (isMobile) {
             return css`
     max-width: 375px;
     padding: 12px 16px;
     justify-content: space-between;
-
-`
+    `
         } else if (isTablet) {
             return css`
     max-width: 768px;
-`
+    `
         }
     }}
 

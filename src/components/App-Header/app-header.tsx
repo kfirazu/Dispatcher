@@ -2,7 +2,7 @@ import CustomInput from "../Input/custom-input"
 import StyledContainer, { LogoWrapper, StyledInputWrapper } from "./app-header.style"
 import logo from '../../assets/icon/logo.svg'
 import RecentSearchDropdown from "../RecentSearchDropdown/recent-search-dropdown"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
 import SearchInputDropdown from "../search-Input-dropdown/search-input-dropdown"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
@@ -112,6 +112,13 @@ const AppHeader = () => {
         setIsFocused(true)
     }
 
+    const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
+        ev.stopPropagation()
+        setSearchTerm(searchTerm)
+        onCloseModal()
+
+    }
+
     return (
         <>
             {!isMobile && !isTablet && (
@@ -140,7 +147,11 @@ const AppHeader = () => {
                         />
 
                         {isFocused &&
-                            <RecentSearchDropdown isFocused={isFocused} onCloseModal={onCloseModal} />
+                            <RecentSearchDropdown
+                                isFocused={isFocused}
+                                onCloseModal={onCloseModal}
+                                handleSearchTermClick={handleSearchTermClick}
+                            />
                         }
                     </StyledInputWrapper>
                 </StyledContainer>

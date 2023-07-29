@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC, MouseEvent } from "react";
 import {
     StyledBoxSx, StyledClearSpan, StyledHeading4,
     StyledListItem, StyledRemoveIconWrapper, StyledUl, TabletStyledBoxSx, TitleContainerSX
@@ -9,45 +9,26 @@ import TransparentScreen from "./transparent-screen";
 import { UseIsTablet } from "../../hooks/useIsTablet";
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store";
 import { clearRecentSearch, removeRecentSearch } from "../../store/news/recent-serach.reducer";
+import useIsMobile from "../../hooks/useIsMobile";
+import MobileRecentSearch from "./mobile-recent-search";
 
 interface RecentSearchDropdownProps {
-    //FIX : Should accept recent searches to display
     isFocused: boolean
     onCloseModal: () => void
+    handleSearchTermClick: (ev: MouseEvent<HTMLElement>, searchTerm: string) => void
 
 }
 
-interface recentSearchTerm {
+export interface recentSearchTerm {
     id: string
     searchTerm: string
 }
-const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onCloseModal }) => {
+const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onCloseModal, handleSearchTermClick }) => {
 
     const isTablet = UseIsTablet()
+    const isMobile = useIsMobile()
     const dispatch = useAppDispatch()
     const recentSearchArr = useAppSelector(state => state.recentSearch.recentSearches)
-
-    const [searchText, setSearchText] = useState<string | null>(null)
-    // const [recentSearchArr, setRecentSearchArr] = useState<recentSearchTerm[]>([
-    //     { id: 'u101', searchTerm: 'soccer' },
-    //     { id: 'u102', searchTerm: 'Bibi' },
-    //     { id: 'u103', searchTerm: 'crypto' },
-    //     { id: 'u104', searchTerm: 'crypto' },
-    //     { id: 'u105', searchTerm: 'crypto' },
-    //     { id: 'u106', searchTerm: 'crypto' }
-
-
-    // ])
-
-    //FIX :Should accept as props
-    const recentSearchToDisplay = recentSearchArr.slice(0, 3)
-
-    const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
-        ev.stopPropagation()
-        setSearchText(searchTerm)
-        onCloseModal()
-
-    }
 
     const onRemoveRecentSearch = (ev: MouseEvent<HTMLElement>, searchTermId: string) => {
         ev.stopPropagation()
@@ -63,7 +44,8 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
     }
     return (
         <>
-            {isFocused && (
+        {/* only for desktop */}
+            {isFocused && !isMobile && (
                 <>
                     <TransparentScreen onCloseModal={onCloseModal} />
                     <Box sx={isTablet ? TabletStyledBoxSx : StyledBoxSx}>
@@ -71,9 +53,9 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
                             <StyledHeading4>RECENT SEARCHES</StyledHeading4>
                             <StyledClearSpan onClick={onClearRecentSearch}>CLEAR</StyledClearSpan>
                         </Box>
-                        {recentSearchToDisplay.length > 0 && (
+                        {recentSearchArr.length > 0 && (
                             <StyledUl>
-                                {recentSearchToDisplay.map((term: recentSearchTerm, idx) => (
+                                {recentSearchArr.map((term: recentSearchTerm, idx) => (
                                     <StyledListItem
                                         key={idx}
                                         onClick={(ev) => handleSearchTermClick(ev, term.searchTerm)}
