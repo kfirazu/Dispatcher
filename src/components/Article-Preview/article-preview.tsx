@@ -6,18 +6,18 @@ import { Article } from "../../models/article-interface"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { StyledButtonWrapper } from "../Button/button.style"
+import noImage from '../../assets/img/No_Image_Available.jpg'
 
 interface ArticlePreviewProps {
     article: Article
 }
 
 const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
+    const { source, title, url, urlToImage, publishedAt, content } = article
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
-    const fallbackImage = 'https://s.abcnews.com/images/US/delray-suitcase-2-ht-bb-230724_1690235353112_hpMain_16x9_992.jpg'
-
-    const { source, title, url, urlToImage, publishedAt, content } = article
+    const fallbackImage = noImage
 
     return (
         <ArticlePreviewWrapper isMobile={isMobile} isTablet={isTablet}>

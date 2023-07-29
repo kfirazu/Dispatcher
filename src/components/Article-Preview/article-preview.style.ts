@@ -83,12 +83,18 @@ color: #5A5A8980;
 export const StyledHeading3 = styled.h3 <{ isMobile: boolean, isTablet: boolean }>`
 max-width: 470px;
 max-height: 42px;
+height: 100%;
 font-weight: 700;
 font-size: 18px;
 line-height: 21px;
 color: #14142B;
 margin-bottom: 14px;
 margin-top: 14px;
+white-space: normal;
+overflow: hidden;
+text-overflow: ellipsis;
+
+
 
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
@@ -96,12 +102,6 @@ ${({ isMobile, isTablet }) => {
         width: 100%;
         max-height: 63px;
         height: 100%;
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
 
 `
         } else if (isTablet) {
