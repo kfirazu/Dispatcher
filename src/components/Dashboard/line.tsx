@@ -14,6 +14,7 @@ import { Article } from '../../models/article-interface';
 import { FC, useEffect, useState } from 'react';
 import { dashboardService } from '../../services/dashboard-service';
 import { StyledLineChartWrapper } from './dashboard.style';
+import { object } from 'prop-types';
 
 ChartJS.register(
     CategoryScale,
@@ -32,12 +33,19 @@ interface LineChartProps {
 
 const LineChart: FC<LineChartProps> = ({ articleList }) => {
 
-    const [articleDates, setArticleDates] = useState<string[]>([])
+    const [articleDatesMap, setArticleDatesMap] = useState<{ [month: number]: number }>({})
 
     useEffect(() => {
-        const articleDateList = dashboardService.getArticlesDates(articleList)
-        setArticleDates(articleDateList)
-    }, [])
+        const articleDateMap = dashboardService.getArticlesDates(articleList)
+        console.log(articleDateMap)
+        setArticleDatesMap(articleDateMap)
+    }, [articleList])
+
+
+
+
+
+
 
     const options = {
         responsive: true,
@@ -76,14 +84,15 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
         },
     }
 
-    const labels = ['', '', '', '', '']
+    const labels = ['', '', '', '', '','']
 
     const data = {
         labels: labels,
         datasets: [
             {
                 label: 'Dates',
-                data: ['20', '20', '40', '30', '50'],
+                // data: ['20', '20', '40', '30', '50'],
+                data: articleDatesMap,
                 backgroundColor: (context: any) => {
                     const bgColor = ['#0058B9', 'rgba(0, 185, 255, 0)']
                     if (!context.chart.chartArea) {

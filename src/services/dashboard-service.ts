@@ -38,20 +38,52 @@ function getSourceCount(articleList: Article[]): SourceCount {
         return acc
     }, {} as SourceCount)
     return sourceCount
-    return {'hello' : 8}
+    return { 'hello': 8 }
 }
 
 
 function getArticlesDates(articleList: Article[]) {
-    const formattedDatesArr: string[] = [];
+    //  array of months names LLL format
+    const formattedDatesArr: string[] = []
+
+    // Past 6 months for months line under line- chart
     const monthNames = getPastSixMonth()
 
     articleList.forEach((article) => {
         const formattedDate = format(new Date(article.publishedAt), 'LLL');
-        formattedDatesArr.push(formattedDate);
-    });
+        formattedDatesArr.push(formattedDate)
+    })
 
-    return formattedDatesArr;
+    // Object map to count how many times each month occurs in array
+    const countMonth = countMonthsOccurrences(formattedDatesArr)
+    // convert map to array
+    const countMonthEntries = Object.entries(countMonth)
+    // Get the count for the current month from the 'countMonthEntries' array. If the month is not found, default to 0.
+    const dataCounts: number[] = monthNames.map((month: string) => {
+        const monthIndex = monthNames.indexOf(month);
+        return monthIndex !== -1 ? (countMonthEntries[monthIndex] ? countMonthEntries[monthIndex][1] : 0) : 0;
+
+    })
+
+    console.log('dataCounts:', dataCounts)
+    console.log('countMonth:', countMonth)
+
+    return dataCounts.reverse()
+}
+
+function countMonthsOccurrences(formattedDatesArr: string[]) {
+    const monthOccurrences: { [month: number]: number } = {}
+
+    formattedDatesArr.forEach((formattedDate) => {
+        const dateObj = new Date(formattedDate + ' 1, 2000')
+        const month = dateObj.getMonth() + 1
+
+        monthOccurrences[month]
+            ? monthOccurrences[month]++
+            : monthOccurrences[month] = 1
+    })
+
+    return monthOccurrences
 }
 
 function getPastSixMonth() {

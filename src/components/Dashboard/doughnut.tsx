@@ -44,52 +44,61 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
         }]
     }
 
-    const textCenter = {
-        id: 'textCenter',
-        beforeDatasetsDraw(chart: any) {
-            if (sourcePercentage.length > 0) {
-                const { ctx } = chart
-                const meta = chart.getDatasetMeta(0)
-                ctx.save()
-                ctx.font = 'regular 12px sans-serif'
-                ctx.fillStyle = '#030035'
-                ctx.textAlign = 'center'
-                ctx.baseLine = 'middle'
-                ctx.borderWidth = '120px'
-                // ctx.fillText(articleList.length, meta.data[0].x, meta.data[0].y)
-            }
+    const handleChartUpdate = (chart: any) => {
+        if (sourcePercentage.length > 0) {
+            let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320);
+            console.log('sliceThicknessPixel:', sliceThicknessPixel)
+            const meta = chart.chart.getDatasetMeta(0);
+            sliceThicknessPixel.forEach((thickness, idx) => {
+                if (meta.data[idx]) {
+                    console.log('sliceThicknessPixel:', sliceThicknessPixel)
+                    console.log('chart.chart.chartArea.width:', chart.chart.chartArea.width)
+                    console.log('meta.data[idx].outerRadius:', meta.data[idx].outerRadius)
+                    meta.data[idx].outerRadius = (chart.chart.chartArea.width / thickness) * 100;
+                }
+            });
+
+            const ctx = chart.chart.ctx;
+            ctx.save();
+            ctx.font = 'regular 12px sans-serif';
+            ctx.fillStyle = '#030035';
+            ctx.textAlign = 'center';
+            ctx.baseLine = 'middle';
+            ctx.borderWidth = '120px';
+            ctx.fillText(articleList.length, meta.data[0].x, meta.data[0].y);
         }
-    }
 
-    // const sliceThickness = {
-    //     id: 'sliceThickness',
-    //     beforeDraw(chart: any) {
-    //         if (sourcePercentage.length > 0) {
-    //             let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320)
-    //             const meta = chart.getDatasetMeta(0)
-    //             sliceThicknessPixel.forEach((thickness, idx) => {
-    //                 return meta.data[idx].outerRadius = (chart.chartArea.width / thickness) * 100
 
-    //             })
-    //         }
-    //     }
-    // }
-    const options = {
+    };
+    const options = useMemo(() => ({
         responsive: true,
+        maintainAspectRatio: false,
         title: {
             display: true,
-            text: 'Sources'
+            text: 'Sources',
         },
         plugins: {
+            tooltip: {
+                callbacks: {
+                    label: (context: any) => {
+                        const label = context.label || '';
+                        const value = context.parsed || 0;
+                        const percentage = sourcePercentage[context.dataIndex] || 0;
+                        return `${label}: ${percentage}%`;
+                    },
+                },
+            },
             legend: {
-                display: false
+                display: false,
             },
             layout: {
                 padding: 30,
-            }
+            },
         },
-
-    }
+        animation: {
+            onComplete: (chart: any) => handleChartUpdate(chart),
+        },
+    }), [sourcePercentage]);
 
     return (
         <StyledDoughnutWrapper >
@@ -97,7 +106,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                 <Doughnut
                     options={options}
                     data={data}
-                    plugins={[textCenter]}
+                // plugins={[textCenter, sliceThickness]}
                 >
 
                 </Doughnut>

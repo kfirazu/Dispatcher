@@ -61,7 +61,7 @@ margin-top: 0;
 
 export const StyledMonthListWrapper = styled.div`
 display: flex;
-gap: 30px;
+gap: 40px;
 justify-content: center;
 `
 
@@ -70,7 +70,7 @@ color: ${DashboardStyleDictonary.MONTH_NAME_COLOR};
 font-weight: 700;
 font-size: 13px;
 line-height: 18px;
-
+text-transform: uppercase;
 &:hover{
     cursor: pointer;
 }
@@ -88,8 +88,8 @@ gap: 11px;
 `
 
 export const StyledDoughnutWrapper = styled.div`
-height: 124px;
-width:124px;
+height: 160px;
+width:160px;
 display: flex;
 align-items: center;
 justify-content: center;
