@@ -47,13 +47,9 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
     const handleChartUpdate = (chart: any) => {
         if (sourcePercentage.length > 0) {
             let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320);
-            console.log('sliceThicknessPixel:', sliceThicknessPixel)
             const meta = chart.chart.getDatasetMeta(0);
             sliceThicknessPixel.forEach((thickness, idx) => {
                 if (meta.data[idx]) {
-                    console.log('sliceThicknessPixel:', sliceThicknessPixel)
-                    console.log('chart.chart.chartArea.width:', chart.chart.chartArea.width)
-                    console.log('meta.data[idx].outerRadius:', meta.data[idx].outerRadius)
                     meta.data[idx].outerRadius = (chart.chart.chartArea.width / thickness) * 100;
                 }
             });

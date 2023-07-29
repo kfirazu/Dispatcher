@@ -37,14 +37,8 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
 
     useEffect(() => {
         const articleDateMap = dashboardService.getArticlesDates(articleList)
-        console.log(articleDateMap)
         setArticleDatesMap(articleDateMap)
     }, [articleList])
-
-
-
-
-
 
 
     const options = {

@@ -65,9 +65,6 @@ function getArticlesDates(articleList: Article[]) {
 
     })
 
-    console.log('dataCounts:', dataCounts)
-    console.log('countMonth:', countMonth)
-
     return dataCounts.reverse()
 }
 

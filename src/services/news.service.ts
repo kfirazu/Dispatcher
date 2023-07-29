@@ -36,14 +36,13 @@ const config: { [key: string]: any } = {
 }
 
 async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
-    console.log('filterBy from service', filterBy)
+    // console.log('filterBy from service', filterBy)
     // let news = localStorage.getItem(STROAGE_KEY)
     try {
         // if (news) {
         //     return JSON.parse(news)
         // }
         const { country, source, category, type, language, sortBy } = filterBy
-        console.log('sortBy service:', sortBy)
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
@@ -62,7 +61,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
         }
         if (language.value !== '') {
             reqQuery += `?language=${language.value}&`
-            console.log('reqQuery from language:', reqQuery)
         }
         if (searchQuery) {
             reqQuery += `?q=${searchQuery}&`
@@ -83,7 +81,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
                 reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE
-            console.log('reqQuery:', reqQuery)
             const res = await axios.get(reqQuery, config);
 
             // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
