@@ -18,6 +18,7 @@ import SideBar from './components/side-bar/side-bar';
 import NoData from './components/No-Data/no-data';
 import { setFilterCountries, setFilterLanguageOptions, setFilterSourcesOptions } from './store/news/filter.reducer';
 import { countries, languages } from './constants/constants';
+import { fetchArticles } from './store/thunks/fetchDataThunk';
 
 
 function App() {
@@ -29,7 +30,6 @@ function App() {
   const articleList = useAppSelector(state => state.news.articleList)
   // const filterBy = useAppSelector(state => state.filter.filterBy)
   // const searchQuery = useAppSelector(state => state.filter.searchQuery)
-
   // const isNoData = useAppSelector(state => state.system.isNoData)
   // const [isNewEverything, setIsNewEverything] = useState<boolean>(false)
 
@@ -45,6 +45,8 @@ function App() {
     }
 
   }, [isLoading])
+
+
 
   useEffect(() => {
     const sources = newsService.getCurrArticleListSources(articleList)
@@ -63,6 +65,7 @@ function App() {
     dispatch(setFilterLanguageOptions(languages))
 
   }, [])
+
 
   return (
     <>

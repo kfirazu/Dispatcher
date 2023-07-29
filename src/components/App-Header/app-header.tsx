@@ -26,8 +26,7 @@ const AppHeader = () => {
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
-    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
-    const [newFilterBy, setNewFilterBy] = useState<FilterBy>({
+    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>({
         type: {
             title: 'Top-headlines', value: 'top-headlines', options: [
                 { value: 'Everything', title: 'Everything', },
@@ -37,6 +36,7 @@ const AppHeader = () => {
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
         language: { title: 'Langugaes', value: '', options: [] },
+        sortBy: { title: 'Langugaes', value: '', options: [] },
     },)
 
     useEffect(() => {
@@ -44,8 +44,8 @@ const AppHeader = () => {
     }, [searchTerm])
 
     useEffect(() => {
-        dispatch(updateFilterBy(newFilterBy))
-    }, [newFilterBy])
+        dispatch(updateFilterBy(updatedFilterBy))
+    }, [updatedFilterBy])
 
     useEffect(() => {
         // dispatch(fetchArticles(updatedFilterBy));
@@ -66,8 +66,8 @@ const AppHeader = () => {
 
 
     const options = [
-        { value: 'Everything', title: 'Everything', },
-        { value: 'Top-headlines', title: 'Top Headlines', }
+        { value: 'Top-headlines', title: 'Top Headlines', },
+        { value: 'Everything', title: 'Everything', }
     ]
 
     const handleSearchQueryChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -88,16 +88,11 @@ const AppHeader = () => {
         const { name, value } = ev.target
         const strValue = String(value)
 
-        // setUpdatedFilterBy((prevFilterBy) => ({
-        //     ...prevFilterBy,
-        //     [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
-        // }))
-        setNewFilterBy((prevFilterBy) => ({
+        setUpdatedFilterBy((prevFilterBy) => ({
             ...prevFilterBy,
             [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
 
-        // dispatch(setIsEverything(!isEverything))
     }
 
     const handleSerachSubmit = (searchQuery: string) => {
