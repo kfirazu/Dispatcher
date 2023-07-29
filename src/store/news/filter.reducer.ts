@@ -19,6 +19,8 @@ const initialState: FilterState = {
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
         language: { title: 'Languages', value: '', options: [] },
+        sortBy: { title: 'Sort-by', value: '', options: [] }
+
     },
     searchQuery: ''
 }

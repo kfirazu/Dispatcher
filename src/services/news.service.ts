@@ -42,8 +42,8 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
         // if (news) {
         //     return JSON.parse(news)
         // }
-        const { country, source, category, type, language } = filterBy
-
+        const { country, source, category, type, language, sortBy } = filterBy
+        console.log('sortBy service:', sortBy)
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
@@ -58,7 +58,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
             reqQuery += `?category=${category.value}&`
         }
         if (source.value !== '') {
-            console.log('source.value:', source.value)
             reqQuery += `?sources=${source.value}&`
         }
         if (language.value !== '') {
@@ -68,6 +67,9 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
         if (searchQuery) {
             reqQuery += `?q=${searchQuery}&`
         }
+        if (sortBy.value !== '') {
+            reqQuery += `sortBy=${sortBy.value}`
+        }
         // if (page) {
         //     reqQuery += `&page=${page}`
         // }
@@ -76,6 +78,8 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
             (reqQuery.includes('country=') ||
                 reqQuery.includes('category=') ||
                 reqQuery.includes('sources=') ||
+                reqQuery.includes('language=') ||
+                reqQuery.includes('sortBy=') ||
                 reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE

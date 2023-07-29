@@ -13,6 +13,11 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
 
+    // useEffect(() => {
+    //     setSelectedOption(''); // Set to an empty string or choose a default option if needed
+    // }, [items])
+
+
     const toggleDropdown = () => {
         setIsOpen((prevOpen) => !prevOpen)
     }

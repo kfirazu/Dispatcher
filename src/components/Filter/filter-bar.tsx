@@ -40,7 +40,9 @@ const FilterBar: FC<FilterBarrops> = () => {
         country: { title: 'Country', value: '', options: [] },
         source: { title: 'Sources', value: '', options: [] },
         category: { title: 'Category', value: '', options: [] },
-        language: { title: 'Langugaes', value: '', options: [] },
+        language: { title: 'Langugae', value: '', options: [] },
+        sortBy: { title: 'Sort-by', value: '', options: [] },
+
     },)
 
     // Updated filterBy in redux filter reducer
@@ -48,7 +50,7 @@ const FilterBar: FC<FilterBarrops> = () => {
         dispatch(updateFilterBy(updatedFilterBy));
         console.log('updatedFilterBy:', updatedFilterBy)
 
-    }, [updatedFilterBy]);
+    }, [updatedFilterBy])
 
     // Send get request to api based on current local filterBy everytime filterBy change
     useEffect(() => {
@@ -59,7 +61,6 @@ const FilterBar: FC<FilterBarrops> = () => {
     const fetchArticlesFromApi = async () => {
         try {
             const res = await newsService.query(updatedFilterBy)
-            console.log('res from filter bar:', res)
             dispatch(setArticleList(res.articles))
 
         } catch (err) {

@@ -10,7 +10,8 @@ import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 import { newsService } from "../../services/news.service"
-import { languages } from "../../constants/constants"
+import { languages, sortByArr } from "../../constants/constants"
+import { setArticleList } from "../../store/news/news.reducer"
 
 interface SortBarProps {
 
@@ -26,35 +27,58 @@ const SortBar: FC<SortBarProps> = () => {
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const sourceOptions = useAppSelector(state => state.filter.filterBy.source.options)
     const languageOptions = useAppSelector(state => state.filter.filterBy.language.options)
+    const isEverything = useAppSelector(state => state.system.isEverything)
 
-    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
+    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>({
+        type: {
+            title: isEverything ? 'Everything' : 'Top-headlines',
+            value: isEverything ? 'Everything' : 'Top-headlines',
+            options: [
+                { value: 'Everything', title: 'Everything', },
+                { value: 'Top-headlines', title: 'Top Headlines', }]
+        },
+        country: { title: 'Country', value: '', options: [] },
+        source: { title: 'Sources', value: '', options: [] },
+        category: { title: 'Category', value: '', options: [] },
+        language: { title: 'Langugaes', value: '', options: [] },
+        sortBy: { title: 'Sort-by', value: '', options: [] },
 
-    const sortByArr = [
-        { value: 'publishedAt', title: 'Published at' },
-        { value: 'popularity', title: 'Popularity' },
-        { value: 'relevancy', title: 'Relevancy' }
-    ]
 
-    const sourcesArr = [
-        { value: 'וואלה', title: 'וואלה! חדשות' }, { value: 'וואלה', title: 'וואלה! תרבות' },
-        { value: "הארץ", title: 'הארץ' }, { value: 'ספורט 5', title: 'ספורט 5' },
-        { value: '"ynet ידיעות אחרונות"', title: '"ynet ידיעות אחרונות"' }, { value: '"כלכליסט"', title: '"כלכליסט"' },
-        { value: '"mako"', title: '"mako"' }, { value: '"TheMarker"', title: '"TheMarker"' },
-        { value: '"ערוץ 13"', title: '"ערוץ 13"' }, { value: '"מעריב און ליין"', title: '"מעריב און ליין"' },
+    },)
 
-    ]
+    // Updated filterBy in redux filter reducer
+    useEffect(() => {
+        dispatch(updateFilterBy(updatedFilterBy));
+    }, [updatedFilterBy])
 
+    // Send get request to api based on current local filterBy everytime filterBy change
+    useEffect(() => {
+        // dispatch(fetchArticles(updatedFilterBy));
+        console.log('updatedFilterBy before fetch:', updatedFilterBy)
+
+        fetchArticlesFromApi()
+    }, [updatedFilterBy]);
+
+    const fetchArticlesFromApi = async () => {
+        try {
+            const res = await newsService.query(updatedFilterBy)
+            console.log(res.articles)
+            dispatch(setArticleList(res.articles))
+
+        } catch (err) {
+            console.log('Cannot fetch articles', err)
+        }
+    }
+
+    // Updates local filterBy on dropdown change
     const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
         const { name, value } = ev.target
         const strValue = String(value)
 
         setUpdatedFilterBy((prevFilterBy) => ({
             ...prevFilterBy,
-            [name]: { ...prevFilterBy[name], value: strValue },
+            [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
-        dispatch(updateFilterBy(updatedFilterBy))
-
-
     }
 
     return (
@@ -62,10 +86,25 @@ const SortBar: FC<SortBarProps> = () => {
             {!isMobile && !isTablet && (
 
                 <StyledSortBarContainer>
-                    <CustomDropdown items={sortByArr} type="Sort by" handleDropdownChange={handleDropdownChange} />
+                    <CustomDropdown
+                        items={sortByArr}
+                        type="Sort-by"
+                        name="sortBy"
+                        handleDropdownChange={handleDropdownChange}
+                    />
                     <DateSelector />
-                    <CustomDropdown items={sourceOptions} type="Sources" handleDropdownChange={handleDropdownChange} />
-                    <CustomDropdown items={languages} type="Language" handleDropdownChange={handleDropdownChange} />
+                    <CustomDropdown
+                        items={sourceOptions}
+                        type="Source"
+                        name="source"
+                        handleDropdownChange={handleDropdownChange}
+                    />
+                    <CustomDropdown
+                        items={languages}
+                        type="Language"
+                        name="language"
+                        handleDropdownChange={handleDropdownChange}
+                    />
                 </StyledSortBarContainer>
             )}
             {(isMobile || isTablet) && <MobileSortBar />}

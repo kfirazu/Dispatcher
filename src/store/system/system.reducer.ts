@@ -9,7 +9,7 @@ export interface SystemState {
 }
 
 const initialState: SystemState = {
-    isEverything: false,
+    isEverything: true,
     isSideBarOpen: false,
     isNoData: false
 
