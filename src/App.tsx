@@ -16,8 +16,8 @@ import { UseIsTablet } from './hooks/useIsTablet';
 import { setInitialArticleList } from './store/news/news.reducer';
 import SideBar from './components/side-bar/side-bar';
 import NoData from './components/No-Data/no-data';
-import { setFilterCountries, updateFilterSources } from './store/news/filter.reducer';
-import { countries } from './constants/constants';
+import { setFilterCountries, setFilterLanguageOptions, setFilterSourcesOptions } from './store/news/filter.reducer';
+import { countries, languages } from './constants/constants';
 
 
 function App() {
@@ -43,23 +43,24 @@ function App() {
     if (initialArticles) {
       dispatch(setInitialArticleList(initialArticles))
     }
-    dispatch(setFilterCountries(countries))
 
   }, [isLoading])
 
   useEffect(() => {
     const sources = newsService.getCurrArticleListSources(articleList)
-    dispatch(updateFilterSources(sources))
+    dispatch(setFilterSourcesOptions(sources))
   }, [articleList])
 
   useEffect(() => {
     (async () => {
       const sources = await newsService.getSources()
       IsEverything && (
-        dispatch(updateFilterSources(sources))
+        dispatch(setFilterSourcesOptions(sources))
 
       )
     })()
+    dispatch(setFilterCountries(countries))
+    dispatch(setFilterLanguageOptions(languages))
 
   }, [])
 

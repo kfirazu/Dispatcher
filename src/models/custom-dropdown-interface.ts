@@ -6,7 +6,7 @@ export interface CustomDropdownProps extends SelectProps {
     height?: string
     fontWeight?: string
     label?: ReactNode
-    items?: { value: string, title: string }[]
+    items?: { value: string | null, title: string }[]
     name?: string
     type?: string
     onClick?: () => void

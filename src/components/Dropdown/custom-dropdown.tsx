@@ -25,7 +25,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     // Function to find the corresponding title in the countries array
     const findTitleByValue = (value: string) => {
         const dropdownOption = items?.find((item) => item.value === value);
-        console.log('the fuck is obj?',dropdownOption)
         return dropdownOption ? dropdownOption.title : value;
     }
 

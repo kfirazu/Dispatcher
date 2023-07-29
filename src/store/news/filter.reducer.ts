@@ -31,15 +31,17 @@ export const FilterSlice = createSlice({
             state.filterBy = { ...state.filterBy, ...action.payload }
         },
         setFilterCountries: (state, action: PayloadAction<DropdownOption[]>) => {
-            console.log('im a payloaddd', action.payload)
             state.filterBy.country.options = action.payload
-            console.log('state.filterBy.country.options:', state.filterBy.country.options)
+            // console.log('state.filterBy.country.options:', state.filterBy.country.options)
         },
-        updateFilterSources: (state, action: PayloadAction<DropdownOption[]>) => {
+        setFilterSourcesOptions: (state, action: PayloadAction<DropdownOption[]>) => {
             state.filterBy.source.options = action.payload
         },
         setSearchQuery: (state, action: PayloadAction<string>) => {
             state.searchQuery = action.payload
+        },
+        setFilterLanguageOptions: (state, action: PayloadAction<DropdownOption[]>) => {
+            state.filterBy.language.options = action.payload
         },
 
 
@@ -50,6 +52,6 @@ export const FilterSlice = createSlice({
 
 const { actions, reducer } = FilterSlice
 
-export const { updateFilterBy, setFilterCountries, setSearchQuery, updateFilterSources } = actions
+export const { updateFilterBy, setFilterCountries, setSearchQuery, setFilterSourcesOptions, setFilterLanguageOptions } = actions
 
 export default reducer

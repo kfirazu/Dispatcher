@@ -65,4 +65,28 @@ const countries = [
     { value: 've', title: 'Venezuela' },
 ];
 
-export { categories, sources, countries }
+const languages = [
+    { value: 'ar', title: 'Arabic' },
+    { value: 'de', title: 'German' },
+    { value: 'en', title: 'English' },
+    { value: 'es', title: 'Spanish' },
+    { value: 'fr', title: 'French' },
+    { value: 'it', title: 'Itilian' },
+    { value: 'nl', title: 'Dutch' },
+    { value: 'no', title: 'Norwegian' },
+    { value: 'pt', title: 'Portuguese' },
+    { value: 'ru', title: 'Russian' },
+    { value: 'sv', title: 'Swedish' },
+    { value: 'tr', title: 'Turkish' },
+    { value: 'zh', title: 'Chinese' },
+    { value: 'da', title: 'Danish' },
+    { value: 'fi', title: 'Finnish' },
+    { value: 'he', title: 'Hebrew' },
+    { value: 'id', title: 'Indonesian' },
+    { value: 'ja', title: 'Japanese' },
+    { value: 'ko', title: 'Korean' },
+    { value: 'ms', title: 'Malay' },
+
+]
+
+export { categories, sources, countries, languages }

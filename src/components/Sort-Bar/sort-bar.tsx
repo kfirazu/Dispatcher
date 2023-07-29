@@ -10,6 +10,7 @@ import { FilterBy } from "../../models/filter-by"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { updateFilterBy } from "../../store/news/filter.reducer"
 import { newsService } from "../../services/news.service"
+import { languages } from "../../constants/constants"
 
 interface SortBarProps {
 
@@ -24,6 +25,7 @@ const SortBar: FC<SortBarProps> = () => {
     const dispatch = useAppDispatch()
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const sourceOptions = useAppSelector(state => state.filter.filterBy.source.options)
+    const languageOptions = useAppSelector(state => state.filter.filterBy.language.options)
 
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
 
@@ -39,30 +41,6 @@ const SortBar: FC<SortBarProps> = () => {
         { value: '"ynet ידיעות אחרונות"', title: '"ynet ידיעות אחרונות"' }, { value: '"כלכליסט"', title: '"כלכליסט"' },
         { value: '"mako"', title: '"mako"' }, { value: '"TheMarker"', title: '"TheMarker"' },
         { value: '"ערוץ 13"', title: '"ערוץ 13"' }, { value: '"מעריב און ליין"', title: '"מעריב און ליין"' },
-
-    ]
-
-    const languageArr = [
-        { value: 'ar', title: 'Arabic' },
-        { value: 'de', title: 'German' },
-        { value: 'en', title: 'English' },
-        { value: 'es', title: 'Spanish' },
-        { value: 'fr', title: 'French' },
-        { value: 'it', title: 'Itilian' },
-        { value: 'nl', title: 'Dutch' },
-        { value: 'no', title: 'Norwegian' },
-        { value: 'pt', title: 'Portuguese' },
-        { value: 'ru', title: 'Russian' },
-        { value: 'sv', title: 'Swedish' },
-        { value: 'tr', title: 'Turkish' },
-        { value: 'zh', title: 'Chinese' },
-        { value: 'da', title: 'Danish' },
-        { value: 'fi', title: 'Finnish' },
-        { value: 'he', title: 'Hebrew' },
-        { value: 'id', title: 'Indonesian' },
-        { value: 'ja', title: 'Japanese' },
-        { value: 'ko', title: 'Korean' },
-        { value: 'ms', title: 'Malay' },
 
     ]
 
@@ -87,7 +65,7 @@ const SortBar: FC<SortBarProps> = () => {
                     <CustomDropdown items={sortByArr} type="Sort by" handleDropdownChange={handleDropdownChange} />
                     <DateSelector />
                     <CustomDropdown items={sourceOptions} type="Sources" handleDropdownChange={handleDropdownChange} />
-                    <CustomDropdown items={languageArr} type="Language" handleDropdownChange={handleDropdownChange} />
+                    <CustomDropdown items={languages} type="Language" handleDropdownChange={handleDropdownChange} />
                 </StyledSortBarContainer>
             )}
             {(isMobile || isTablet) && <MobileSortBar />}

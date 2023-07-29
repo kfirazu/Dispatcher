@@ -6,16 +6,17 @@ import { UseIsTablet } from "../../hooks/useIsTablet"
 
 interface IconContainerProps {
     children: string[]
+    handleFocus?: () => void
 }
 
-const IconContainer: FC<IconContainerProps> = ({ children }) => {
+const IconContainer: FC<IconContainerProps> = ({ children, handleFocus }) => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
     return (
         <IconsWrapper isMobile={isMobile} isTablet={isTablet}>
             {children?.map((icon: string, idx: number) => (
-                <StyledIcon src={icon} key={idx} />
+                <StyledIcon src={icon} key={idx} onClick={handleFocus} />
             ))}
             <StyledUserAvatarWrapper isMobile={isMobile} isTablet={isTablet}>
                 <StyledUserName>AG</StyledUserName>
