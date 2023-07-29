@@ -11,14 +11,6 @@ const categories = [
 
 ]
 
-const sources = [
-    { value: 'וואלה', title: 'וואלה! חדשות' }, { value: 'וואלה', title: 'וואלה! תרבות' },
-    { value: "הארץ", title: 'הארץ' }, { value: 'ספורט 5', title: 'ספורט 5' },
-    { value: '"ynet ידיעות אחרונות"', title: '"ynet ידיעות אחרונות"' }, { value: '"כלכליסט"', title: '"כלכליסט"' },
-    { value: '"mako"', title: '"mako"' }, { value: '"TheMarker"', title: '"TheMarker"' },
-    { value: '"ערוץ 13"', title: '"ערוץ 13"' }, { value: '"מעריב און ליין"', title: '"מעריב און ליין"' },
-
-]
 
 // const countries = [
 //     { value: 'ar', title: 'Argentina' }, { value: 'au', title: 'Austrailia' },
@@ -89,4 +81,10 @@ const languages = [
 
 ]
 
-export { categories, sources, countries, languages }
+const sortByArr = [
+    { value: 'publishedAt', title: 'Published at' },
+    { value: 'popularity', title: 'Popularity' },
+    { value: 'relevancy', title: 'Relevancy' }
+]
+
+export { categories, countries, languages, sortByArr }

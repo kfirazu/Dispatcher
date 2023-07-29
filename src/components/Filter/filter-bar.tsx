@@ -12,7 +12,7 @@ import { newsService } from "../../services/news.service"
 import { setArticleList, updateArticleList } from "../../store/news/news.reducer"
 import { fetchArticles } from "../../store/thunks/fetchDataThunk"
 import { updateFilterBy } from "../../store/news/filter.reducer"
-import { categories, countries, sources } from "../../constants/constants"
+import { categories, countries } from "../../constants/constants"
 
 interface FilterBarrops {
 
@@ -27,12 +27,9 @@ const FilterBar: FC<FilterBarrops> = () => {
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const sourceOptions = useAppSelector(state => state.filter.filterBy.source.options)
     const countryOptions = useAppSelector(state => state.filter.filterBy.country.options)
-
-
-    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
     const articleList = useAppSelector(state => state.news.articleList)
     const isEverything = useAppSelector(state => state.system.isEverything)
-    const [newFilterBy, setNewFilterBy] = useState<FilterBy>({
+    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>({
         type: {
             title: isEverything ? 'Everything' : 'Top-headlines',
             value: isEverything ? 'Everything' : 'Top-headlines',
@@ -46,19 +43,23 @@ const FilterBar: FC<FilterBarrops> = () => {
         language: { title: 'Langugaes', value: '', options: [] },
     },)
 
+    // Updated filterBy in redux filter reducer
     useEffect(() => {
-        dispatch(updateFilterBy(newFilterBy));
+        dispatch(updateFilterBy(updatedFilterBy));
+        console.log('updatedFilterBy:', updatedFilterBy)
 
-    }, [newFilterBy]);
+    }, [updatedFilterBy]);
 
+    // Send get request to api based on current local filterBy everytime filterBy change
     useEffect(() => {
         // dispatch(fetchArticles(updatedFilterBy));
         fetchArticlesFromApi()
-    }, [newFilterBy]);
-    
+    }, [updatedFilterBy]);
+
     const fetchArticlesFromApi = async () => {
         try {
-            const res = await newsService.query(newFilterBy)
+            const res = await newsService.query(updatedFilterBy)
+            console.log('res from filter bar:', res)
             dispatch(setArticleList(res.articles))
 
         } catch (err) {
@@ -66,19 +67,12 @@ const FilterBar: FC<FilterBarrops> = () => {
         }
     }
 
-
-
-
-
+    // Updates local filterBy on dropdown change
     const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
         const { name, value } = ev.target
         const strValue = String(value)
 
-        // setUpdatedFilterBy((prevFilterBy) => ({
-        //     ...prevFilterBy,
-        //     [name]: { ...prevFilterBy[name], value: strValue },
-        // }))
-        setNewFilterBy((prevFilterBy) => ({
+        setUpdatedFilterBy((prevFilterBy) => ({
             ...prevFilterBy,
             [name]: { ...prevFilterBy[name], value: strValue, title: strValue },
         }))
@@ -90,7 +84,7 @@ const FilterBar: FC<FilterBarrops> = () => {
 
                 <StyledSortBarContainer>
                     <CustomDropdown
-                        items={countryOptions}
+                        items={countries}
                         name={'country'}
                         id={'country'}
                         type="Country"

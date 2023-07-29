@@ -35,12 +35,6 @@ const config: { [key: string]: any } = {
     },
 }
 
-const everythingQuery = `${BASE_URL}${FilterOptions.EVERYTHING}`
-const topHeadlinesQuery = `${BASE_URL}${FilterOptions.TOP_HEADLINES}`
-
-
-
-
 async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
     console.log('filterBy from service', filterBy)
     // let news = localStorage.getItem(STROAGE_KEY)
@@ -49,6 +43,8 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
         //     return JSON.parse(news)
         // }
         const { country, source, category, type, language } = filterBy
+
+        // Build url request string to send to api
         let reqQuery = BASE_URL
 
         type.value?.toLowerCase() === FilterOptions.EVERYTHING
@@ -62,25 +58,28 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
             reqQuery += `?category=${category.value}&`
         }
         if (source.value !== '') {
+            console.log('source.value:', source.value)
             reqQuery += `?sources=${source.value}&`
         }
         if (language.value !== '') {
-            reqQuery += `?source=${language.value}&`
+            reqQuery += `?language=${language.value}&`
+            console.log('reqQuery from language:', reqQuery)
         }
         if (searchQuery) {
             reqQuery += `?q=${searchQuery}&`
         }
-        if (page) {
-            reqQuery += `&page=${page}`
-        }
+        // if (page) {
+        //     reqQuery += `&page=${page}`
+        // }
         if (
-            reqQuery === BASE_URL &&
-            reqQuery.includes('country=') ||
-            reqQuery.includes('category=') ||
-            reqQuery.includes('source=') ||
-            reqQuery.includes('q=')
+            reqQuery.startsWith(BASE_URL) &&
+            (reqQuery.includes('country=') ||
+                reqQuery.includes('category=') ||
+                reqQuery.includes('sources=') ||
+                reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE
+            console.log('reqQuery:', reqQuery)
             const res = await axios.get(reqQuery, config);
 
             // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
@@ -94,9 +93,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
     }
 
 }
-// GET https://newsapi.org/v2/everything
-// GET https://newsapi.org/v2/top-headlines
-// const hardReqQuery = `https://newsapi.org/v2/top-headlines?country=${DEFAULT_COUNTRY_CODE}&pageSize=${PAGE_SIZE}`
 
 function formatDate(dateStr: string) {
     const formatedDate = format(new Date(dateStr), 'eeee MMM dd, yyyy')

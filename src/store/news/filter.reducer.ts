@@ -32,7 +32,6 @@ export const FilterSlice = createSlice({
         },
         setFilterCountries: (state, action: PayloadAction<DropdownOption[]>) => {
             state.filterBy.country.options = action.payload
-            // console.log('state.filterBy.country.options:', state.filterBy.country.options)
         },
         setFilterSourcesOptions: (state, action: PayloadAction<DropdownOption[]>) => {
             state.filterBy.source.options = action.payload
