@@ -9,9 +9,10 @@ import { UseIsTablet } from "../../hooks/useIsTablet"
 import MobileHeader from "./mobile-header"
 import { utilService } from "../../services/util.service"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
-import { updateFilterBy, setSearchQuery, setFilterType } from "../../store/news/filter.reducer"
-import {  fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
+import { setSearchQuery } from "../../store/news/filter.reducer"
+import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
+import { searchInOptions } from "../../constants/constants"
 
 interface AppHeaderProps {
 
@@ -23,7 +24,6 @@ const AppHeader: FC<AppHeaderProps> = () => {
     const dispatch = useAppDispatch()
     const searchQuery = useAppSelector(state => state.filter.searchQuery)
     const isEverything = useAppSelector(state => state.system.isEverything)
-    // const isNoData = useAppSelector(state => state.system.isNoData)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState<boolean>(false)
 
@@ -31,35 +31,7 @@ const AppHeader: FC<AppHeaderProps> = () => {
         dispatch(fetchArticlesBySearchQuery(searchTerm))
     }, [searchTerm])
 
-    // useEffect(() => {
-    //     dispatch(fetchArticles(updatedFilterBy))
-    // }, [filterBy])
 
-    // useEffect(() => {
-    //     dispatch(updateFilterBy(updatedFilterBy))
-    //     // console.log('updatedFilterBy:', updatedFilterBy)
-    // }, [updatedFilterBy])
-
-    // useEffect(() => {
-    //     // dispatch(fetchArticles(updatedFilterBy));
-    //     const fetchArticlesFromApi = async () => {
-    //         // const res = await newsService.query(updatedFilterBy)
-    //         // if (res === undefined) {
-    //         // dispatch(setIsNoData(true))
-    //         // } else {
-    //         // dispatch(setIsNoData(false))
-    //         // dispatch(updateArticleList(res.articles))
-
-    //         // }
-    //     }
-    //     fetchArticlesFromApi()
-    // }, [filterBy]);
-
-
-    const options = [
-        { value: 'Top-headlines', title: 'Top Headlines', },
-        { value: 'Everything', title: 'Everything', }
-    ]
 
     const handleSearchQueryChange = (ev: ChangeEvent<HTMLInputElement>) => {
         const { value } = ev.target
@@ -115,7 +87,7 @@ const AppHeader: FC<AppHeaderProps> = () => {
                             label={"Everything"}
                             name="type"
                             labelId={"input-dropdown"}
-                            items={options}
+                            items={searchInOptions}
                             placeholder={isEverything ? "Everything" : "Top-headlines"}
                         />
 

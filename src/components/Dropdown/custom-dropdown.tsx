@@ -20,11 +20,6 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
 
-
-    // useEffect(() => {
-    //     setSelectedOption(''); // Set to an empty string or choose a default option if needed
-    // }, [items])
-
     useEffect(() => {
         dispatch(fetchArticles(updatedFilterBy))
     }, [filterBy])

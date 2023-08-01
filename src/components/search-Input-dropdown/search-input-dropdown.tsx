@@ -8,8 +8,6 @@ import { setFilterType } from "../../store/news/filter.reducer"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { FilterBy } from "../../models/filter-by"
 
-
-
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 
     const { id, label, labelId, items, placeholder, name } = props
@@ -18,8 +16,6 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
     const filterBy = useAppSelector(state => state.filter.filterBy)
     const dispatch = useAppDispatch()
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
-
-
 
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -65,7 +61,6 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
                     labelId={labelId}
                     open={isOpen ? true : false}
                     onChange={(ev) => handleDropdownChange(ev)}
-                    // defaultValue={items![1]}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
                         (value !== '' ? String(value) : placeholder) as React.ReactNode
