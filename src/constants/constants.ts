@@ -1,5 +1,16 @@
 
-// Export to constants
+
+const MAX_PAGE_NUM = 10
+const MAX_ARTICLE_LENGTH = 150;
+
+
+
+const searchInOptions = [
+    { value: 'Top-headlines', title: 'Top Headlines', },
+    { value: 'Everything', title: 'Everything', }
+]
+
+
 const categories = [
     { value: 'business', title: 'Business' },
     { value: 'entertainment', title: 'Entertainment' },
@@ -87,4 +98,4 @@ const sortByArr = [
     { value: 'relevancy', title: 'Relevancy' }
 ]
 
-export { categories, countries, languages, sortByArr }
+export { categories, countries, languages, sortByArr, searchInOptions, MAX_PAGE_NUM, MAX_ARTICLE_LENGTH }

@@ -14,18 +14,17 @@ export interface NewsState {
     articleList: Article[]
     status: Status
     error: string | null
+    page: number
 
 }
 
 const initialState: NewsState = {
     articleList: [],
     status: Status.IDLE,
-    error: null
+    error: null,
+    page: 1
 
 }
-
-
-
 export const newsSlice = createSlice({
     name: 'news',
     initialState,
@@ -39,26 +38,32 @@ export const newsSlice = createSlice({
         setArticleList: (state, action: PayloadAction<Article[]>) => {
             state.articleList = action.payload
         },
+        incrementPage(state) {
+            state.page = state.page + 1
+        },
+
 
 
     },
     extraReducers: builder => {
-        // builder.addCase(fetchArticles.fulfilled, (state, action) => {
-        //     state.articleList = [...action.payload]
-        //     state.status = Status.SUCCEEDED
-        //     state.error = null
-        // })
-        // builder.addCase(fetchArticles.pending, state => {
-        //     state.status = Status.LOADING
-        // })
-        // builder.addCase(fetchArticles.rejected, (state, action) => {
-        //     state.error = action.error.message || null
-        //     state.status = Status.FAILED
-        // })
-        builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action) => {
+        builder.addCase(fetchArticles.fulfilled, (state, action) => {
             state.articleList = [...action.payload]
             state.status = Status.SUCCEEDED
             state.error = null
+        })
+        builder.addCase(fetchArticles.pending, state => {
+            state.status = Status.LOADING
+        })
+        builder.addCase(fetchArticles.rejected, (state, action) => {
+            state.error = action.error.message || null
+            state.status = Status.FAILED
+        })
+        builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action) => {
+            if (action.payload !== '') {
+                state.articleList = [...action.payload]
+                state.status = Status.SUCCEEDED
+                state.error = null
+            }
         })
         builder.addCase(fetchArticlesBySearchQuery.pending, state => {
             state.status = Status.LOADING
@@ -75,6 +80,6 @@ export const newsSlice = createSlice({
 
 const { actions, reducer } = newsSlice
 
-export const { setInitialArticleList, updateArticleList, setArticleList } = actions
+export const { setInitialArticleList, updateArticleList, setArticleList, incrementPage } = actions
 
 export default reducer

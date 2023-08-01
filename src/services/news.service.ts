@@ -21,11 +21,17 @@ const DEFAULT_COUNTRY_CODE = 'us'
 
 export enum FilterOptions {
     EVERYTHING = "everything",
-    TOP_HEADLINES = `top-headlines`,
+    TOP_HEADLINES = "top-headlines",
     COUNTRY = "country",
     CATEGORY = "category",
     SOURCE = "source",
     LANGUAGE = "language",
+
+}
+
+export enum EndpointOption {
+    EVERYTHING = "Everything?",
+    TOP_HEADLINES = `Top-headlines?`,
 
 }
 
@@ -35,8 +41,8 @@ const config: { [key: string]: any } = {
     },
 }
 
-async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
-    // console.log('filterBy from service', filterBy)
+async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1) {
+    console.log('filterBy from service', filterBy)
     // let news = localStorage.getItem(STROAGE_KEY)
     try {
         // if (news) {
@@ -46,31 +52,31 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
-        type.value?.toLowerCase() === FilterOptions.EVERYTHING
-            ? reqQuery += FilterOptions.EVERYTHING
-            : reqQuery += FilterOptions.TOP_HEADLINES
+        type?.toLowerCase() === FilterOptions.EVERYTHING
+            ? reqQuery += EndpointOption.EVERYTHING
+            : reqQuery += EndpointOption.TOP_HEADLINES
 
-        if (country.value !== '') {
-            reqQuery += `?country=${country.value}&`
+        if (country !== '') {
+            reqQuery += `country=${country}&`
         }
-        if (category.value !== '') {
-            reqQuery += `?category=${category.value}&`
+        if (category !== '') {
+            reqQuery += `category=${category}&`
         }
-        if (source.value !== '') {
-            reqQuery += `?sources=${source.value}&`
+        if (source !== '') {
+            reqQuery += `sources=${source}&`
         }
-        if (language.value !== '') {
-            reqQuery += `?language=${language.value}&`
+        if (language !== '') {
+            reqQuery += `language=${language}&`
+        }
+        if (sortBy !== '') {
+            reqQuery += `sortBy=${sortBy}&`
         }
         if (searchQuery) {
-            reqQuery += `?q=${searchQuery}&`
+            reqQuery += `q=${searchQuery}&`
         }
-        if (sortBy.value !== '') {
-            reqQuery += `sortBy=${sortBy.value}`
+        if (page) {
+            reqQuery += `page=${page}&`
         }
-        // if (page) {
-        //     reqQuery += `&page=${page}`
-        // }
         if (
             reqQuery.startsWith(BASE_URL) &&
             (reqQuery.includes('country=') ||
@@ -84,7 +90,7 @@ async function query(filterBy: FilterBy, searchQuery?: string, page?: number) {
             const res = await axios.get(reqQuery, config);
 
             // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
-
+            res.data.page = page
             return res.data
         }
 
@@ -134,31 +140,10 @@ async function getSources() {
     }
 }
 
-// function getCurrArticleListSources(articleList: Article[]) {
-//     const currArticleSourcesArr = articleList.map((article) => {
-//         const cleanedSourceArr = {
-//             value: article.source.id,
-//             title: article.source.name
-//         }
-//         if (cleanedSourceArr.value === null) {
-//             cleanedSourceArr.value = cleanedSourceArr.title.toLowerCase()
-//         }
-//         if (cleanedSourceArr.value === article.source.id || cleanedSourceArr.title === article.source.name) {
-
-//         }
-//         return cleanedSourceArr
-//     })
-//     console.log('currArticleSourcesArr', currArticleSourcesArr)
-//     return currArticleSourcesArr
-
-// }
-
 function getCurrArticleListSources(articleList: Article[]) {
     const uniqueSources = new Set<string>();
 
     const currArticleSourcesArr: DropdownOption[] = articleList.map((article) => {
-        const sourceId = article.source.id;
-        const sourceName = article.source.name;
 
         let { id, name } = article.source
 

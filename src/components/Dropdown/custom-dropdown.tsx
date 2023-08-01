@@ -3,19 +3,31 @@ import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from '@mu
 import { FC, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
+import { updateFilterBy } from '../../store/news/filter.reducer';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.store';
+import { FilterBy } from '../../models/filter-by';
+import { fetchArticles } from '../../store/thunks/fetchDataThunk';
 
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, name, labelId, items, type, handleDropdownChange } = props
+    const { id, name, labelId, items, type } = props
 
     const dropdownRef = useRef(null);
+    const dispatch = useAppDispatch()
+    const filterBy = useAppSelector(state => state.filter.filterBy)
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
+    const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
+
 
     // useEffect(() => {
     //     setSelectedOption(''); // Set to an empty string or choose a default option if needed
     // }, [items])
+
+    useEffect(() => {
+        dispatch(fetchArticles(updatedFilterBy))
+    }, [filterBy])
 
 
     const toggleDropdown = () => {
@@ -33,11 +45,20 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
         return dropdownOption ? dropdownOption.title : value;
     }
 
-    const handleDropdownchange = (ev: SelectChangeEvent<unknown>) => {
-        const { value } = ev.target
+    const handleDropdownChange = (ev: SelectChangeEvent<unknown>) => {
+        const { name, value } = ev.target
         const strValue = String(value)
         setSelectedOption(strValue)
-        handleDropdownChange!(ev)
+
+
+        setUpdatedFilterBy((prevFilterBy) => ({
+            ...prevFilterBy,
+            [name]: strValue
+        }))
+        dispatch(updateFilterBy({
+            title: name,
+            value: strValue
+        }))
     }
 
     return (
@@ -52,7 +73,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
                     value={selectedOption}
                     labelId={labelId}
                     open={isOpen ? true : false}
-                    onChange={(ev) => handleDropdownchange!(ev)}
+                    onChange={(ev) => handleDropdownChange(ev)}
                     displayEmpty={true}
                     renderValue={(value: unknown): React.ReactNode =>
                         findTitleByValue(String(value)) ? findTitleByValue(String(value)) : type

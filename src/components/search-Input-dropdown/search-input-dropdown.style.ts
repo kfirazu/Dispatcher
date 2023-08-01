@@ -8,7 +8,7 @@ enum InputDropdownColors {
 
 }
 
-export const StyledInputDropdown = styled(Select)((props: CustomDropdownProps) => `
+export const StyledInputDropdown = styled(Select)((props: CustomDropdownProps) =>`
 width: 138px;
 height: 40px;
 position: absolute;
@@ -24,8 +24,6 @@ border-left: 0.5px solid ${InputDropdownColors.BORDER_COLOR};
 & .MuiOutlinedInput-notchedOutline {
     border: none;
 }
-
-
 
 `
 )
