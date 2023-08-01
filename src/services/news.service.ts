@@ -10,6 +10,7 @@ export const newsService = {
     fetchInitialArticles,
     getSources,
     getCurrArticleListSources,
+    formatFilterDates
 
 }
 
@@ -48,7 +49,7 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         // if (news) {
         //     return JSON.parse(news)
         // }
-        const { country, source, category, type, language, sortBy } = filterBy
+        const { country, source, category, type, language, sortBy, dates} = filterBy
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
@@ -74,6 +75,11 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         if (searchQuery) {
             reqQuery += `q=${searchQuery}&`
         }
+        if(dates) {
+            console.log('dates.from:', dates.from)
+            console.log('dates.to:', dates.to)
+            reqQuery +=`from=${dates.from}&to=${dates.to}&`
+        }
         if (page) {
             reqQuery += `page=${page}&`
         }
@@ -87,6 +93,7 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
                 reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE
+            console.log('reqQuery:', reqQuery)
             const res = await axios.get(reqQuery, config);
 
             // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
@@ -102,9 +109,18 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
 }
 
 function formatDate(dateStr: string) {
-    const formatedDate = format(new Date(dateStr), 'eeee MMM dd, yyyy')
-    return formatedDate
+    const formattedDate = format(new Date(dateStr), 'eeee MMM dd, yyyy')
+    return formattedDate
 
+}
+
+function formatFilterDates(startDate: Date | null, endDate: Date | null) {
+    if (endDate || startDate) {
+        const formattedStartDate = startDate ? format(startDate, 'yyyy-MM-dd') : null;
+        const formattedEndDate = endDate ? format(endDate, 'yyyy-MM-dd') : null;
+        return { formattedStartDate, formattedEndDate };
+    }
+    return { formattedStartDate: null, formattedEndDate: null };
 }
 
 async function fetchInitialArticles() {

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DropdownOption, FilterBy } from '../../models/filter-by'
+import { DateOptions, DropdownOption, FilterBy } from '../../models/filter-by'
 import { FilterOptions } from '../../services/news.service'
 
 export interface FilterState {
@@ -22,7 +22,8 @@ const initialState: FilterState = {
         source: '',
         category: '',
         language: '',
-        sortBy: ''
+        sortBy: '',
+        dates: { from: '', to: '' },
 
     },
     searchQuery: '',
@@ -56,6 +57,7 @@ export const FilterSlice = createSlice({
                 state.filterBy.language = ''
                 state.filterBy.sortBy = ''
                 state.filterBy.source = ''
+                state.filterBy.dates = { from: '', to: '' }
             }
         },
         setSearchQuery: (state: FilterState, action: PayloadAction<string>) => {
@@ -67,7 +69,15 @@ export const FilterSlice = createSlice({
         setCurrArticlesSources: (state, action: PayloadAction<DropdownOption[]>) => {
             state.currArticlesSources = action.payload
         },
-
+        updateFilterByDates: (state, action: PayloadAction<DateOptions>) => {
+            state.filterBy = {
+                ...state.filterBy,
+                dates: {
+                    from: action.payload.from,
+                    to: action.payload.to
+                }
+            }
+        }
     }
 })
 
@@ -75,6 +85,6 @@ export const FilterSlice = createSlice({
 
 const { actions, reducer } = FilterSlice
 
-export const { updateFilterBy, setSearchQuery, setFilterType, setEverythingSources, setCurrArticlesSources } = actions
+export const { updateFilterBy, setSearchQuery, setFilterType, setEverythingSources, setCurrArticlesSources, updateFilterByDates } = actions
 
 export default reducer
