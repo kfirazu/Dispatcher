@@ -7,7 +7,7 @@ display:flex;
 flex-direction: column;
 ${({ isMobile }) => isMobile ? 'gap: 20px' : 'gap: 24px'};
 ${({ isSideBarOpen }) => isSideBarOpen ? 'overflow-y: hidden' : 'overflow-y: auto'};
-max-height: 1260px;
+max-height: 82%;
 height: 100%;
 overflow-x: hidden;
 padding: 0 1rem 0 0;
