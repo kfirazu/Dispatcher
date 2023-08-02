@@ -106,7 +106,7 @@ function getSourcePercentageListToShow(articleList: Article[]) {
         percentage: percentagesArr[idx]
     }))
     sourceMap.sort((a, b) => b.percentage - a.percentage)
-    const topFourSources = sourceMap.slice(0, 4)
+    // const topFourSources = sourceMap.slice(0, 4)
 
-    return topFourSources
+    return sourceMap
 }

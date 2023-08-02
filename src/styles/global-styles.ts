@@ -7,10 +7,37 @@ min-height: 100vh;
 min-width: 100vw;
 background-color: #F3F3FF;
 
+// /* .scrollbar-width: thin;
+// .scrollbar-color: #a0a3bd transparent;
+// For Firefox */
+
+// /* Styling for webkit-based browsers (Chrome, Safari) */
+// /* Scrollbar container */
+// ::-webkit-scrollbar {
+//   width: 10px;
+//   height: 150px;
+// }
+
+// /* Scrollbar thumb (the draggable handle) */
+// ::-webkit-scrollbar-thumb {
+//   background-color: #a0a3bd;
+//   border-radius: 10px;
+//   background-clip: padding-box;
+//   padding: 20px;
+// }
+
+// /* Scrollbar track (the area behind the thumb) */
+// /* Affects the track underneath/above the thumb */
+// ::-webkit-scrollbar-track {
+//   background-color: transparent;
+//   /* Hide the scrollbar track */
+//   border-radius: 10px;
+// }
+
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
-            overflow-y: hidden;
+            // overflow-y: auto;
 `
         } else if (isTablet) {
             return css`
@@ -37,7 +64,7 @@ ${({ isMobile, isTablet }) => {
         margin-top: 0;
         // height: calc(100vh - 74px);
         height: 100vh;
-        overflow-y: hidden;
+        // overflow-y: hidden;
 
     `
         } else if (isTablet) {
@@ -73,6 +100,7 @@ export const StyledContentContainer = styled.div`
 border-top: 1px solid #D9DBE9;
 display: flex;
 margin-top: 20px;
+height: 100%;
 `
 
 export const StyledTransparentScreen = styled.div`

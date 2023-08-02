@@ -12,15 +12,15 @@ width: 100%;
 display: flex;
 flex-direction: column;
 gap: 24px;
-max-height: 783px;
+max-height: 100%;
 padding-left: 1rem;
 `
 
 export const StyledChartWrapper = styled.div`
 background-color:${DashboardStyleDictonary.BG_COLOR};
 width: 100%;
-max-height: 378px;
-min-height: 378px;
+max-height: 36vh;
+// min-height: 378px;
 height: 100%;
 display: flex;
 flex-direction: column;
@@ -83,7 +83,8 @@ max-height: 143px;
 display: flex;
 flex-direction: column;
 align-items: center;
-overflow: hidden;
+overflow-y : auto;
+overflow-x: hidden;
 gap: 11px;
 `
 
@@ -100,5 +101,6 @@ height: 150px;
 width: 382px;
 display: flex;
 flex-grow: 1;
+justify-content: center;
 `
 

@@ -14,7 +14,6 @@ import { Article } from '../../models/article-interface';
 import { FC, useEffect, useState } from 'react';
 import { dashboardService } from '../../services/dashboard-service';
 import { StyledLineChartWrapper } from './dashboard.style';
-import { object } from 'prop-types';
 
 ChartJS.register(
     CategoryScale,

@@ -80,7 +80,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
                         const label = context.label || '';
                         const value = context.parsed || 0;
                         const percentage = sourcePercentage[context.dataIndex] || 0;
-                        return `${label}: ${percentage}%`;
+                        return `${label}: ${percentage.toFixed(1)}%`;
                     },
                 },
             },
