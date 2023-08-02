@@ -43,13 +43,14 @@ const config: { [key: string]: any } = {
 }
 
 async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1) {
-    console.log('filterBy from service', filterBy)
+    // console.log('filterBy from service', filterBy)
+    console.log('searchQuery:', searchQuery)
     // let news = localStorage.getItem(STROAGE_KEY)
     try {
         // if (news) {
         //     return JSON.parse(news)
         // }
-        const { country, source, category, type, language, sortBy, dates} = filterBy
+        const { country, source, category, type, language, sortBy, dates } = filterBy
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
@@ -75,10 +76,8 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         if (searchQuery) {
             reqQuery += `q=${searchQuery}&`
         }
-        if(dates) {
-            console.log('dates.from:', dates.from)
-            console.log('dates.to:', dates.to)
-            reqQuery +=`from=${dates.from}&to=${dates.to}&`
+        if (dates.from !== '' && dates.to !== '') {
+            reqQuery += `from=${dates.from}&to=${dates.to}&`
         }
         if (page) {
             reqQuery += `page=${page}&`
@@ -93,8 +92,9 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
                 reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE
-            console.log('reqQuery:', reqQuery)
-            const res = await axios.get(reqQuery, config);
+            // console.log('reqQuery:', reqQuery)
+            const encodedQuery = encodeURI(reqQuery)
+            const res = await axios.get(encodedQuery, config);
 
             // localStorage.setItem(STROAGE_KEY, JSON.stringify(topHeadlines))
             res.data.page = page
@@ -106,6 +106,10 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         throw err
     }
 
+}
+
+function concatenateWords(inputString: string) {
+    return inputString.replace(/ /g, "");
 }
 
 function formatDate(dateStr: string) {

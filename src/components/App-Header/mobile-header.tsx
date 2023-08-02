@@ -24,9 +24,6 @@ const MobileHeader = () => {
 
     const dispatch = useAppDispatch()
 
-    const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
-    const [isSettingsOpen, setisSettingsOpen] = useState<boolean>(false)
-    const [isNotificationOpen, setisNotificationOpen] = useState<boolean>(false)
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [searchTerm, setSearchTerm] = useState<string>('')
 
@@ -42,11 +39,12 @@ const MobileHeader = () => {
     const handleSearchQueryChange = (ev: ChangeEvent<HTMLInputElement>) => {
         const { value } = ev.target
         setSearchTerm(value)
-        // dispatch(setSearchQuery(value))
+        dispatch(setSearchQuery(value))
 
     }
 
     const debounceOnChange = utilService.debounce(handleSearchQueryChange, 500)
+    
     const onCloseModal = () => {
         setIsFocused(false)
     }

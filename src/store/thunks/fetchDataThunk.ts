@@ -25,10 +25,8 @@ export const fetchArticlesBySearchQuery: AsyncThunk<any, string, { state: RootSt
             const searchQueryFromStore = (getState() as RootState).filter.searchQuery
             const filterBy = (getState() as RootState).filter.filterBy
             try {
-                console.log('fetchBySearchQuery')
-                if (searchQuery === '') { return } // FIX: return value
+                if (searchQuery === '') { return []} // FIX: return value
                 const res = await newsService.query(filterBy, searchQueryFromStore)
-                console.log('query search from thunk', res)
                 return res.articles
             } catch (err) {
                 return rejectWithValue(JSON.stringify(err));

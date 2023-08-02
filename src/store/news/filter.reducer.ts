@@ -62,6 +62,9 @@ export const FilterSlice = createSlice({
         },
         setSearchQuery: (state: FilterState, action: PayloadAction<string>) => {
             state.searchQuery = action.payload
+            if (action.payload !== '') {
+                state.filterBy.country = ''
+            }
         },
         setEverythingSources: (state, action: PayloadAction<DropdownOption[]>) => {
             state.everythingSources = action.payload
