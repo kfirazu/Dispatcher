@@ -38,6 +38,13 @@ font-size: 1rem;
 color: #5A5A89;
 font-weight: 500;
 
+`
+
+export const StyledContentHeading = styled.h3`
+font-size: 1rem;
+color: #5A5A89;
+font-weight: 500;
+margin-left: 1rem;
 
 `
 

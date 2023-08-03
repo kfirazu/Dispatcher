@@ -7,15 +7,20 @@ import { UseIsTablet } from "../../hooks/useIsTablet"
 import { FC } from "react"
 import { useAppDispatch } from "../../store/hooks.store"
 import { setIsSideBarOpen } from "../../store/system/system.reducer"
+import { setMobileSideBarType } from "../../store/news/filter.reducer"
 
-
+export enum SideBarType {
+    FILTER = 'filter',
+    SORT_BY = 'sort-by'
+}
 interface MobileSortBarPeops {
 }
 const MobileSortBar: FC<MobileSortBarPeops> = () => {
 
     const dispatch = useAppDispatch()
 
-    const onOpenSideBar = () => {
+    const onOpenSideBar = (type: string) => {
+        dispatch(setMobileSideBarType(type))
         dispatch(setIsSideBarOpen(true))
     }
 
@@ -24,10 +29,10 @@ const MobileSortBar: FC<MobileSortBarPeops> = () => {
 
     return (
         <MobileSortBarContainer isMobile={isMobile} isTablet={isTablet}>
-            <StyledTextContainer onClick={onOpenSideBar}>Sort by
+            <StyledTextContainer onClick={() => onOpenSideBar(SideBarType.SORT_BY)}>Sort by
                 <StyledIcon src={arrowDownIcon} width="16" height="16"></StyledIcon>
             </StyledTextContainer>
-            <StyledIcon src={SortIcon} width="28" height="28" ></StyledIcon>
+            <StyledIcon src={SortIcon} width="28" height="28" onClick={() => onOpenSideBar(SideBarType.FILTER)}></StyledIcon>
         </MobileSortBarContainer>
 
 
