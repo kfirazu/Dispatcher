@@ -2,6 +2,7 @@
 
 const MAX_PAGE_NUM = 10
 const MAX_ARTICLE_LENGTH = 150;
+const defaultCountry = { title: 'United States', value: 'us' }
 
 
 
@@ -98,4 +99,11 @@ const sortByArr = [
     { value: 'relevancy', title: 'Relevancy' }
 ]
 
-export { categories, countries, languages, sortByArr, searchInOptions, MAX_PAGE_NUM, MAX_ARTICLE_LENGTH }
+// Sidebar filter options:
+const defaultFilters = [
+    { value: 'type', title: 'Top-hedlines' }, { value: 'Sources', title: 'All' },
+    { value: 'Language', title: 'All' }, { value: 'Dates', title: 'All' }
+]
+
+
+export { categories, countries, languages, sortByArr, searchInOptions, MAX_PAGE_NUM, MAX_ARTICLE_LENGTH, defaultCountry, defaultFilters }
