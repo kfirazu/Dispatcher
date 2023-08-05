@@ -2,7 +2,7 @@
 
 const MAX_PAGE_NUM = 10
 const MAX_ARTICLE_LENGTH = 150;
-const defaultCountry = { title: 'United States', value: 'us' }
+const defaultCountry = { title: 'Israel', value: 'il' }
 
 
 
@@ -105,5 +105,8 @@ const defaultFilters = [
     { value: 'Language', title: 'All' }, { value: 'Dates', title: 'All' }
 ]
 
+const doughnutColors = ['#ff9800', '#ddf3fe', '#343a6e', '#e8e8e8', '#030035', '#d54958']
 
-export { categories, countries, languages, sortByArr, searchInOptions, MAX_PAGE_NUM, MAX_ARTICLE_LENGTH, defaultCountry, defaultFilters }
+
+
+export { categories, countries, languages, sortByArr, searchInOptions, MAX_PAGE_NUM, MAX_ARTICLE_LENGTH, defaultCountry, defaultFilters, doughnutColors }

@@ -143,7 +143,7 @@ ${({ isMobile, isTablet }) => {
 
 export const ParagraphWrapper = styled.p<{ width?: string, isMobile: boolean, isTablet: boolean }>`
 ${({ width }) => `width: ${width}`}px;
-max-width: 741px;
+max-width: 100%;
 width: 100%;
 height:32px;
 font-size: 14px;
@@ -167,6 +167,7 @@ ${({ isMobile, isTablet }) => {
         height: 100%;
         -webkit-line-clamp: 5;
         margin-block-end: 10px;
+        min-height: 80px;
     `
         } else if (isTablet) {
             return css`

@@ -69,7 +69,7 @@ justify-content: space-around;
 ${({ isMobile }) => isMobile ? 'align-self: center' : ''};
 ${({ isMobile }) => isMobile ? 'height: 36px' : ''};
 ${({ isMobile }) => isMobile ? 'max-width: 300px' : 'max-width: 226px'};
-${({ isMobile }) => isMobile ? 'width: 100%' : 'width: 226px'};
+${({ isMobile }) => isMobile ? 'width: 100%' : 'width: 100%'};
 ${({ isMobile }) => isMobile ? 'margin-top: 0' : 'margin-top: 14px;'};
 
 `

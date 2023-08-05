@@ -3,6 +3,7 @@ import { format } from "date-fns"
 import { DropdownOption, FilterBy } from "../models/filter-by"
 import { Source } from "../models/source-interface"
 import { Article } from "../models/article-interface"
+import { countries, defaultCountry } from "../constants/constants"
 
 export const newsService = {
     query,
@@ -10,7 +11,7 @@ export const newsService = {
     fetchInitialArticles,
     getSources,
     getCurrArticleListSources,
-    formatFilterDates
+    formatFilterDates,
 
 }
 
@@ -44,7 +45,6 @@ const config: { [key: string]: any } = {
 
 async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1) {
     // console.log('filterBy from service', filterBy)
-    console.log('searchQuery:', searchQuery)
     // let news = localStorage.getItem(STROAGE_KEY)
     try {
         // if (news) {
@@ -92,7 +92,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
                 reqQuery.includes('q='))
         ) {
             reqQuery += PAGE_SIZE
-            // console.log('reqQuery:', reqQuery)
             const encodedQuery = encodeURI(reqQuery)
             const res = await axios.get(encodedQuery, config);
 
@@ -106,10 +105,6 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         throw err
     }
 
-}
-
-function concatenateWords(inputString: string) {
-    return inputString.replace(/ /g, "");
 }
 
 function formatDate(dateStr: string) {
@@ -187,3 +182,4 @@ function getCurrArticleListSources(articleList: Article[]) {
     }).filter(Boolean) as DropdownOption[]; // Remove any null values from the array
     return currArticleSourcesArr;
 }
+

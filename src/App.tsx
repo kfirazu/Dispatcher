@@ -2,21 +2,22 @@ import theme from './styles/theme'
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import AppHeader from './components/App-Header/app-header';
 import { useEffect } from 'react';
-import SortBar from './components/Sort-Bar/sort-bar'
 import FeedList from './components/FeedList/feed-list'
 import Dashboard from './components/Dashboard/dashboard'
-import { Article } from './models/article-interface'
 import { AppContainer, ContentWrapper, MainContainer, StyledContentContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
-import FilterBar from './components/Filter/filter-bar';
 import { useAppDispatch, useAppSelector } from './store/hooks.store';
 import { newsService } from './services/news.service';
-import { useQuery } from '@tanstack/react-query'
 import { UseIsTablet } from './hooks/useIsTablet';
-import { setInitialArticleList } from './store/news/news.reducer';
 import SideBar from './components/side-bar/side-bar';
-import NoData from './components/No-Data/no-data';
 import { setCurrArticlesSources, setEverythingSources } from './store/news/filter.reducer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { fetchArticles, getIPAddress } from './store/thunks/fetchDataThunk';
+import Filter from './components/Sort-Bar/filter';
+import PageTitle from './components/Feed-List-Title/feed-list-title';
+import { setIsFirstSearch } from './store/news/news.reducer';
+
 
 
 function App() {
@@ -27,22 +28,24 @@ function App() {
   const isEverything = useAppSelector(state => state.system.isEverything)
   const articleList = useAppSelector(state => state.news.articleList)
   const filterBy = useAppSelector(state => state.filter.filterBy)
-  const searchQuery = useAppSelector(state => state.filter.searchQuery)
+  // const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
 
-  const loadInitialData = async () => {
-    const res = await newsService.query(filterBy, searchQuery)
-    return res.articles
-  }
-  // Fetch initial articles using react-query
-  const { data: initialArticles, isLoading } = useQuery<Article[]>(["initialArticles"], loadInitialData);
 
-  // Set the initial articles to Redux store 
+
   useEffect(() => {
-    if (initialArticles) {
-      dispatch(setInitialArticleList(initialArticles))
-    }
-
+    dispatch(getIPAddress())
+    dispatch(fetchArticles(filterBy))
   }, [])
+
+
+  // useEffect(() => {
+  //   if (country && isFirstVisit) {
+  //     dispatch(fetchArticles());
+  //     setIsFirstSearch();
+  //   }
+  // }, [dispatch, country, isFirstSearch]);
+
+
 
   useEffect(() => {
     const currSources = newsService.getCurrArticleListSources(articleList)
@@ -59,34 +62,30 @@ function App() {
 
   }, [isEverything])
 
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppContainer isMobile={isMobile} isTablet={isTablet}>
           <AppHeader />
-          {(isMobile || isTablet) && <SideBar children={[]} />}
+          {(isMobile || isTablet) && <SideBar />}
           <MainContainer isMobile={isMobile} isTablet={isTablet}>
-            {/* {!isNoData ? */}
-            {articleList.length ?
-              <ContentWrapper isMobile={isMobile}>
-                {isEverything
-                  ? <SortBar />
-                  : <FilterBar />
-                }
-                <StyledContentContainer >
-                  <FeedList />
-                  <Dashboard />
-                </StyledContentContainer>
-              </ContentWrapper>
-
-              : <NoData />
-            }
+            {/* <ContentWrapper isMobile={isMobile}> */}
+            {/* <div style={{display: 'flex', flexDirection: 'column',width: '100%', justifyContent:'center'}}> */}
+            <Filter />
+            <PageTitle />
+            {/* </div> */}
+            <StyledContentContainer >
+              {/* <SkeletonAreaChart /> */}
+                <FeedList />
+              <Dashboard />
+            </StyledContentContainer>
+            {/* </ContentWrapper> */}
+            {/* {loadContent()} */}
           </MainContainer>
-
+          <ToastContainer />
         </AppContainer>
-      </ThemeProvider>
+      </ThemeProvider >
     </>
   )
 }

@@ -52,6 +52,7 @@ export const FilterSlice = createSlice({
 
         },
         setFilterType: (state, action: PayloadAction<FilterOptionPayload>) => {
+            console.log('action.payload.value:', action.payload.value)
             state.filterBy.type = action.payload.value
             if (action.payload.value === "Everything") {
                 state.filterBy.country = ''
@@ -67,9 +68,6 @@ export const FilterSlice = createSlice({
         },
         setSearchQuery: (state: FilterState, action: PayloadAction<string>) => {
             state.searchQuery = action.payload
-            if (action.payload !== '') {
-                state.filterBy.country = ''
-            }
         },
         setEverythingSources: (state, action: PayloadAction<DropdownOption[]>) => {
             state.everythingSources = action.payload
@@ -95,7 +93,6 @@ export const FilterSlice = createSlice({
     },
     extraReducers: {
         [getIPAddress.fulfilled.type]: (state, action: PayloadAction<string>) => {
-            console.log('action.payload fullfiled:', action.payload)
             state.filterBy.country = action.payload
         },
         [getIPAddress.rejected.type]: (state) => {
