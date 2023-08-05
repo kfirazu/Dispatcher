@@ -24,7 +24,6 @@ const SideBar: FC<SideBarProps> = () => {
     const isEverything = useAppSelector(state => state.system.isEverything)
     const everythingSources = useAppSelector(state => state.filter.everythingSources)
     const currArticlesSources = useAppSelector(state => state.filter.currArticlesSources)
-
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
     const [selectedCategoryValue, setSelectedCategoryValue] = useState<string | null>(null)
     const [selectedValues, setSelectedValues] = useState<{ [key: string]: string | null }>({});
@@ -45,7 +44,7 @@ const SideBar: FC<SideBarProps> = () => {
     const onSelectCategoryValue = (value: string, title: string) => {
         setSelectedCategoryValue(title)
         toast.success(`"${title}" was added to filter`, {
-            position: "bottom-center",
+            position: "top-center",
             autoClose: 2500,
             hideProgressBar: false,
             closeOnClick: true,
@@ -72,19 +71,43 @@ const SideBar: FC<SideBarProps> = () => {
     }
 
     const onSelectSortByValue = (value: string, title: string) => {
-        setSelectedCategory(title)
+        if (filterBy.source === '') {
+            toast.error(`Please select a source before applying sorting.`, {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                style: {
+                },
+            })
+        }
+        if (filterBy.source !== '') {
+            setSelectedCategory(title)
+            setSelectedCategory(null)
+            dispatch(updateFilterBy({
+                title: 'sortBy',
+                value: value
+            }))
+        }
 
-        setSelectedCategory(null)
-        dispatch(updateFilterBy({
-            title: 'sortBy',
-            value: value
-        }))
+        toast.success(`"${title}" was added to filter`, {
+            position: "top-center",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            style: {
+            },
+        })
 
     }
-    useEffect(() => {
-        dispatch(fetchArticles(updatedFilterBy))
-
-    }, [])
 
     const handleSubmit = () => {
         dispatch(fetchArticles(updatedFilterBy))
@@ -95,7 +118,7 @@ const SideBar: FC<SideBarProps> = () => {
         setSelectedCategory(null)
         setIsDefaultSideBar(true)
         if (sideBarType === SideBarType.SORT_BY) {
-            setIsSideBarOpen(false)
+            dispatch(setIsSideBarOpen(false))
         }
 
     }

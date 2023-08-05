@@ -2,12 +2,13 @@ import styled, { css } from "styled-components";
 
 
 export const StyledSortBarContainer = styled.div`
-max-width: 760px;
+max-width: 100%;
 width: 100%
 height: 47px;
 display: flex;
 gap: 20px;
-align-self: start;
+// justify-content: center;
+// align-self: start;
 margin: 20px 0;
 & > * {
     flex-shrink: 1;
@@ -42,6 +43,7 @@ export const StyledTextContainer = styled.span`
 color: #5A5A89;
 max-width: 78px;
 width: 100%;
+height: 42px;
 display: flex;
 align-items: center;
 justify-content: space-between;

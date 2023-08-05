@@ -7,22 +7,37 @@ import { updateFilterBy } from '../../store/news/filter.reducer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.store';
 import { FilterBy } from '../../models/filter-by';
 import { fetchArticles } from '../../store/thunks/fetchDataThunk';
+import { setIsFirstSearch } from '../../store/news/news.reducer';
 
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, name, labelId, items, type } = props
+    const { id, name, labelId, items, type, onClearFilter } = props
 
     const dropdownRef = useRef(null);
     const dispatch = useAppDispatch()
     const filterBy = useAppSelector(state => state.filter.filterBy)
+    const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
+    const isEverything = useAppSelector(state => state.system.isEverything)
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState<string>('')
     const [updatedFilterBy, setUpdatedFilterBy] = useState<FilterBy>(filterBy)
 
     useEffect(() => {
-        dispatch(fetchArticles(updatedFilterBy))
+        if (selectedOption) {
+            dispatch(fetchArticles(updatedFilterBy))
+        }
     }, [filterBy])
+
+    // Reset dropdowns placeholder when change between everything & top-headlines
+    useEffect(() => {
+        setSelectedOption('')
+    }, [isEverything])
+
+    // clear filter placeholder when click on clear filters
+    // useEffect(() => {
+    //     setSelectedOption('')
+    // }, [onClearFilter])
 
 
     const toggleDropdown = () => {
@@ -54,6 +69,9 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
             title: name,
             value: strValue
         }))
+        if (isFirstSearch) {
+            dispatch(setIsFirstSearch())
+        }
     }
 
     return (

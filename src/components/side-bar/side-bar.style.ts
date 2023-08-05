@@ -22,6 +22,7 @@ export const StyledSideBarContainer = styled.aside`
   right: 0;
   z-index: 20;
   animation: ${easeIn} 1.3s ease-in-out;
+  overflow-y: auto;
 `;
 
 export const SideBarTitle = styled.div`

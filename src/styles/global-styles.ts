@@ -7,33 +7,6 @@ min-height: 100vh;
 min-width: 100vw;
 background-color: #F3F3FF;
 
-// /* .scrollbar-width: thin;
-// .scrollbar-color: #a0a3bd transparent;
-// For Firefox */
-
-// /* Styling for webkit-based browsers (Chrome, Safari) */
-// /* Scrollbar container */
-// ::-webkit-scrollbar {
-//   width: 10px;
-//   height: 150px;
-// }
-
-// /* Scrollbar thumb (the draggable handle) */
-// ::-webkit-scrollbar-thumb {
-//   background-color: #a0a3bd;
-//   border-radius: 10px;
-//   background-clip: padding-box;
-//   padding: 20px;
-// }
-
-// /* Scrollbar track (the area behind the thumb) */
-// /* Affects the track underneath/above the thumb */
-// ::-webkit-scrollbar-track {
-//   background-color: transparent;
-//   /* Hide the scrollbar track */
-//   border-radius: 10px;
-// }
-
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
             return css`
@@ -51,11 +24,14 @@ ${({ isMobile, isTablet }) => {
 export const MainContainer = styled.main<{ isMobile: boolean, isTablet: boolean }>`
 height: calc(100vh - 74px);
 width: 100%;
-padding:0 1.25rem;
+padding:0 8.3rem;
+// padding:0 1.25rem;
+
 display: flex;
 flex-direction: column;
-align-items: center;
-
+// align-content: center;
+align-self: center;
+// overflow-x: hidden; // i didnt have before.
 
 ${({ isMobile, isTablet }) => {
         if (isMobile) {
@@ -71,6 +47,7 @@ ${({ isMobile, isTablet }) => {
             return css`
     padding: 0;
     margin-top: 0;
+    overflow-x: hidden;
 
   `
         }
@@ -80,6 +57,7 @@ ${({ isMobile, isTablet }) => {
 
 export const ContentWrapper = styled.div<{ isMobile: boolean }>`
 height: 100%;
+width: 100%
 
 ${({ isMobile }) => {
         if (isMobile) {
@@ -97,10 +75,10 @@ ${({ isMobile }) => {
 `
 
 export const StyledContentContainer = styled.div`
-border-top: 1px solid #D9DBE9;
 display: flex;
-margin-top: 20px;
+margin-top: 13px;
 height: 100%;
+justify-content: center;
 `
 
 export const StyledTransparentScreen = styled.div`
