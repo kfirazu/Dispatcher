@@ -10,12 +10,13 @@ import IconContainer from "./icon-container"
 import RecentSearchDropdown from "../RecentSearchDropdown/recent-search-dropdown"
 import { utilService } from "../../services/util.service"
 import MobileInput from "../Mobile-Input/mobile-input"
-import { useAppDispatch } from "../../store/hooks.store"
+import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { setSearchQuery } from "../../store/news/filter.reducer"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
 import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import CustomInput from "../Input/custom-input"
 import MobileRecentSearch from "../RecentSearchDropdown/mobile-recent-search"
+import { setIsFirstSearch } from "../../store/news/news.reducer"
 
 const MobileHeader = () => {
 
@@ -23,12 +24,14 @@ const MobileHeader = () => {
     const isTablet = UseIsTablet()
 
     const dispatch = useAppDispatch()
-
+    const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
     const [isFocused, setIsFocused] = useState<boolean>(false)
     const [searchTerm, setSearchTerm] = useState<string>('')
 
     useEffect(() => {
-        dispatch(fetchArticlesBySearchQuery(searchTerm))
+        if (searchTerm !== '') {
+            dispatch(fetchArticlesBySearchQuery(searchTerm))
+        }
     }, [searchTerm])
 
 
@@ -43,8 +46,8 @@ const MobileHeader = () => {
 
     }
 
-    const debounceOnChange = utilService.debounce(handleSearchQueryChange, 500)
-    
+    const debounceOnChange = utilService.debounce(handleSearchQueryChange, 700)
+
     const onCloseModal = () => {
         setIsFocused(false)
     }
@@ -54,6 +57,9 @@ const MobileHeader = () => {
         const newSearchTerm = { id: utilService.makeId(), searchTerm: searchQuery }
         dispatch(addRecentSearch(newSearchTerm))
         setIsFocused(false)
+        if (isFirstSearch) {
+            dispatch(setIsFirstSearch())
+        }
 
     }
 
@@ -66,6 +72,7 @@ const MobileHeader = () => {
     const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
         ev.stopPropagation()
         setSearchTerm(searchTerm)
+        // dispatch(fetchArticlesBySearchQuery(searchTerm)) // FIX: should happen here but not fast enough
         onCloseModal()
 
     }
@@ -109,6 +116,7 @@ const MobileHeader = () => {
                         handleFocus={handleFocus}
                         label={'Text'}
                         onSubmit={handleSerachSubmit}
+                        onCloseModal={onCloseModal}
                     />
                     {isFocused &&
                         <RecentSearchDropdown

@@ -14,9 +14,10 @@ export interface CustomInputProps {
     handleFocus: () => void
     label: string
     onSubmit: (value: string) => void
+    onCloseModal: () => void
 }
 
-const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, debounceOnChange, handleFocus, onSubmit }) => {
+const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, debounceOnChange, handleFocus, onSubmit, onCloseModal }) => {
 
     const isTablet = UseIsTablet()
     const isMobile = useIsMobile()
@@ -27,6 +28,7 @@ const CustomInput: FC<CustomInputProps> = ({ name, placeholder, id, debounceOnCh
         if (ev.key === "Enter") {
             ev.preventDefault()
             onSubmit(value)
+            onCloseModal()
         }
 
     }

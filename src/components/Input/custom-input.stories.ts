@@ -13,7 +13,6 @@ export const Input: Story = {
         name: 'search',
         placeholder: 'Search',
         id: 'search',
-        // handleChange:() => console.log('Changed!!'),
         handleFocus:() => console.log('Focus!'),
     }
 }

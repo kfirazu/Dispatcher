@@ -7,12 +7,14 @@ cursor: pointer;
 
 export default StyledArrowIcon
 
-export const StyledSvg = styled.img<{ top?: string }>`
+export const StyledSvg = styled.img<{ top?: string, width?: string, height?: string } >`
 cursor: pointer;
 position: absolute; 
 z-index: 5;
 width: 24px;
+width: ${({ width = '18' }) => width}px;
 top: ${({ top = '15' }) => top}px;
 right: 15px;
+font-wieght: 700;
 
 `

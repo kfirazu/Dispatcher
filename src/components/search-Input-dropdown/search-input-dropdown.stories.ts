@@ -14,8 +14,8 @@ export default {
 type Story = StoryObj<typeof SearchInputDropdown>
 
 const mockItems = [
-    { value: 'everything', name: 'Everything', },
-    { value: 'top-headlines', name: 'Top Headlines', }
+    { value: 'everything', title: 'Everything', },
+    { value: 'top-headlines', title: 'Top Headlines', }
 ]
 
 export const DesktopSearchInputDropdown: Story = {

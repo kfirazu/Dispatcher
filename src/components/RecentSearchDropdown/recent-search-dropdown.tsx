@@ -10,7 +10,6 @@ import { UseIsTablet } from "../../hooks/useIsTablet";
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store";
 import { clearRecentSearch, removeRecentSearch } from "../../store/news/recent-serach.reducer";
 import useIsMobile from "../../hooks/useIsMobile";
-import MobileRecentSearch from "./mobile-recent-search";
 
 interface RecentSearchDropdownProps {
     isFocused: boolean
@@ -56,7 +55,7 @@ const RecentSearchDropdown: FC<RecentSearchDropdownProps> = ({ isFocused, onClos
                         {recentSearchArr.length > 0 && (
                             <StyledUl>
                                 {recentSearchArr.map((term: recentSearchTerm, idx) => (
-                                    <StyledListItem
+                                    <StyledListItem isMobile={isMobile}
                                         key={idx}
                                         onClick={(ev) => handleSearchTermClick(ev, term.searchTerm)}
                                     >

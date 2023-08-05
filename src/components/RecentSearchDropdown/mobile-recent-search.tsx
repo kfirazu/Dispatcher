@@ -15,7 +15,6 @@ interface RecentSearchDropdownProps {
 
 }
 
-
 const MobileRecentSearch: FC<RecentSearchDropdownProps> = ({ handleSearchTermClick }) => {
 
     const dispatch = useAppDispatch()
@@ -24,14 +23,11 @@ const MobileRecentSearch: FC<RecentSearchDropdownProps> = ({ handleSearchTermCli
 
 
     const onClearRecentSearch = () => {
-        // setRecentSearchArr([])
         dispatch(clearRecentSearch())
     }
 
     const onRemoveRecentSearch = (ev: MouseEvent<HTMLElement>, searchTermId: string) => {
         ev.stopPropagation()
-        // const updatedSearchArr = recentSearchArr.filter((item) => item.id !== searchTermId);
-        // setRecentSearchArr(updatedSearchArr);
         dispatch(removeRecentSearch(searchTermId))
 
     }

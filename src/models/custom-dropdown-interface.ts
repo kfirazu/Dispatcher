@@ -1,4 +1,4 @@
-import { SelectChangeEvent, SelectProps } from "@mui/material"
+import { SelectProps } from "@mui/material"
 import { ReactNode } from "react"
 
 export interface CustomDropdownProps extends SelectProps {
@@ -12,7 +12,7 @@ export interface CustomDropdownProps extends SelectProps {
     onClick?: () => void
     ref?: React.RefObject<HTMLSelectElement>
     placeholder?: string
-    // handleDropdownChange: (ev: SelectChangeEvent<unknown>) => void
+    onClearFilter?: () => void
 
 
 

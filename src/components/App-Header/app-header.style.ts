@@ -41,7 +41,7 @@ ${({ isMobile, isTablet, isFocused }) => {
 
 export const LogoWrapper = styled.div<{ isMobile: boolean, isTablet: boolean }>`
 flex: 1;
-max-width: 12.1%;
+max-width: 8%;
 width: 100%;
 
 ${({ isMobile, isTablet }) => {

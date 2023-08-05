@@ -6,7 +6,9 @@ import CustomDropdown from "../Dropdown/custom-dropdown"
 import MobileSortBar from "../Sort-Bar/mobile-sort-bar"
 import { StyledSortBarContainer } from "../Sort-Bar/sort-bar.style"
 import { categories, countries } from "../../constants/constants"
-import { useAppSelector } from "../../store/hooks.store"
+import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
+import { Button } from "../../stories/Button"
+import { clearFilter } from "../../store/news/filter.reducer"
 
 
 interface FilterBarrops {
@@ -16,27 +18,17 @@ const FilterBar: FC<FilterBarrops> = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
+    const dispatch = useAppDispatch()
     const currArticleSources = useAppSelector(state => state.filter.currArticlesSources)
+    const filterBy = useAppSelector(state => state.filter.filterBy)
 
-    // const sourceOptions = useAppSelector(state => state.filter.filterBy.source.options)
-    // const isEverything = useAppSelector(state => state.system.isEverything)
+    useEffect(() => {
 
-    // Send get request to api based on current local filterBy everytime filterBy change
-    // useEffect(() => {
-    //     // dispatch(fetchArticles(updatedFilterBy));
-    //     fetchArticlesFromApi()
-    // }, []);
+    }, [filterBy])
 
-    // const fetchArticlesFromApi = async () => {
-    //     try {
-    //         console.log('demo fetching from filterBar')
-    //         // const res = await newsService.query(updatedFilterBy)
-    //         // dispatch(setArticleList(res.articles))
-
-    //     } catch (err) {
-    //         console.log('Cannot fetch articles', err)
-    //     }
-    // }
+    const onClearFilter = () => {
+        dispatch(clearFilter())
+    }
 
     return (
         <>
@@ -62,6 +54,7 @@ const FilterBar: FC<FilterBarrops> = () => {
                         id={'source'}
                         type="Source"
                     />
+                    <Button label="Clear Filters" onClick={onClearFilter} />
 
                 </StyledSortBarContainer>
             )}

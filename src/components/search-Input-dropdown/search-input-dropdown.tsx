@@ -2,11 +2,11 @@ import React, { FC, useRef, useState } from "react"
 import { CustomDropdownProps } from "../../models/custom-dropdown-interface"
 import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from "@mui/material"
 import { menuItemSX, StyledInputDropdown, StyledInputLabel } from "./search-input-dropdown.style"
-import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 import { setIsEverything } from "../../store/system/system.reducer"
 import { setFilterType } from "../../store/news/filter.reducer"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { FilterBy } from "../../models/filter-by"
+import { ArrowDownIcon } from "../Arrow-Down-Icon/arrow-down-icon"
 
 const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
 

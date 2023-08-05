@@ -13,6 +13,7 @@ import { setSearchQuery } from "../../store/news/filter.reducer"
 import { fetchArticlesBySearchQuery } from "../../store/thunks/fetchDataThunk"
 import { addRecentSearch } from "../../store/news/recent-serach.reducer"
 import { searchInOptions } from "../../constants/constants"
+import { setIsFirstSearch } from "../../store/news/news.reducer"
 
 interface AppHeaderProps {
 
@@ -25,12 +26,15 @@ const AppHeader: FC<AppHeaderProps> = () => {
     const searchQuery = useAppSelector(state => state.filter.searchQuery)
     const isEverything = useAppSelector(state => state.system.isEverything)
     const [searchTerm, setSearchTerm] = useState('')
+    const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
     const [isFocused, setIsFocused] = useState<boolean>(false)
 
     useEffect(() => {
-        dispatch(fetchArticlesBySearchQuery(searchTerm))
+        if (searchTerm !== '') {
+            dispatch(fetchArticlesBySearchQuery(searchTerm))
+        }
+      
     }, [searchTerm])
-
 
 
     const handleSearchQueryChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +43,7 @@ const AppHeader: FC<AppHeaderProps> = () => {
         dispatch(setSearchQuery(value))
 
     }
-    const debounceOnChange = utilService.debounce(handleSearchQueryChange, 500)
+    const debounceOnChange = utilService.debounce(handleSearchQueryChange, 700)
 
     const onCloseModal = () => {
         setIsFocused(false)
@@ -51,6 +55,9 @@ const AppHeader: FC<AppHeaderProps> = () => {
         const newSearchTerm = { id: utilService.makeId(), searchTerm: searchQuery }
         dispatch(addRecentSearch(newSearchTerm))
         setIsFocused(false)
+        if (isFirstSearch) {
+          dispatch(setIsFirstSearch())
+      }
 
     }
 
@@ -60,7 +67,8 @@ const AppHeader: FC<AppHeaderProps> = () => {
 
     const handleSearchTermClick = (ev: MouseEvent<HTMLElement>, searchTerm: string) => {
         ev.stopPropagation()
-        setSearchTerm(searchTerm)
+        setSearchTerm(() => searchTerm)
+        // dispatch(fetchArticlesBySearchQuery(searchTerm)) // FIX: should happen here but not fast enough
         onCloseModal()
 
     }
@@ -76,11 +84,12 @@ const AppHeader: FC<AppHeaderProps> = () => {
                         <CustomInput
                             name='search'
                             id='search'
-                            placeholder={searchTerm ? searchTerm : 'Search'}
+                            placeholder={searchQuery ? searchQuery : 'Search'}
                             debounceOnChange={debounceOnChange}
                             handleFocus={handleFocus}
                             label={'Text'}
                             onSubmit={handleSerachSubmit}
+                            onCloseModal={onCloseModal}
                         />
                         <SearchInputDropdown
                             id={"input-dropdown"}

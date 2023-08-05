@@ -12,11 +12,13 @@ export const StyledInputDropdown = styled(Select)((props: CustomDropdownProps) =
 width: 138px;
 height: 40px;
 position: absolute;
-gao: 16px;
+display: flex;
+justify-content: space-between;
+gap: 16px;
 background-color: transparent;
 color: ${InputDropdownColors.TEXT_COLOR};
 top: 7px;
-right: 5px;
+right: 15px;
 font-size: 14px;
 outline: none;
 border-left: 0.5px solid ${InputDropdownColors.BORDER_COLOR};
@@ -50,3 +52,10 @@ export const menuItemSX = {
 
 
 }
+
+// export const styledArrowIcon = styled.img`
+
+// position: absolute;
+// top: 10px;
+// right: 10px;
+// `

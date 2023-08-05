@@ -1,12 +1,14 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
-import DateSelector from "../Date-Selector/date-selector"
 import CustomDropdown from "../Dropdown/custom-dropdown"
 import MobileSortBar from "./mobile-sort-bar"
 import { StyledSortBarContainer } from "./sort-bar.style"
-import {  useAppSelector } from "../../store/hooks.store"
-import {  languages, sortByArr } from "../../constants/constants"
+import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
+import { languages, sortByArr } from "../../constants/constants"
+import DatePickerCmp from "../Date-Selector/date-picker-cmp"
+import { clearFilter } from "../../store/news/filter.reducer"
+import { Button } from "../../stories/Button"
 
 interface SortBarProps {
 
@@ -16,7 +18,18 @@ const SortBar: FC<SortBarProps> = () => {
 
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
+    const dispatch = useAppDispatch()
     const everythingSources = useAppSelector(state => state.filter.everythingSources)
+    const filterBy = useAppSelector(state => state.filter.filterBy)
+
+
+    useEffect(() => {
+
+    }, [filterBy])
+
+    const onClearFilter = () => {
+        dispatch(clearFilter())
+    }
 
 
     return (
@@ -29,7 +42,7 @@ const SortBar: FC<SortBarProps> = () => {
                         type="Sort-by"
                         name="sortBy"
                     />
-                    <DateSelector />
+                    <DatePickerCmp />
                     <CustomDropdown
                         items={everythingSources}
                         type="Source"
@@ -40,6 +53,8 @@ const SortBar: FC<SortBarProps> = () => {
                         type="Language"
                         name="language"
                     />
+                    <Button label="Clear Filters" onClick={onClearFilter} />
+
                 </StyledSortBarContainer>
             )}
             {(isMobile || isTablet) && <MobileSortBar />}
