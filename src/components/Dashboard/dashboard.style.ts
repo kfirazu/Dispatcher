@@ -16,11 +16,11 @@ max-height: 100%;
 padding-left: 1rem;
 `
 
-export const StyledChartWrapper = styled.div`
+export const StyledChartWrapper = styled.div<{ noArticles: boolean }>`
 background-color:${DashboardStyleDictonary.BG_COLOR};
 width: 100%;
-max-height: 36vh;
-// min-height: 378px;
+max-height: 378px;
+min-height: 378px;
 height: 100%;
 display: flex;
 flex-direction: column;
@@ -30,6 +30,8 @@ border: 1px solid #D9DBE9;
 box-shadow: 0px 32px 64px 0px #0000000D;
 padding:25px 25px 25px 25px;
 border-radius: 20px;
+${({ noArticles }) => noArticles && 'justify-content: space-between'};
+
 `
 
 export const StyledHeadingWrapper = styled.div`

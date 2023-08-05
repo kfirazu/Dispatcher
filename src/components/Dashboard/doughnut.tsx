@@ -1,14 +1,14 @@
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import {
+    Chart as ChartJS, ArcElement, Tooltip, Legend
+} from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 import { Doughnut } from 'react-chartjs-2'
 import { Article } from '../../models/article-interface';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { SourceCount, dashboardService } from '../../services/dashboard-service';
 import { StyledDoughnutWrapper } from './dashboard.style';
-import NoData from '../No-Data/no-data';
-import { useAppSelector } from '../../store/hooks.store';
-import DashbaordNoData from '../No-Data/dashboard-no-data';
+import Loader from '../Loader/loader';
 
 interface DoughnutProps {
     articleList: Article[]
@@ -21,6 +21,9 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
     const [isValidData, setIsValidData] = useState<boolean>(false)
 
 
+    const [isChartInitialized, setChartInitialized] = useState(false); // New state variable
+    const chartRef = useRef<any>(null)
+
 
     useMemo(async () => {
         const sourceCountArr = dashboardService.getSourceCount(articleList)
@@ -31,6 +34,13 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
             setIsValidData(true)
         }
     }, [articleList])
+
+    useEffect(() => {
+        // if (!isChartInitialized) {
+            // handleChartUpdate(chartRef);
+            setChartInitialized(true);
+        // }
+    }, [articleList, isChartInitialized]);
 
     const data = {
         labels: isValidData ? Object.keys(sourceCount!) : [],
@@ -45,7 +55,9 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
     }
 
     const handleChartUpdate = (chart: any) => {
-        if (sourcePercentage.length > 0) {
+        if (!chartRef.current || sourcePercentage.length === 0) return;
+
+        // if (sourcePercentage.length > 0) {
             let sliceThicknessPixel = Object.keys(sourceCount).map(() => 320);
             const meta = chart.chart.getDatasetMeta(0);
             sliceThicknessPixel.forEach((thickness, idx) => {
@@ -65,7 +77,7 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
         }
 
 
-    };
+    // };
     const options = useMemo(() => ({
         responsive: true,
         maintainAspectRatio: false,
@@ -98,14 +110,19 @@ const DoughnutChart: FC<DoughnutProps> = ({ articleList }) => {
 
     return (
         <StyledDoughnutWrapper >
-            {isValidData &&
+            {isValidData ?
                 <Doughnut
                     options={options}
                     data={data}
+                    ref={(ref) => {
+                        chartRef.current = ref
+                    }}
                 // plugins={[textCenter, sliceThickness]}
                 >
 
                 </Doughnut>
+                :
+                <Loader />
             }
         </StyledDoughnutWrapper>
 

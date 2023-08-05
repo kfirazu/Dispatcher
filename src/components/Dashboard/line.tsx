@@ -14,6 +14,10 @@ import { Article } from '../../models/article-interface';
 import { FC, useEffect, useState } from 'react';
 import { dashboardService } from '../../services/dashboard-service';
 import { StyledLineChartWrapper } from './dashboard.style';
+import Loader from '../Loader/loader';
+import { useAppSelector } from '../../store/hooks.store';
+import SkeletonAreaChart from '../skeletons/skeleton-line-chart';
+import { Status } from '../../store/news/news.reducer';
 
 ChartJS.register(
     CategoryScale,
@@ -31,7 +35,7 @@ interface LineChartProps {
 }
 
 const LineChart: FC<LineChartProps> = ({ articleList }) => {
-
+    const status = useAppSelector(state => state.news.status)
     const [articleDatesMap, setArticleDatesMap] = useState<{ [month: number]: number }>({})
 
     useEffect(() => {
@@ -77,7 +81,7 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
         },
     }
 
-    const labels = ['', '', '', '', '','']
+    const labels = ['', '', '', '', '', '']
 
     const data = {
         labels: labels,
@@ -109,11 +113,12 @@ const LineChart: FC<LineChartProps> = ({ articleList }) => {
     };
     return (
         <StyledLineChartWrapper>
-            <Line
-                options={options}
-                data={data}
-            >
-            </Line>
+            {/* {status === Status.LOADING && <SkeletonAreaChart />} */}
+                <Line
+                    options={options}
+                    data={data}
+                >
+                </Line>
         </StyledLineChartWrapper>
     )
 }

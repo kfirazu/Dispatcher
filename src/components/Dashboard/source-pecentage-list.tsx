@@ -11,12 +11,16 @@ interface SourcePercentageListProps {
 
 const SorucePercentageList: FC<SourcePercentageListProps> = ({ articleList }) => {
 
-    const [sourceList, setSourceList] = useState<{ name: string, percentage: number }[]>([])
+    const [sourceList, setSourceList] = useState<{ name: string, value: number }[]>([])
 
     useMemo(() => {
         const sourceMap = dashboardService.getSourcePercentageListToShow(articleList)
         setSourceList(sourceMap)
     }, [articleList])
+
+    const doughnutColors = useMemo(() => dashboardService.uniqueColors(sourceList.length),
+        [sourceList]
+    );
 
 
     return (
@@ -24,7 +28,7 @@ const SorucePercentageList: FC<SourcePercentageListProps> = ({ articleList }) =>
             {sourceList.map((source, idx) => (
                 <StyledSourceListItem key={idx}>
                     <SourceSpan color={'#030035'}>{source.name}</SourceSpan>
-                    <SourceSpan color={'#9FA2B4'}>{source.percentage.toFixed(1)}%</SourceSpan>
+                    <SourceSpan color={'#9FA2B4'}>{source.value.toFixed(1)}%</SourceSpan>
 
                 </StyledSourceListItem>
             ))}

@@ -1,3 +1,4 @@
+import { doughnutColors } from "../constants/constants";
 import { Article } from "../models/article-interface";
 import { format, subMonths } from "date-fns"
 
@@ -7,7 +8,9 @@ export const dashboardService = {
     getSourceCount,
     getArticlesDates,
     getPastSixMonth,
-    getSourcePercentageListToShow
+    getSourcePercentageListToShow,
+    uniqueColors,
+    countMonthsOccurrences,
 
 }
 
@@ -103,10 +106,33 @@ function getSourcePercentageListToShow(articleList: Article[]) {
 
     const sourceMap = sources.map((source, idx) => ({
         name: source,
-        percentage: percentagesArr[idx]
+        value: percentagesArr[idx]
     }))
-    sourceMap.sort((a, b) => b.percentage - a.percentage)
+    sourceMap.sort((a, b) => b.value - a.value)
     // const topFourSources = sourceMap.slice(0, 4)
 
     return sourceMap
 }
+
+
+function randomHEX(): string {
+    return (
+        '#' +
+        Math.floor(Math.random() * 16777215)
+            .toString(16)
+            .padStart(6, '0')
+    );
+};
+
+function uniqueColors(length: number): string[] {
+    if (length <= doughnutColors.length) {
+        return doughnutColors
+    }
+    const colorsSet: Set<string> = new Set(doughnutColors)
+    do {
+        colorsSet.add(randomHEX())
+    } while (colorsSet.size < length)
+    return Array.from(colorsSet)
+};
+
+
