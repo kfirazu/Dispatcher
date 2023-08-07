@@ -6,7 +6,8 @@ import useIsMobile from '../../hooks/useIsMobile';
 import { UseIsTablet } from '../../hooks/useIsTablet';
 
 export interface TitleProps {
-    firstVisit?: boolean;
+    firstVisit?: boolean
+  
 }
 
 const PageTitle: React.FC = () => {
@@ -20,7 +21,7 @@ const PageTitle: React.FC = () => {
     return (
         <>
             {totalResults > 0 &&
-                <TitleStyled firstVisit={isFirstSearch} >
+                <TitleStyled isFirstSearch={isFirstSearch} isMobile={isMobile} isTablet={isTablet}>
                     {isFirstSearch && `Top Headlines In ${countryTitle}`}
                     {!isFirstSearch && totalResults > 0 && `${articleList.length} Total results`}
                 </TitleStyled>

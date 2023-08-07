@@ -2,24 +2,22 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAppDispatch, useAppSelector } from "../../store/hooks.store";
+import { useAppDispatch } from "../../store/hooks.store";
 import { updateFilterByDates } from "../../store/news/filter.reducer";
-import { FilterOptions, newsService } from "../../services/news.service";
+import { newsService } from "../../services/news.service";
 import "../../index.css"
 import DatePickerCustomInput from "./datepicker-custom-input";
-import { subDays } from "date-fns";
+import { addDays, subDays } from "date-fns";
 
 
 interface DatePickerProps {
+    disabled: boolean
 
 }
 
-const DatePickerCmp: React.FC<DatePickerProps> = () => {
+const DatePickerCmp: React.FC<DatePickerProps> = ({ disabled }) => {
 
     const dispatch = useAppDispatch()
-    const articleList = useAppSelector(state => state.news.articleList)
-    const filterBy = useAppSelector(state => state.filter.filterBy)
-    const searchQuery = useAppSelector(state => state.filter.searchQuery)
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [isOpen, setIsOpen] = useState(false)
@@ -67,6 +65,7 @@ const DatePickerCmp: React.FC<DatePickerProps> = () => {
             endDate={endDate}
             selectsRange
             placeholderText="Date"
+            disabled={disabled}
             showIcon
             onCalendarOpen={toggleDatePicker}
             calendarClassName="react-datepicker"
@@ -75,7 +74,8 @@ const DatePickerCmp: React.FC<DatePickerProps> = () => {
             showPopperArrow={false}
             open={isOpen}
             minDate={subDays(new Date(), 30)}
-            customInput={<DatePickerCustomInput value={"hello"} onClick={toggleDatePicker} toggleDatePicker={toggleDatePicker} />}
+            maxDate={addDays(new Date(), 0)}
+            customInput={<DatePickerCustomInput value={"hello"} onClick={toggleDatePicker} toggleDatePicker={toggleDatePicker} disabled={disabled} />}
 
             onClickOutside={onCloseDatePicker}
         />

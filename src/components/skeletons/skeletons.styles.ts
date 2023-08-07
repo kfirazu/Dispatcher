@@ -90,6 +90,7 @@ export const CardImgContainer = styled.div`
 export const Article = styled.div`
   flex: 3;
   min-height: 100%;
+  width: 50vw;
   align-items: space-between;
   justify-content: space-between;
   padding: 1rem;

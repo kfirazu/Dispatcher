@@ -33,39 +33,76 @@ const FeedList: FC<FeedListProps> = () => {
     const status = useAppSelector(state => state.news.status)
     const page = useAppSelector(state => state.news.page)
     const observer = useRef<IntersectionObserver | null>()
-    const [endOfListMessage, setEndOfListMessage] = useState<string | null>(null)
 
+    const { country, source, category, language, type } = filterBy
 
-    const { data, isLoading, error, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
-        queryKey: ['articles', 'infinite'],
+    const { data, isLoading, error, isFetchingNextPage, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery({
+        queryKey: ['articles', { country, source, category, language, searchQuery, type }],
+        // queryKey: ['articles', 'infinite'],
+
         getNextPageParam: (lastPage: any, allPages) => {
             const nextPage = allPages.length + 1
+            if (!lastPage) {
+                return 1
+            }
             return lastPage.articles?.length > 0 ? nextPage : undefined
         },
         queryFn: ({ pageParam = 1 }) => loadMoreArticles(filterBy, searchQuery, pageParam),
+        // cacheTime: 0,
+        // staleTime: 0,
+        onSuccess: (data) => {
+            if (data) {
+                console.log('Fetching data on SUCCESS')
+                // Handle the article list update when the query is successful
+                const lastPageArticles = data.pages[data.pages.length - 1].articles;
+                const lastPageStatus = data.pages[data.pages.length - 1].status;
+                console.log('lastPageStatus:', lastPageStatus)
+                const totalResultsArr = data.pages.flatMap((page) => page.totalResults);
+                const totalResults = totalResultsArr.reduce((acc, pageResults) => acc + pageResults, 0);
+                dispatch(updateArticleList({ articles: lastPageArticles, totalResults: totalResults, status: lastPageStatus }));
+                dispatch(setTotalResults(totalResults))
+            } else {
+                console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
+                dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
+            }
+
+        },
+        onError: () => {
+            console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
+            dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
+        }
 
     })
 
-    useEffect(() => {
-        if (data) {
-            const lastPageArticles = data.pages[data.pages.length - 1].articles
-            const lastPageStatus = data.pages[data.pages.length - 1].status
-            const totalResultsArr = data.pages.flatMap(page => page.totalResults)
-            // get total amount of results
-            const totalResults: number = totalResultsArr.reduce((acc, pageResults) => acc + pageResults, 0)
-            // send only last page articles to store and spread it there
-            dispatch(updateArticleList({ articles: lastPageArticles, totalResults: totalResults, status: lastPageStatus }));
-            dispatch(setTotalResults(totalResults))
-            // isLoading ? dispatch(setIsLoading(true)) : dispatch((setIsLoading(false)))
-            // if (isFirstSearch) {   // FIX: happens on the first render and shoul happen only when scroll oe search
-            //     dispatch(setIsFirstSearch());
-            // }
-        }
-        else {
-            console.log('got into else there is no data')
-            dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
-        }
-    }, [isFetchingNextPage, isLoading, data]);
+    // useEffect(() => {
+    //     console.log('STATUSSSS:', status)
+    //     console.log('TOTAL RESULTSSSS:', totalResults)
+    //     console.log('(CHECK IS NO DATA:', (status === Status.SUCCEEDED || status === Status.OK) && totalResults === 0)
+    // }, [totalResults, data])
+    // useEffect(() => {
+    //     if (data) {
+    //         const lastPageArticles = data.pages[data.pages.length - 1].articles
+    //         const lastPageStatus = data.pages[data.pages.length - 1].status
+    //         const totalResultsArr = data.pages.flatMap(page => page.totalResults)
+    //         // get total amount of results
+    //         const totalResults: number = totalResultsArr.reduce((acc, pageResults) => acc + pageResults, 0)
+    //         // send only last page articles to store and spread it there
+    //         console.log('data:', data)
+    //         // console.log('lastPageStatus:', lastPageStatus)
+    //         // console.log('status from store before update article list:', status)
+    //         // if (data.pages[data.pages.length - 1] !== data.pages[data.pages.length - 2]) {
+    //         dispatch(updateArticleList({ articles: lastPageArticles, totalResults: totalResults, status: lastPageStatus }));
+    //         dispatch(setTotalResults(totalResults))
+    //         // }
+    //         // if (isFirstSearch) {   // FIX: happens on the first render and shoul happen only when scroll oe search
+    //         //     dispatch(setIsFirstSearch());
+    //         // }
+    //     }
+    //     else {
+    //         console.log('GOT INTO ELSE IN USE EFFECT! TOTAL RES WILL BE 0')
+    //         dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
+    //     }
+    // }, [isFetchingNextPage, isLoading])
 
     const lastArticleRef = useCallback((node: any) => {
         if (isLoading) return
@@ -77,9 +114,10 @@ const FeedList: FC<FeedListProps> = () => {
                 // setPageNumber((prevPage) => prevPage + 1)
                 dispatch(incrementPage)
 
-                if (!isFetchingNextPage) {
+                if (!isFetchingNextPage && !isLoading && hasNextPage && !isFetching) {
                     fetchNextPage()
                 }
+
             }
         })
         if (node) {
@@ -89,12 +127,13 @@ const FeedList: FC<FeedListProps> = () => {
 
     const loadMoreArticles = async (filterBy: FilterBy, searchQuery: string, pageParam: number) => {
         try {
-            if (page < MAX_PAGE_NUM && totalResults < MAX_ARTICLE_LENGTH) {
+            if (page < MAX_PAGE_NUM && articleList.length < MAX_ARTICLE_LENGTH) {
+                console.log('FETCHING FROM LOAD MORE ARTICLES IN FEED LIST')
                 const res = await newsService.query(filterBy, searchQuery, pageParam)
                 return res
             } else {
                 console.log('GOT INTO ELSE!!!end of the list')
-                toast.info(`No more articles. You have reached the end of the list`, {
+                toast.info(`You\'ve reached the end of the list. There are no more articles to load`, {
                     position: "top-right",
                     autoClose: 2500,
                     hideProgressBar: false,
@@ -104,8 +143,7 @@ const FeedList: FC<FeedListProps> = () => {
                     progress: undefined,
                     theme: "light",
                 });
-                setEndOfListMessage('No more articles. You have reached the end of the list.')
-                return ['No more articles. You have reached the end of the list.'] // FIX : show this to the user at the bottom
+                return { articles: [], status: 'ok', totalResults: totalResults }
             }
         } catch (err) {
             console.error('Error fetching data:', err)
@@ -115,8 +153,7 @@ const FeedList: FC<FeedListProps> = () => {
 
     return (
         <FeedListWrapper noArticles={totalResults === 0}>
-            {/* {status === Status.LOADING && <Loader />} */}
-            {status === Status.LOADING && <SkeletonFeedList />}
+            {isLoading && <SkeletonFeedList />}
 
             {/* FIX: ShowSkeleton instead of loader */}
             {(status === Status.OK || status === Status.SUCCEEDED) && totalResults > 0 &&
@@ -137,13 +174,9 @@ const FeedList: FC<FeedListProps> = () => {
             }
 
             {
-                status === Status.SUCCEEDED && totalResults === 0 && (
+                (status === Status.SUCCEEDED || status === Status.OK) && totalResults === 0 && (
                     <NewNoData type="search" />
                 )
-            }
-            {
-                endOfListMessage &&
-                <div style={{ textAlign: 'center' }}>{endOfListMessage}</div>
             }
         </FeedListWrapper >
 

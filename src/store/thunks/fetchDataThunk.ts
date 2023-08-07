@@ -9,7 +9,7 @@ export const fetchArticles = createAsyncThunk(
         const filterBy = (thunkApi.getState() as RootState).filter.filterBy
         const searchQueryFromStore = (thunkApi.getState() as RootState).filter.searchQuery
         try {
-
+            console.log('GOTTTT INTTOOOOOO FETCHHHHH ARTICLESSSSSS')
             if (!filterBy) {
                 console.log('filterBy is null or undefined. Skipping API call.');
                 return { status: 'error', totalResults: 0, articles: [] };
@@ -22,11 +22,9 @@ export const fetchArticles = createAsyncThunk(
 
             if (isEverythingFilter) {
                 console.log('Skipping API call because filterBy contains type: "everything" || "top-headlines');
-                // You can return an empty array or any default value here.
-                // For now, returning an empty array as an example.
                 return { articles: [], state: 'ok', totalResults: 0 };
             }
-            console.log('fetch article from THUNK')
+            console.log('FETCH ARTICLES DATA THUNKKK')
             const res = await newsService.query(filterBy, searchQueryFromStore)
             console.log('res:', res)
             // const filteredArticles = res.articles

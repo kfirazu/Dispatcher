@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import { CustomDropdownProps } from "../../models/custom-dropdown-interface"
 import { StyledSortBarContainer } from "./sort-bar.style"
 import CustomDropdown from "../Dropdown/custom-dropdown"
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import MobileSortBar from "./mobile-sort-bar"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
-import { clearFilter } from "../../store/news/filter.reducer"
+import { clearFilter, setIsFilterCleared } from "../../store/news/filter.reducer"
 import { Button } from "../../stories/Button"
 
 export interface FilterDropdowns extends CustomDropdownProps { }
@@ -26,13 +26,30 @@ const Filter: FC<FilterProps> = () => {
     const currArticleSources = useAppSelector(state => state.filter.currArticlesSources)
     const filterBy = useAppSelector(state => state.filter.filterBy)
 
-    useEffect(() => {
-        console.log('RENDER FROM FILTER COMPONENT!')
-    }, [everythingSources])
 
     const onClearFilter = () => {
+        // setSelectedOption('')
         dispatch(clearFilter())
+        // dispatch(() => setIsFilterCleared(true))
     }
+
+    const { category, country, source } = filterBy
+
+    const isTopHeadlinesSourceDisabled = () => {
+        if (category !== '' || country !== '') {
+            return true
+        }
+        return false
+    }
+
+    const setEverythingFiltersDisabled = () => {
+        if (source === '') {
+            return true
+        }
+        return false
+    }
+
+
 
     const renderDropdowns = () => {
         if (isEverything) {
@@ -43,14 +60,17 @@ const Filter: FC<FilterProps> = () => {
                         type="Sort-by"
                         name="sortBy"
                         onClearFilter={onClearFilter}
+                        disabled={setEverythingFiltersDisabled()}
+
 
                     />
-                    <DatePickerCmp />
+                    <DatePickerCmp disabled={setEverythingFiltersDisabled()} />
                     <CustomDropdown
                         items={everythingSources}
                         type="Source"
                         name="source"
                         onClearFilter={onClearFilter}
+
 
                     />
                     <CustomDropdown
@@ -58,6 +78,8 @@ const Filter: FC<FilterProps> = () => {
                         type="Language"
                         name="language"
                         onClearFilter={onClearFilter}
+                        disabled={setEverythingFiltersDisabled()}
+
 
                     />
                 </>
@@ -72,8 +94,6 @@ const Filter: FC<FilterProps> = () => {
                         id={'country'}
                         type="Country"
                         onClearFilter={onClearFilter}
-
-
                     />
                     <CustomDropdown
                         items={categories}
@@ -82,6 +102,7 @@ const Filter: FC<FilterProps> = () => {
                         type="Catrgory"
                         onClearFilter={onClearFilter}
 
+
                     />
                     <CustomDropdown
                         items={currArticleSources}
@@ -89,6 +110,8 @@ const Filter: FC<FilterProps> = () => {
                         id={'source'}
                         type="Source"
                         onClearFilter={onClearFilter}
+                        disabled={isTopHeadlinesSourceDisabled()}
+
 
                     />
 

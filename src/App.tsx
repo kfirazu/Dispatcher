@@ -4,7 +4,7 @@ import AppHeader from './components/App-Header/app-header';
 import { useEffect } from 'react';
 import FeedList from './components/FeedList/feed-list'
 import Dashboard from './components/Dashboard/dashboard'
-import { AppContainer, ContentWrapper, MainContainer, StyledContentContainer } from './styles/global-styles';
+import { AppContainer, MainContainer, StyledContentContainer } from './styles/global-styles';
 import useIsMobile from './hooks/useIsMobile';
 import { useAppDispatch, useAppSelector } from './store/hooks.store';
 import { newsService } from './services/news.service';
@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getIPAddress())
-    dispatch(fetchArticles(filterBy))
+    // dispatch(fetchArticles(filterBy))
   }, [])
 
 
@@ -70,18 +70,12 @@ function App() {
           <AppHeader />
           {(isMobile || isTablet) && <SideBar />}
           <MainContainer isMobile={isMobile} isTablet={isTablet}>
-            {/* <ContentWrapper isMobile={isMobile}> */}
-            {/* <div style={{display: 'flex', flexDirection: 'column',width: '100%', justifyContent:'center'}}> */}
             <Filter />
             <PageTitle />
-            {/* </div> */}
             <StyledContentContainer >
-              {/* <SkeletonAreaChart /> */}
-                <FeedList />
+              <FeedList />
               <Dashboard />
             </StyledContentContainer>
-            {/* </ContentWrapper> */}
-            {/* {loadContent()} */}
           </MainContainer>
           <ToastContainer />
         </AppContainer>

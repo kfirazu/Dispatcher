@@ -11,6 +11,7 @@ export interface FilterState {
     everythingSources: DropdownOption[]
     currArticlesSources: DropdownOption[]
     mobileSideBarType: string
+    isFilterCleared: boolean
 
 }
 
@@ -33,7 +34,8 @@ const initialState: FilterState = {
     searchQuery: '',
     everythingSources: [],
     currArticlesSources: [],
-    mobileSideBarType: ''
+    mobileSideBarType: '',
+    isFilterCleared: false
 }
 
 export const FilterSlice = createSlice({
@@ -87,8 +89,11 @@ export const FilterSlice = createSlice({
         setMobileSideBarType: (state, action: PayloadAction<string>) => {
             state.mobileSideBarType = action.payload
         },
-        clearFilter: (state) =>  {
+        clearFilter: (state) => {
             state.filterBy = initialState.filterBy
+        },
+        setIsFilterCleared: (state, action: PayloadAction<boolean>) => {
+            state.isFilterCleared = action.payload
         },
     },
     extraReducers: {
@@ -109,6 +114,6 @@ export const {
     updateFilterBy, setSearchQuery,
     setFilterType, setEverythingSources,
     setCurrArticlesSources, updateFilterByDates,
-    setMobileSideBarType, clearFilter } = actions
+    setMobileSideBarType, clearFilter, setIsFilterCleared } = actions
 
 export default reducer

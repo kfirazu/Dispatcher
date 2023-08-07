@@ -43,6 +43,8 @@ export const newsSlice = createSlice({
             state.articleList = action.payload
         },
         updateArticleList: (state, action: PayloadAction<NewsApiResponse>) => {
+            console.log('ARTICLE LIST UPDATING FROM UPDATE ARTICLE LIST IN NEWS REDUCER!!!')
+            state.status = action.payload.status
             state.articleList = [...state.articleList, ...action.payload.articles]
             state.totalResults = action.payload.totalResults
         },
@@ -63,16 +65,14 @@ export const newsSlice = createSlice({
             return updateState;
         },
 
-
-
     },
     extraReducers: builder => {
         builder.addCase(fetchArticles.fulfilled, (state, action: PayloadAction<NewsApiResponse>) => {
+            console.log('ARTICLE LIST UPDATING FROM FULLFILLED IN REDUCER!!!')
             if (action.payload === undefined) {
                 console.log(" action.payload is undefined so i cannot spread it!")
                 state.articleList = state.articleList
                 state.status = Status.SUCCEEDED
-                console.log('state.status:', state.status)
             }
             if (action.payload !== undefined) {
                 state.articleList = [...action.payload?.articles]

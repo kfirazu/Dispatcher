@@ -1,5 +1,5 @@
 import { SelectProps } from "@mui/material"
-import { ReactNode } from "react"
+import { Dispatch, ReactNode } from "react"
 
 export interface CustomDropdownProps extends SelectProps {
     width?: string
@@ -13,7 +13,6 @@ export interface CustomDropdownProps extends SelectProps {
     ref?: React.RefObject<HTMLSelectElement>
     placeholder?: string
     onClearFilter?: () => void
-
-
+    disabled?: boolean
 
 }

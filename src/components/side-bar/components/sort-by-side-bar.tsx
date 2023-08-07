@@ -32,7 +32,7 @@ const SortBySideBar: FC<SortBySideBarProps> = ({ children, filterTitle, onSelect
                     ))
                     : <StyledFilterItem>
                         <pre style={{fontSize: "11px"}}>
-                            Set 'Search in Everything' to use sorting
+                            Set type to everything to enable sorting
 
                         </pre>
                     </StyledFilterItem>

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import MobileBlackScreen from "../helpers/mobile-black-screen"
 import { StyledButton, StyledButtonContainer, StyledSideBarContainer } from "./side-bar.style"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
@@ -13,6 +13,7 @@ import { setIsEverything, setIsSideBarOpen } from "../../store/system/system.red
 import { SideBarType } from "../Sort-Bar/mobile-sort-bar"
 import SortBySideBar from "./components/sort-by-side-bar"
 import { toast } from "react-toastify"
+import { FilterOptions } from "../../services/news.service"
 
 interface SideBarProps {
 }
@@ -37,12 +38,29 @@ const SideBar: FC<SideBarProps> = () => {
         if (selectedCategoryValue === "Everything" || selectedCategoryValue === 'Top headlines') {
             dispatch(setIsEverything(!isEverything))
         }
+        if (selectedCategory === "Dates") {
+            console.log('Dates')
+        }
         setIsDefaultSideBar(false)
 
     }
 
     const onSelectCategoryValue = (value: string, title: string) => {
         setSelectedCategoryValue(title)
+
+        if (value === "Everything") {
+            dispatch(setIsEverything(!isEverything))
+        }
+        setSelectedValues((prevState) => ({
+            ...prevState,
+            [selectedCategory || '']: title, // Using an empty string as key when selectedCategory is null
+        }));
+        setSelectedCategory(null)
+
+        dispatch(updateFilterBy({
+            title: selectedCategory!.toLowerCase(),
+            value: value
+        }))
         toast.success(`"${title}" was added to filter`, {
             position: "top-center",
             autoClose: 2500,
@@ -55,18 +73,6 @@ const SideBar: FC<SideBarProps> = () => {
             style: {
             },
         })
-        if (value === "Everything") {
-            dispatch(setIsEverything(!isEverything))
-        }
-        setSelectedValues((prevState) => ({
-            ...prevState,
-            [selectedCategory || '']: title, // Using an empty string as key when selectedCategory is null
-        }));
-        setSelectedCategory(null)
-        dispatch(updateFilterBy({
-            title: selectedCategory!.toLowerCase(),
-            value: value
-        }))
         setIsDefaultSideBar(true)
     }
 
@@ -92,23 +98,38 @@ const SideBar: FC<SideBarProps> = () => {
                 title: 'sortBy',
                 value: value
             }))
-        }
 
-        toast.success(`"${title}" was added to filter`, {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            style: {
-            },
-        })
+
+            toast.success(`"${title}" was added to filter`, {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                style: {
+                },
+            })
+        }
 
     }
 
+    const { country, source, category, language, type, dates, sortBy } = filterBy
+    const isTopHeadlinesSourceDisabled = () => {
+        if (category !== '' || country !== '') {
+            return true
+        }
+        return false
+    }
+
+    const setEverythingFiltersDisabled = () => {
+        if (source === '') {
+            return true
+        }
+        return false
+    }
     const handleSubmit = () => {
         dispatch(fetchArticles(updatedFilterBy))
         dispatch(setIsSideBarOpen(false))
@@ -155,6 +176,8 @@ const SideBar: FC<SideBarProps> = () => {
                             selectedCategory={selectedCategory}
                             selectedValues={selectedValues}
                             selectedCategoryValue={selectedCategoryValue}
+                            // disabled={selectedCategoryValue === "Everything" ? setEverythingFiltersDisabled() : isTopHeadlinesSourceDisabled()}
+
                         />
                     }
                     {sideBarType === SideBarType.FILTER && !isDefaultSideBar &&
@@ -163,6 +186,7 @@ const SideBar: FC<SideBarProps> = () => {
                             children={setChildren()}
                             filterTitle={selectedCategory}
                             handleBack={handleBack}
+                        // short if with the function according to if is everything
                         />
                     }
                     {sideBarType === SideBarType.SORT_BY &&
