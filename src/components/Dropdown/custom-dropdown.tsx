@@ -78,7 +78,7 @@ const CustomDropdown: FC<CustomDropdownProps> = (props) => {
     return (
         <ClickAwayListener onClickAway={handleClickAway} >
             <FormControl style={{ position: 'relative' }}>
-                <ArrowDownIcon handleClick={toggleDropdown} />
+                <ArrowDownIcon handleClick={toggleDropdown} disabled={disabled}/>
                 <StyledDropdown
                     onClick={toggleDropdown}
                     IconComponent={() => null}

@@ -17,6 +17,8 @@ import { fetchArticles, getIPAddress } from './store/thunks/fetchDataThunk';
 import Filter from './components/Sort-Bar/filter';
 import PageTitle from './components/Feed-List-Title/feed-list-title';
 import { setIsFirstSearch } from './store/news/news.reducer';
+import DatePickerCmp from './components/Date-Selector/date-picker-cmp';
+import SkeletonFeedTitle from './components/skeletons/skeleton-feed-title';
 
 
 
@@ -33,19 +35,9 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(getIPAddress())
+    dispatch(() => getIPAddress())
     // dispatch(fetchArticles(filterBy))
   }, [])
-
-
-  // useEffect(() => {
-  //   if (country && isFirstVisit) {
-  //     dispatch(fetchArticles());
-  //     setIsFirstSearch();
-  //   }
-  // }, [dispatch, country, isFirstSearch]);
-
-
 
   useEffect(() => {
     const currSources = newsService.getCurrArticleListSources(articleList)
@@ -57,7 +49,7 @@ function App() {
       (async () => {
         const allSources = await newsService.getSources();
         dispatch(setEverythingSources(allSources))
-      })();
+      })()
     }
 
   }, [isEverything])

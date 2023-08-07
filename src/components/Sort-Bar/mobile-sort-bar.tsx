@@ -32,7 +32,7 @@ const MobileSortBar: FC<MobileSortBarPeops> = () => {
             <StyledTextContainer onClick={() => onOpenSideBar(SideBarType.SORT_BY)}>Sort by
                 <StyledIcon src={arrowDownIcon} width="16" height="16"></StyledIcon>
             </StyledTextContainer>
-            <StyledIcon src={SortIcon} width="28" height="28" onClick={() => onOpenSideBar(SideBarType.FILTER)}></StyledIcon>
+            <StyledIcon src={SortIcon} width="28" height="28" onClick={() => onOpenSideBar(SideBarType.FILTER)} disabled={false}></StyledIcon>
         </MobileSortBarContainer>
 
 

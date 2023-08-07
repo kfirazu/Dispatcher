@@ -1,5 +1,5 @@
 import { SelectProps } from "@mui/material"
-import { Dispatch, ReactNode } from "react"
+import {  ReactNode } from "react"
 
 export interface CustomDropdownProps extends SelectProps {
     width?: string

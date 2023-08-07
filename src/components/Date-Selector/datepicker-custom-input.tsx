@@ -28,6 +28,7 @@ const DatePickerCustomInput = forwardRef<
                 height="24"
                 style={{ position: 'absolute', right: '11px', top: '11px', zIndex: '10' }}
                 onClick={toggleDatePicker}
+                disabled={disabled}
 
             />}
     </StyledInputWrapper>
