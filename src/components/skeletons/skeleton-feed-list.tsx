@@ -10,7 +10,7 @@ const SkeletonFeedList = () => {
     const skeletonArticles = Array(10).fill(0);
     return (
         <>
-            {skeletonArticles.map((el, index) => (
+            {skeletonArticles.map((_, index) => (
                 <CardPrimaryStyled key={`skeleton-card-${index}`}>
                     <CardImgContainer>
                         <SkeletonCardImage

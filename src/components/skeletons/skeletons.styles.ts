@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 
 export const sx = { bgcolor: '#d9dbe9' };
+export const feedListTitleSx = { bgcolor: '#d9dbe9', fontSize: '2rem' , marginLeft: '25px'}
 
 export const SkeletonCardImage = styled(Skeleton)`
   border-radius: 1.25rem 0 0 1.25rem;
@@ -55,8 +56,8 @@ export const CardPrimaryStyled = styled.div`
   min-height: max(12.6vw, 15.125rem);
   margin-bottom: 1.5rem;
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
-  border - radius: 1.25rem;
-  background - color: #FFFFFF;
+  border-radius: 1.25rem;
+  background-color: #FFFFFF;
   border: 1px solid #d9dbe9;
 
   @media only screen and (max-width: 700px) {
@@ -98,9 +99,13 @@ export const Article = styled.div`
   @media only screen and (max-width: 768px) {
     padding-block: 0.59rem;
     min-height: 60%;
+    width: 700px;
+
   }
   @media only screen and (max-width: 375px) {
     padding-block: 0.59rem 1rem;
     min-height: 66%;
+    width: 280px;
+
   }
-`;
+`

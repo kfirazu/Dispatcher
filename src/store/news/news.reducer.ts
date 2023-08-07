@@ -64,11 +64,23 @@ export const newsSlice = createSlice({
             const updateState = { ...state, isFirstSearch: false };
             return updateState;
         },
+        setStatus: (state, action: PayloadAction<boolean>) => {
+            if (action.payload === true) {
+                console.log('IS LOADING IS TRUE')
+                state.status = Status.LOADING
+            }
+            console.log('is LOADING probably false:', action.payload)
+
+        }
 
     },
     extraReducers: builder => {
+
+        builder.addCase(fetchArticles.pending, (state) => {
+            state.status = Status.LOADING
+        })
         builder.addCase(fetchArticles.fulfilled, (state, action: PayloadAction<NewsApiResponse>) => {
-            console.log('ARTICLE LIST UPDATING FROM FULLFILLED IN REDUCER!!!')
+            // console.log('ARTICLE LIST UPDATING FROM FULLFILLED IN REDUCER!!!')
             if (action.payload === undefined) {
                 console.log(" action.payload is undefined so i cannot spread it!")
                 state.articleList = state.articleList
@@ -80,12 +92,12 @@ export const newsSlice = createSlice({
                 state.error = null
             }
         })
-        builder.addCase(fetchArticles.pending, state => {
-            state.status = Status.LOADING
-        })
         builder.addCase(fetchArticles.rejected, (state, action) => {
             state.error = action.error.message || null
             state.status = Status.FAILED
+        })
+        builder.addCase(fetchArticlesBySearchQuery.pending, state => {
+            state.status = Status.LOADING
         })
         builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action: PayloadAction<NewsApiResponse>) => {
             if (action.payload.status === Status.OK) {
@@ -94,7 +106,7 @@ export const newsSlice = createSlice({
                 state.status = Status.SUCCEEDED
                 state.error = null
             } else {
-                console.log('status in reducer not ok:', action.payload.status)
+                // console.log('status in reducer not ok:', action.payload.status)
                 state.totalResults = action.payload.totalResults
                 state.status = Status.SUCCEEDED;
                 state.articleList = [];
@@ -102,9 +114,6 @@ export const newsSlice = createSlice({
 
             }
 
-        })
-        builder.addCase(fetchArticlesBySearchQuery.pending, state => {
-            state.status = Status.LOADING
         })
         builder.addCase(fetchArticlesBySearchQuery.rejected, (state, action) => {
             state.error = action.error.message || null
@@ -118,6 +127,6 @@ export const newsSlice = createSlice({
 
 const { actions, reducer } = newsSlice
 
-export const { setInitialArticleList, updateArticleList, setArticleList, incrementPage, setIsNoData, setTotalResults, setIsFirstSearch } = actions
+export const { setInitialArticleList, updateArticleList, setArticleList, incrementPage, setIsNoData, setTotalResults, setIsFirstSearch, setStatus } = actions
 
 export default reducer

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TitleStyled } from './feed-list-title.style';
 import { useAppSelector } from '../../store/hooks.store'
 import { locationService } from '../../services/location.service'
 import useIsMobile from '../../hooks/useIsMobile';
 import { UseIsTablet } from '../../hooks/useIsTablet';
+import { Status } from '../../store/news/news.reducer';
+import SkeletonFeedTitle from '../skeletons/skeleton-feed-title';
 
 export interface TitleProps {
     firstVisit?: boolean
-  
+
 }
 
 const PageTitle: React.FC = () => {
@@ -18,8 +20,12 @@ const PageTitle: React.FC = () => {
     const totalResults = useAppSelector((state) => state.news.totalResults)
     const countryTitle = locationService.findCountryById(country).title
     const articleList = useAppSelector((state) => state.news.articleList)
+    const status = useAppSelector(state => state.news.status)
+
+
     return (
         <>
+            {status === Status.LOADING && <SkeletonFeedTitle />}
             {totalResults > 0 &&
                 <TitleStyled isFirstSearch={isFirstSearch} isMobile={isMobile} isTablet={isTablet}>
                     {isFirstSearch && `Top Headlines In ${countryTitle}`}
