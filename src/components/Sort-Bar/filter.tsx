@@ -128,7 +128,7 @@ const Filter: FC<FilterProps> = () => {
                 <StyledSortBarContainer>
                     {renderDropdowns()}
 
-                    <Button label="Clear Filters" onClick={onClearFilter} />
+                    {/* <Button label="Clear Filters" onClick={onClearFilter} /> */}
                 </StyledSortBarContainer >
             )}
             {(isMobile || isTablet) && <MobileSortBar />}

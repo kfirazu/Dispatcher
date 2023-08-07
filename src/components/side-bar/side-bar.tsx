@@ -13,12 +13,14 @@ import { setIsEverything, setIsSideBarOpen } from "../../store/system/system.red
 import { SideBarType } from "../Sort-Bar/mobile-sort-bar"
 import SortBySideBar from "./components/sort-by-side-bar"
 import { toast } from "react-toastify"
-import { FilterOptions } from "../../services/news.service"
+import DatePickerCmp from "../Date-Selector/date-picker-cmp"
+import useIsMobile from "../../hooks/useIsMobile"
 
 interface SideBarProps {
 }
 const SideBar: FC<SideBarProps> = () => {
 
+    const isMobile = useIsMobile()
     const dispatch = useAppDispatch()
     const isSideBarOpen = useAppSelector(state => state.system.isSideBarOpen)
     const filterBy = useAppSelector(state => state.filter.filterBy)
@@ -39,7 +41,6 @@ const SideBar: FC<SideBarProps> = () => {
             dispatch(setIsEverything(!isEverything))
         }
         if (selectedCategory === "Dates") {
-            console.log('Dates')
         }
         setIsDefaultSideBar(false)
 
@@ -61,8 +62,8 @@ const SideBar: FC<SideBarProps> = () => {
             title: selectedCategory!.toLowerCase(),
             value: value
         }))
-        toast.success(`"${title}" was added to filter`, {
-            position: "top-center",
+        toast.success(`${title} was added to filter`, {
+            position: isMobile ? "top-center" : "bottom-left",
             autoClose: 2500,
             hideProgressBar: false,
             closeOnClick: true,
@@ -73,12 +74,20 @@ const SideBar: FC<SideBarProps> = () => {
             style: {
             },
         })
+        if (selectedCategory === "Date") {
+            dispatch(setIsSideBarOpen(false))
+            onSelectDateFilter()
+        }
         setIsDefaultSideBar(true)
+    }
+
+    const onSelectDateFilter = () => {
+        return <DatePickerCmp disabled={setEverythingFiltersDisabled()} />
     }
 
     const onSelectSortByValue = (value: string, title: string) => {
         if (filterBy.source === '') {
-            toast.error(`Please select a source before applying sorting.`, {
+            toast.info(`Please select a source before applying sorting.`, {
                 position: "top-center",
                 autoClose: 2500,
                 hideProgressBar: false,
@@ -176,7 +185,7 @@ const SideBar: FC<SideBarProps> = () => {
                             selectedCategory={selectedCategory}
                             selectedValues={selectedValues}
                             selectedCategoryValue={selectedCategoryValue}
-                            // disabled={selectedCategoryValue === "Everything" ? setEverythingFiltersDisabled() : isTopHeadlinesSourceDisabled()}
+                        // disabled={selectedCategoryValue === "Everything" ? setEverythingFiltersDisabled() : isTopHeadlinesSourceDisabled()}
 
                         />
                     }

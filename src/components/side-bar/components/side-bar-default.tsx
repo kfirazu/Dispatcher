@@ -16,7 +16,7 @@ interface SideBarDefault {
 
 }
 
-const SideBarDefault: FC<SideBarDefault> = ({ handleSelectFilterCategory, selectedCategory, selectedCategoryValue, selectedValues }) => {
+const SideBarDefault: FC<SideBarDefault> = ({ handleSelectFilterCategory, selectedCategory }) => {
 
     const isEverything = useAppSelector(state => state.system.isEverything)
     const everythingFilters = Object.values(Everything)

@@ -1,7 +1,7 @@
 
 
 const MAX_PAGE_NUM = 10
-const MAX_ARTICLE_LENGTH = 150;
+const MAX_ARTICLE_LENGTH = 90;
 const defaultCountry = { title: 'Israel', value: 'il' }
 
 

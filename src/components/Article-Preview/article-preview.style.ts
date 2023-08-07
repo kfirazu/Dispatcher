@@ -146,6 +146,7 @@ ${({ width }) => `width: ${width}`}px;
 max-width: 100%;
 width: 100%;
 height:32px;
+min-height: 32px;
 font-size: 14px;
 line-height: 16.4px;
 color: #5A5A89;

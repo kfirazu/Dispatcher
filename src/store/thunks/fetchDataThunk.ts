@@ -9,9 +9,9 @@ export const fetchArticles = createAsyncThunk(
         const filterBy = (thunkApi.getState() as RootState).filter.filterBy
         const searchQueryFromStore = (thunkApi.getState() as RootState).filter.searchQuery
         try {
-            console.log('GOTTTT INTTOOOOOO FETCHHHHH ARTICLESSSSSS')
+            // console.log('GOTTTT INTTOOOOOO FETCHHHHH ARTICLESSSSSS')
             if (!filterBy) {
-                console.log('filterBy is null or undefined. Skipping API call.');
+                // console.log('filterBy is null or undefined. Skipping API call.');
                 return { status: 'error', totalResults: 0, articles: [] };
             }
             // Check if the filterBy object only contains type: 'everything' || 'top-headlines and all other properties are empty
@@ -21,12 +21,12 @@ export const fetchArticles = createAsyncThunk(
                 Object.values(filterBy).every((value) => value === '');
 
             if (isEverythingFilter) {
-                console.log('Skipping API call because filterBy contains type: "everything" || "top-headlines');
+                // console.log('Skipping API call because filterBy contains type: "everything" || "top-headlines');
                 return { articles: [], state: 'ok', totalResults: 0 };
             }
-            console.log('FETCH ARTICLES DATA THUNKKK')
+            // console.log('FETCH ARTICLES DATA THUNKKK')
             const res = await newsService.query(filterBy, searchQueryFromStore)
-            console.log('res:', res)
+            // console.log('res:', res)
             // const filteredArticles = res.articles
             // return filteredArticles
             // console.log('res:', res)
@@ -43,7 +43,7 @@ export const fetchArticles = createAsyncThunk(
 export const fetchArticlesBySearchQuery: AsyncThunk<any, string, { state: RootState }> =
     createAsyncThunk(
         'filter/fetchBySearchQueryThunk', async (searchQuery: string, { rejectWithValue, getState }) => {
-            console.log('fetch by search term THUNK2!!')
+            // console.log('fetch by search term THUNK2!!')
             const searchQueryFromStore = (getState() as RootState).filter.searchQuery
             const filterBy = (getState() as RootState).filter.filterBy
             try {

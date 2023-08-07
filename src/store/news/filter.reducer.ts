@@ -54,7 +54,7 @@ export const FilterSlice = createSlice({
 
         },
         setFilterType: (state, action: PayloadAction<FilterOptionPayload>) => {
-            console.log('action.payload.value:', action.payload.value)
+            // console.log('action.payload.value:', action.payload.value)
             state.filterBy.type = action.payload.value
             if (action.payload.value === "Everything") {
                 state.filterBy.country = ''
