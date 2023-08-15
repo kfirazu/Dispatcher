@@ -12,6 +12,7 @@ export interface FilterState {
     currArticlesSources: DropdownOption[]
     mobileSideBarType: string
     isFilterCleared: boolean
+    isMobileDatePickerOpen: boolean
 
 }
 
@@ -35,7 +36,8 @@ const initialState: FilterState = {
     everythingSources: [],
     currArticlesSources: [],
     mobileSideBarType: '',
-    isFilterCleared: false
+    isFilterCleared: false,
+    isMobileDatePickerOpen: false
 }
 
 export const FilterSlice = createSlice({
@@ -95,6 +97,9 @@ export const FilterSlice = createSlice({
         setIsFilterCleared: (state, action: PayloadAction<boolean>) => {
             state.isFilterCleared = action.payload
         },
+        setIsMobileDatePickerOpen: (state, action: PayloadAction<boolean>) => {
+            state.isMobileDatePickerOpen = action.payload
+        }
     },
     extraReducers: {
         [getIPAddress.fulfilled.type]: (state, action: PayloadAction<string>) => {
@@ -114,6 +119,8 @@ export const {
     updateFilterBy, setSearchQuery,
     setFilterType, setEverythingSources,
     setCurrArticlesSources, updateFilterByDates,
-    setMobileSideBarType, clearFilter, setIsFilterCleared } = actions
+    setMobileSideBarType, clearFilter, setIsFilterCleared,
+    setIsMobileDatePickerOpen
+} = actions
 
 export default reducer

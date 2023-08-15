@@ -44,6 +44,7 @@ export const newsSlice = createSlice({
         },
         updateArticleList: (state, action: PayloadAction<NewsApiResponse>) => {
             console.log('ARTICLE LIST UPDATING FROM UPDATE ARTICLE LIST IN NEWS REDUCER!!!')
+            console.log('action.payload:', action.payload)
             state.status = action.payload.status
             state.articleList = [...state.articleList, ...action.payload.articles]
             state.totalResults = action.payload.totalResults
@@ -66,11 +67,8 @@ export const newsSlice = createSlice({
         },
         setStatus: (state, action: PayloadAction<boolean>) => {
             if (action.payload === true) {
-                console.log('IS LOADING IS TRUE')
                 state.status = Status.LOADING
             }
-            console.log('is LOADING probably false:', action.payload)
-
         }
 
     },

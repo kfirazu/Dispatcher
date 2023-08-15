@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import { DropdownOption, FilterBy } from "../models/filter-by"
 import { Source } from "../models/source-interface"
 import { Article } from "../models/article-interface"
-import { countries, defaultCountry } from "../constants/constants"
+import { httpService } from "./http.service"
 
 export const newsService = {
     query,
@@ -12,6 +12,7 @@ export const newsService = {
     getSources,
     getCurrArticleListSources,
     formatFilterDates,
+    queryToBackend
 
 }
 
@@ -107,6 +108,29 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
 
 }
 
+async function queryToBackend(filterBy: FilterBy, searchQuery?: string, page: number = 1) {
+    // try {
+
+    //     const response = await httpService.get('articles', { filterBy, searchQuery, page })
+    //     console.log('articles from service:', response)
+    //     return response
+    // } catch (err) {
+    //     console.log('Query has failed', err)
+    //     throw err
+
+    // }
+}
+
+// async function query() {
+//     try {
+//         // return await httpService.get(BASE_URL)
+//         const boards = await httpService.get(BASE_URL)
+//         return boards
+//     } catch (err) {
+//         console.log('Query has failed:', err)
+//         throw err
+//     }
+// }
 function formatDate(dateStr: string) {
     const formattedDate = format(new Date(dateStr), 'eeee MMM dd, yyyy')
     return formattedDate

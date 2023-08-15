@@ -11,16 +11,11 @@ import { newsService } from './services/news.service';
 import { UseIsTablet } from './hooks/useIsTablet';
 import SideBar from './components/side-bar/side-bar';
 import { setCurrArticlesSources, setEverythingSources } from './store/news/filter.reducer';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchArticles, getIPAddress } from './store/thunks/fetchDataThunk';
+import { getIPAddress } from './store/thunks/fetchDataThunk';
 import Filter from './components/Sort-Bar/filter';
 import PageTitle from './components/Feed-List-Title/feed-list-title';
-import { setIsFirstSearch } from './store/news/news.reducer';
-import DatePickerCmp from './components/Date-Selector/date-picker-cmp';
-import SkeletonFeedTitle from './components/skeletons/skeleton-feed-title';
-
-
 
 function App() {
 
@@ -29,14 +24,10 @@ function App() {
   const dispatch = useAppDispatch()
   const isEverything = useAppSelector(state => state.system.isEverything)
   const articleList = useAppSelector(state => state.news.articleList)
-  const filterBy = useAppSelector(state => state.filter.filterBy)
   // const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
-
-
 
   useEffect(() => {
     dispatch(() => getIPAddress())
-    // dispatch(fetchArticles(filterBy))
   }, [])
 
   useEffect(() => {

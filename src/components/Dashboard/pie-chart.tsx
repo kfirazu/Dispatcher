@@ -8,9 +8,6 @@ import {
     Label,
     ResponsiveContainer,
 } from 'recharts';
-import { Status } from "../../store/news/news.reducer";
-import Loader from "../Loader/loader";
-import { useAppSelector } from "../../store/hooks.store";
 
 
 interface PieChartProps {
@@ -21,8 +18,6 @@ interface PieChartProps {
 const DoughnutGraph: FC<PieChartProps> = ({ articleList }) => {
 
     const totalSources = articleList.length;
-    const totalResults = useAppSelector(state => state.news.totalResults)
-
     const [sourceList, setSourceList] = useState<{ name: string, value: number }[]>([])
 
     useMemo(() => {
@@ -38,10 +33,6 @@ const DoughnutGraph: FC<PieChartProps> = ({ articleList }) => {
 
     return (
         <>
-            {totalResults > 0 && status === Status.LOADING && (
-                // <DoughnutChart articleList={articleList} />
-                <Loader />
-            )}
             <ResponsiveContainer width={170} height={170}>
                 <PieChart
                     margin={{
@@ -59,14 +50,13 @@ const DoughnutGraph: FC<PieChartProps> = ({ articleList }) => {
                         dataKey='value'
                     >
                         <Label value={totalSources} position='center' />
-                        {sourceList.map((entry, index) => (
+                        {sourceList.map((_, index) => (
                             <Cell
                                 key={`cell-${index}`}
                                 fill={doughnutColors[index % doughnutColors.length]}
                             />
                         ))}
                     </Pie>
-                    {/* <Legend verticalAlign='bottom' content={renderLegend} /> */}
                 </PieChart>
             </ResponsiveContainer>
         </>

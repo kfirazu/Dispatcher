@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import { Article } from "../../models/article-interface"
 import ArticlePreview from "../Article-Preview/article-preview"
 import { FeedListWrapper, StyledList } from "./feed-list.style"
@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { newsService } from "../../services/news.service"
-import { Status, incrementPage, setIsFirstSearch, setStatus, setTotalResults, updateArticleList } from "../../store/news/news.reducer"
+import { Status, incrementPage, setStatus, setTotalResults, updateArticleList } from "../../store/news/news.reducer"
 import { FilterBy } from "../../models/filter-by"
 import { MAX_ARTICLE_LENGTH, MAX_PAGE_NUM } from "../../constants/constants"
 import { toast } from "react-toastify"
@@ -33,7 +33,12 @@ const FeedList: FC<FeedListProps> = () => {
     const page = useAppSelector(state => state.news.page)
     const observer = useRef<IntersectionObserver | null>()
 
+    useEffect(() => {
+        console.log('FEED LIST RENDERING')
+    }, [])
+
     const { country, source, category, language, type } = filterBy
+
     const { data, isLoading, error, isFetchingNextPage, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery({
         queryKey: ['articles', { country, source, category, language, searchQuery, type }],
         getNextPageParam: (lastPage: any, allPages) => {
@@ -45,22 +50,24 @@ const FeedList: FC<FeedListProps> = () => {
         },
         queryFn: ({ pageParam = 1 }) => loadMoreArticles(filterBy, searchQuery, pageParam),
         onSuccess: (data) => {
-            if (data) {
-                // console.log('Fetching data on SUCCESS')
+            if (data.pages[0] !== undefined) {
+                console.log('data:', data)
+                console.log('FETHING DATA ONSUCCESS')
                 // Handle the article list update when the query is successful
-                const lastPageArticles = data.pages[data.pages.length - 1].articles;
+                const lastPageArticles = data.pages[data.pages.length - 1].articles
                 const lastPageStatus = data.pages[data.pages.length - 1].status;
                 const totalResultsArr = data.pages.flatMap((page) => page.totalResults);
                 const totalResults = totalResultsArr.reduce((acc, pageResults) => acc + pageResults, 0);
                 dispatch(updateArticleList({ articles: lastPageArticles, totalResults: totalResults, status: lastPageStatus }));
                 dispatch(setTotalResults(totalResults))
             } else {
-                // console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
-                dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
+                // Data.pages is undefined
+                console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
+                dispatch(updateArticleList({ articles: [], totalResults: 1, status: 'succeeded' }))
             }
         },
         onError: () => {
-            // console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
+            console.log('IM AN ERROR HANDLE ME')
             dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'succeeded' }))
         }
     })
@@ -126,6 +133,7 @@ const FeedList: FC<FeedListProps> = () => {
             if (page < MAX_PAGE_NUM && articleList.length < MAX_ARTICLE_LENGTH) {
                 // console.log('FETCHING FROM LOAD MORE ARTICLES IN FEED LIST')
                 const res = await newsService.query(filterBy, searchQuery, pageParam)
+                console.log('res from feed list:', res)
                 return res
             } else {
                 // console.log('GOT INTO ELSE!!!end of the list')

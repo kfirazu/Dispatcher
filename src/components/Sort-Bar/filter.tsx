@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { CustomDropdownProps } from "../../models/custom-dropdown-interface"
 import { StyledSortBarContainer } from "./sort-bar.style"
 import CustomDropdown from "../Dropdown/custom-dropdown"
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
 import MobileSortBar from "./mobile-sort-bar"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
-import { clearFilter, setIsFilterCleared } from "../../store/news/filter.reducer"
+import { clearFilter } from "../../store/news/filter.reducer"
 import { Button } from "../../stories/Button"
 
 export interface FilterDropdowns extends CustomDropdownProps { }
@@ -99,9 +99,8 @@ const Filter: FC<FilterProps> = () => {
                         items={categories}
                         name={'category'}
                         id={'category'}
-                        type="Catrgory"
+                        type="Category"
                         onClearFilter={onClearFilter}
-
 
                     />
                     <CustomDropdown

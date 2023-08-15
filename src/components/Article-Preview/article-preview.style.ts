@@ -59,10 +59,12 @@ ${({ isMobile }) => {
     }}
 `
 
-export const StyledImg = styled.img<{ isMobile: boolean }>`
+export const StyledImg = styled.img<{ isMobile: boolean, urlToImage: boolean }>`
 width: 100%;
 height: 100%;
 object-fit: cover;
+${({ isMobile, urlToImage }) => isMobile && urlToImage && 'object-fit: cover'};
+${({ isMobile, urlToImage }) => isMobile && !urlToImage && 'object-fit: contain'};
 ${({ isMobile }) => isMobile ? 'border-radius: 20px 20px 0 0' : 'border-radius: 20px 0 0 20px'};
 
 

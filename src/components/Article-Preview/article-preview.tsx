@@ -6,7 +6,11 @@ import { Article } from "../../models/article-interface"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { StyledButtonWrapper } from "../Button/button.style"
-import noImage from '../../assets/img/No_Image_Available.jpg'
+// import noImage from '../../assets/img/No_Image_Available.jpg'
+import noImage from '../../assets/img/no-image.jpeg'
+// import noImage from '../../assets/img/no-image-no-text.jpeg'
+
+
 
 interface ArticlePreviewProps {
     article: Article
@@ -22,7 +26,7 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
     return (
         <ArticlePreviewWrapper isMobile={isMobile} isTablet={isTablet}>
             <ImgWrapper isMobile={isMobile} isTablet={isTablet}>
-                <StyledImg src={urlToImage ? urlToImage : fallbackImage} alt="article" isMobile={isMobile} />
+                <StyledImg src={urlToImage ? urlToImage : fallbackImage} alt="article" isMobile={isMobile} urlToImage={urlToImage ? true : false} />
             </ImgWrapper>
             <ArticleContentWrapper isMobile={isMobile} isTablet={isTablet}>
                 <DateWrapper >{newsService.formatDate(publishedAt)}</DateWrapper>

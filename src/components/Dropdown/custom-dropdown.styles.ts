@@ -47,7 +47,7 @@ export const StyledMenuListSX = {
     paddingBottom: '3px',
     paddingTop: '3px',
     maxHeight: '125px',
-    overflow: 'auto',
+    overflow: 'hidden auto',
     borderRadius: '8px',
 
     '&::-webkit-scrollbar': {

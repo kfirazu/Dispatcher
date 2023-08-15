@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 export const sx = { bgcolor: '#d9dbe9' };
-export const feedListTitleSx = { bgcolor: '#d9dbe9', fontSize: '2rem' , marginLeft: '25px'}
+export const feedListTitleSx = { bgcolor: '#d9dbe9', fontSize: '2rem' , marginLeft: '5px'}
 
 export const SkeletonCardImage = styled(Skeleton)`
   border-radius: 1.25rem 0 0 1.25rem;
@@ -91,7 +91,7 @@ export const CardImgContainer = styled.div`
 export const Article = styled.div`
   flex: 3;
   min-height: 100%;
-  width: 50vw;
+  width: 52vw;
   align-items: space-between;
   justify-content: space-between;
   padding: 1rem;

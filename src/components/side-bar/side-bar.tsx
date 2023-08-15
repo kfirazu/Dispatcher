@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import MobileBlackScreen from "../helpers/mobile-black-screen"
 import { StyledButton, StyledButtonContainer, StyledSideBarContainer } from "./side-bar.style"
 import { useAppDispatch, useAppSelector } from "../../store/hooks.store"
@@ -7,14 +7,14 @@ import { categories, countries, languages, searchInOptions, sortByArr } from "..
 import { Everything, TopHeadlines } from "./side-bar.types"
 import SideBarContent from "./components/side-bar-content"
 import SideBarDefault from "./components/side-bar-default"
-import { updateFilterBy } from "../../store/news/filter.reducer"
+import { setIsMobileDatePickerOpen, updateFilterBy } from "../../store/news/filter.reducer"
 import { fetchArticles } from "../../store/thunks/fetchDataThunk"
 import { setIsEverything, setIsSideBarOpen } from "../../store/system/system.reducer"
 import { SideBarType } from "../Sort-Bar/mobile-sort-bar"
 import SortBySideBar from "./components/sort-by-side-bar"
 import { toast } from "react-toastify"
-import DatePickerCmp from "../Date-Selector/date-picker-cmp"
 import useIsMobile from "../../hooks/useIsMobile"
+import MobileDatePicker from "../Date-Selector/mobile-date-picker"
 
 interface SideBarProps {
 }
@@ -27,7 +27,7 @@ const SideBar: FC<SideBarProps> = () => {
     const isEverything = useAppSelector(state => state.system.isEverything)
     const everythingSources = useAppSelector(state => state.filter.everythingSources)
     const currArticlesSources = useAppSelector(state => state.filter.currArticlesSources)
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+    const [selectedCategory, setSelectedCategory] = useState<string | null>('')
     const [selectedCategoryValue, setSelectedCategoryValue] = useState<string | null>(null)
     const [selectedValues, setSelectedValues] = useState<{ [key: string]: string | null }>({});
     const [isDefaultSideBar, setIsDefaultSideBar] = useState(true)
@@ -36,19 +36,28 @@ const SideBar: FC<SideBarProps> = () => {
 
     const handleSelectFilterCategory = (filter: string) => {
         setSelectedCategory(filter)
+        console.log('selecTedCategory:', selectedCategory)
         setSelectedCategoryValue(selectedValues[filter] || null);
         if (selectedCategoryValue === "Everything" || selectedCategoryValue === 'Top headlines') {
             dispatch(setIsEverything(!isEverything))
         }
-        if (selectedCategory === "Dates") {
+        if (selectedCategory === "Date") {
+            onSelectDateFilter()
         }
         setIsDefaultSideBar(false)
+        // if (selectedCategory === "Dates") {
+
+        // }
 
     }
 
+    // useEffect(() => {
+    //     console.log('selecTedCategory:', selectedCategory);
+    // }, [selectedCategory]);
+
+
     const onSelectCategoryValue = (value: string, title: string) => {
         setSelectedCategoryValue(title)
-
         if (value === "Everything") {
             dispatch(setIsEverything(!isEverything))
         }
@@ -74,15 +83,14 @@ const SideBar: FC<SideBarProps> = () => {
             style: {
             },
         })
-        if (selectedCategory === "Date") {
-            dispatch(setIsSideBarOpen(false))
-            onSelectDateFilter()
-        }
+
         setIsDefaultSideBar(true)
     }
 
     const onSelectDateFilter = () => {
-        return <DatePickerCmp disabled={setEverythingFiltersDisabled()} />
+        dispatch(setIsMobileDatePickerOpen(true))
+        dispatch(setIsSideBarOpen(false))
+
     }
 
     const onSelectSortByValue = (value: string, title: string) => {
@@ -185,6 +193,8 @@ const SideBar: FC<SideBarProps> = () => {
                             selectedCategory={selectedCategory}
                             selectedValues={selectedValues}
                             selectedCategoryValue={selectedCategoryValue}
+                            onSelectDateFilter={onSelectDateFilter}
+                            setEverythingFiltersDisabled={setEverythingFiltersDisabled}
                         // disabled={selectedCategoryValue === "Everything" ? setEverythingFiltersDisabled() : isTopHeadlinesSourceDisabled()}
 
                         />

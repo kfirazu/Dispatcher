@@ -64,7 +64,7 @@ display: flex;
 ${({ isTablet }) => isTablet && 'padding: 5px 16px'};
 `
 
-export const FeedListWrapper = styled.div<{noArticles: boolean}>`
+export const FeedListWrapper = styled.div<{ noArticles: boolean }>`
 ${({ noArticles }) => noArticles && 'width: 50vw'};
 ${({ noArticles }) => noArticles && 'margin-top: 18vh'};
 

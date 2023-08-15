@@ -1,6 +1,6 @@
 export enum Everything {
     SEARCHIN = "Type",
-    // DATES = "Dates",
+    DATES = "Dates",
     SOURCES = "Sources",
     LANGUAGE = "Language",
 }

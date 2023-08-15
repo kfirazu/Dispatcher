@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TitleStyled } from './feed-list-title.style';
 import { useAppSelector } from '../../store/hooks.store'
 import { locationService } from '../../services/location.service'
@@ -25,13 +25,16 @@ const PageTitle: React.FC = () => {
 
     return (
         <>
-            {status === Status.LOADING && <SkeletonFeedTitle />}
-            {totalResults > 0 &&
+            {status === Status.LOADING
+                ? <SkeletonFeedTitle />
+                :
+                totalResults > 0 &&
                 <TitleStyled isFirstSearch={isFirstSearch} isMobile={isMobile} isTablet={isTablet}>
                     {isFirstSearch && `Top Headlines In ${countryTitle}`}
                     {!isFirstSearch && totalResults > 0 && `${articleList.length} Total results`}
                 </TitleStyled>
             }
+
         </>
 
     );

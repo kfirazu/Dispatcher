@@ -1,5 +1,4 @@
-import { FC, useEffect } from "react"
-import DoughnutChart from "./doughnut"
+import { FC } from "react"
 import LineChart from "./line"
 import { StyledChartHeading, StyledChartWrapper, StyledDashboardWrapper, StyledHeadingWrapper, StyledMonthListWrapper, StyledMonthName, StyledSourceListWrapper } from "./dashboard.style"
 import { dashboardService } from "../../services/dashboard-service"
@@ -7,11 +6,9 @@ import SorucePercentageList from "./source-pecentage-list"
 import useIsMobile from "../../hooks/useIsMobile"
 import { UseIsTablet } from "../../hooks/useIsTablet"
 import { useAppSelector } from "../../store/hooks.store"
-import DashbaordNoData from "../No-Data/dashboard-no-data"
 import NewNoData from "../No-Data/new-no-data"
 import { Status } from "../../store/news/news.reducer"
 import DoughnutGraph from "./pie-chart"
-import Loader from "../Loader/loader"
 import SkeletonAreaChart from "../skeletons/skeleton-line-chart"
 
 interface DashboardProps {
@@ -22,7 +19,6 @@ const Dashboard: FC<DashboardProps> = () => {
     const isMobile = useIsMobile()
     const isTablet = UseIsTablet()
     const articleList = useAppSelector(state => state.news.articleList)
-    const isNoData = useAppSelector(state => state.news.isNoData)
     const totalResults = useAppSelector(state => state.news.totalResults)
     const status = useAppSelector(state => state.news.status)
 
@@ -32,9 +28,6 @@ const Dashboard: FC<DashboardProps> = () => {
             {
                 (!isMobile && !isTablet) &&
                 <div>
-                    {/* {status === Status.LOADING && <Loader />} */}
-
-                    {/* <div style={{ height: '30px' }}></div> */}
                     <StyledDashboardWrapper >
                         <StyledChartWrapper noArticles={totalResults === 0}>
                             <StyledHeadingWrapper>
@@ -45,7 +38,6 @@ const Dashboard: FC<DashboardProps> = () => {
                             {status === Status.LOADING && <SkeletonAreaChart />}
 
                             {totalResults > 0 && status !== Status.LOADING && (
-                                // <DoughnutChart articleList={articleList} />
                                 <DoughnutGraph articleList={articleList} />
                             )}
                             {totalResults === 0 && status !== Status.LOADING && (
@@ -79,7 +71,6 @@ const Dashboard: FC<DashboardProps> = () => {
                         </StyledChartWrapper>
                     </StyledDashboardWrapper>
                 </div>
-                // : <DashbaordNoData />}
             }
         </>
     )
