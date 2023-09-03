@@ -57,7 +57,7 @@ ${({ isMobile, isTablet }) => {
 
 export const ContentWrapper = styled.div<{ isMobile: boolean }>`
 height: 100%;
-width: 100%
+width: 100%;
 
 ${({ isMobile }) => {
         if (isMobile) {

@@ -1,15 +1,15 @@
 
 export interface FilterBy {
-    [key: string]: string | DateOptions
-    type: string;
-    source: string;
-    category: string;
-    country: string;
-    language: string;
-    sortBy: string;
-    dates: DateOptions; 
+    [key: string]: string | Date | undefined
+    type: string
+    source: string
+    category: string
+    country: string
+    language: string
+    sortBy: string
+    from?: Date
+    to?: Date
 }
-
 
 export interface FilterOption {
     title?: string
@@ -23,7 +23,7 @@ export interface DropdownOption {
 
 }
 export interface DateOptions {
-    from: string | null
-    to: string | null
-  }
+    from: Date | null
+    to: Date | null
+}
 

@@ -49,7 +49,6 @@ const AppHeader: FC<AppHeaderProps> = () => {
         setIsFocused(false)
     }
 
-
     const handleSerachSubmit = (searchQuery: string) => {
         dispatch(setSearchQuery(searchQuery))
         const newSearchTerm = { id: utilService.makeId(), searchTerm: searchQuery }

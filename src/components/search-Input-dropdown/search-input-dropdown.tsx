@@ -41,7 +41,7 @@ const SearchInputDropdown: FC<CustomDropdownProps> = (props) => {
         }))
         dispatch(setFilterType({
             title: name,
-            value: strValue
+            value: strValue.toLocaleLowerCase()
         }))
         dispatch(setIsEverything(!isEverything))
     }

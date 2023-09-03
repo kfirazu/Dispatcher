@@ -51,7 +51,7 @@ const FeedList: FC<FeedListProps> = () => {
         queryFn: ({ pageParam = 1 }) => loadMoreArticles(filterBy, searchQuery, pageParam),
         onSuccess: (data) => {
             if (data.pages[0] !== undefined) {
-                console.log('data:', data)
+                // console.log('data:', data)
                 console.log('FETHING DATA ONSUCCESS')
                 // Handle the article list update when the query is successful
                 const lastPageArticles = data.pages[data.pages.length - 1].articles
@@ -63,7 +63,7 @@ const FeedList: FC<FeedListProps> = () => {
             } else {
                 // Data.pages is undefined
                 console.log('GOT INTO ELSE IN USE data! TOTAL RES WILL BE 0')
-                dispatch(updateArticleList({ articles: [], totalResults: 1, status: 'succeeded' }))
+                dispatch(updateArticleList({ articles: [], totalResults: 0, status: 'failed' }))
             }
         },
         onError: () => {
@@ -129,11 +129,11 @@ const FeedList: FC<FeedListProps> = () => {
     }, [isLoading, hasNextPage, isFetchingNextPage])
 
     const loadMoreArticles = async (filterBy: FilterBy, searchQuery: string, pageParam: number) => {
+        // console.log('filterBy:', filterBy)
         try {
             if (page < MAX_PAGE_NUM && articleList.length < MAX_ARTICLE_LENGTH) {
-                // console.log('FETCHING FROM LOAD MORE ARTICLES IN FEED LIST')
-                const res = await newsService.query(filterBy, searchQuery, pageParam)
-                console.log('res from feed list:', res)
+                console.log('FETCHING FROM LOAD MORE ARTICLES IN FEED LIST')
+                const res = await newsService.queryToBackend(filterBy, searchQuery, pageParam)
                 return res
             } else {
                 // console.log('GOT INTO ELSE!!!end of the list')
@@ -176,7 +176,7 @@ const FeedList: FC<FeedListProps> = () => {
             {(isLoading && !isFirstSearch) && <LinearProgress />}
 
             {
-                (status === Status.SUCCEEDED || status === Status.OK) && totalResults === 0 && (
+                (status === Status.SUCCEEDED || status === Status.OK || status === Status.FAILED) && totalResults === 0 && (
                     <NewNoData type="search" />
                 )
             }

@@ -1,16 +1,7 @@
 import styled, { css } from "styled-components";
 
 const StyledContainer = styled.header<{ isMobile: boolean, isTablet: boolean, isFocused?: boolean }>`
-max-width: 1920px;
-width: 100%;
-height: 74px;
-display: flex;
-align-items: center;
-background-color: #262146;
-padding-right: 20px;
-padding-left: 20px;
-border: 1px;
-box-shadow: 0px 32px 64px 0px #0000000D;
+
 
 ${({ isMobile, isTablet, isFocused }) => {
         if ((isMobile && isFocused)) {

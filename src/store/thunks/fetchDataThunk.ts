@@ -25,7 +25,8 @@ export const fetchArticles = createAsyncThunk(
                 return { articles: [], state: 'ok', totalResults: 0 };
             }
             // console.log('FETCH ARTICLES DATA THUNKKK')
-            const res = await newsService.query(filterBy, searchQueryFromStore)
+            const res = await newsService.queryToBackend(filterBy, searchQueryFromStore)
+            console.log('res THUNKKKK:', res)
             // console.log('res:', res)
             // const filteredArticles = res.articles
             // return filteredArticles
@@ -47,8 +48,8 @@ export const fetchArticlesBySearchQuery: AsyncThunk<any, string, { state: RootSt
             const searchQueryFromStore = (getState() as RootState).filter.searchQuery
             const filterBy = (getState() as RootState).filter.filterBy
             try {
-                const res = await newsService.query(filterBy, searchQueryFromStore)
-                console.log('res:', res)
+                const res = await newsService.queryToBackend(filterBy, searchQueryFromStore)
+                // console.log('res:', res)
                 return res
             } catch (err) {
                 return rejectWithValue(JSON.stringify(err));

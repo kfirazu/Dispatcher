@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { DateOptions, DropdownOption, FilterBy } from '../../models/filter-by'
-import { FilterOptions } from '../../services/news.service'
+import { FilterOptions, newsService } from '../../services/news.service'
 import { getIPAddress } from '../thunks/fetchDataThunk'
 import { defaultCountry } from '../../constants/constants'
 
@@ -29,7 +29,8 @@ const initialState: FilterState = {
         category: '',
         language: '',
         sortBy: '',
-        dates: { from: '', to: '' },
+        from: undefined,
+        to: undefined
 
     },
     searchQuery: '',
@@ -58,16 +59,17 @@ export const FilterSlice = createSlice({
         setFilterType: (state, action: PayloadAction<FilterOptionPayload>) => {
             // console.log('action.payload.value:', action.payload.value)
             state.filterBy.type = action.payload.value
-            if (action.payload.value === "Everything") {
+            if (action.payload.value === "everything") {
                 state.filterBy.country = ''
                 state.filterBy.category = ''
                 state.filterBy.source = ''
             }
-            if (action.payload.value === "Top-headlines") {
+            if (action.payload.value === "top-headlines") {
                 state.filterBy.language = ''
                 state.filterBy.sortBy = ''
                 state.filterBy.source = ''
-                state.filterBy.dates = { from: '', to: '' }
+                state.filterBy.from = undefined
+                state.filterBy.to = undefined
             }
         },
         setSearchQuery: (state: FilterState, action: PayloadAction<string>) => {
@@ -80,14 +82,17 @@ export const FilterSlice = createSlice({
             state.currArticlesSources = action.payload
         },
         updateFilterByDates: (state, action: PayloadAction<DateOptions>) => {
+            const { from, to } = action.payload
+            // const formattedDates = newsService.formatFilterDates(from, to)
+            // const { formattedStartDate, formattedEndDate } = formattedDates
+            // console.log('formattedDates:', formattedDates)
             state.filterBy = {
                 ...state.filterBy,
-                dates: {
-                    from: action.payload.from,
-                    to: action.payload.to
-                }
+                from: from ? from : undefined,
+                to: to ? to : undefined
             }
         },
+
         setMobileSideBarType: (state, action: PayloadAction<string>) => {
             state.mobileSideBarType = action.payload
         },

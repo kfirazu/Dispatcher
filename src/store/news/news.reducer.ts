@@ -44,7 +44,9 @@ export const newsSlice = createSlice({
         },
         updateArticleList: (state, action: PayloadAction<NewsApiResponse>) => {
             console.log('ARTICLE LIST UPDATING FROM UPDATE ARTICLE LIST IN NEWS REDUCER!!!')
-            console.log('action.payload:', action.payload)
+            if(!state.articleList.length) {
+                console.log('updatring')
+            }
             state.status = action.payload.status
             state.articleList = [...state.articleList, ...action.payload.articles]
             state.totalResults = action.payload.totalResults
@@ -78,6 +80,7 @@ export const newsSlice = createSlice({
             state.status = Status.LOADING
         })
         builder.addCase(fetchArticles.fulfilled, (state, action: PayloadAction<NewsApiResponse>) => {
+            // console.log('action.payload fetch articles:', action.payload)
             // console.log('ARTICLE LIST UPDATING FROM FULLFILLED IN REDUCER!!!')
             if (action.payload === undefined) {
                 console.log(" action.payload is undefined so i cannot spread it!")
@@ -85,9 +88,19 @@ export const newsSlice = createSlice({
                 state.status = Status.SUCCEEDED
             }
             if (action.payload !== undefined) {
-                state.articleList = [...action.payload?.articles]
-                state.status = action.payload.status
-                state.error = null
+                if (!action.payload.articles) {
+                    console.log('THERE ARE NO ARTICLES!! STATE>ARTICLELIST = []')
+                    state.articleList = []
+                    state.status = action.payload.status
+                    state.totalResults = action.payload.totalResults
+                } else {
+                    console.log('GOT INTO ELSE IN FETCH ARTICLES FULLFILED')
+                    // state.articleList = [...action.payload?.articles]
+                    state.articleList = action.payload?.articles
+
+                    state.status = action.payload.status
+                    state.error = null
+                }
             }
         })
         builder.addCase(fetchArticles.rejected, (state, action) => {
@@ -98,6 +111,7 @@ export const newsSlice = createSlice({
             state.status = Status.LOADING
         })
         builder.addCase(fetchArticlesBySearchQuery.fulfilled, (state, action: PayloadAction<NewsApiResponse>) => {
+            console.log('action.payload:', action.payload)
             if (action.payload.status === Status.OK) {
                 state.articleList = [...action.payload.articles]
                 state.totalResults = action.payload.totalResults

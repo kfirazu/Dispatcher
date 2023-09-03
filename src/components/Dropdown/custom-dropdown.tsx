@@ -3,7 +3,7 @@ import { ClickAwayListener, FormControl, MenuItem, SelectChangeEvent } from '@mu
 import { FC, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon } from '../Arrow-Down-Icon/arrow-down-icon';
 import { CustomDropdownProps } from '../../models/custom-dropdown-interface';
-import { clearFilter, setIsFilterCleared, updateFilterBy } from '../../store/news/filter.reducer';
+import { updateFilterBy } from '../../store/news/filter.reducer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.store';
 import { FilterBy } from '../../models/filter-by';
 import { fetchArticles } from '../../store/thunks/fetchDataThunk';
@@ -12,12 +12,12 @@ import { setIsFirstSearch } from '../../store/news/news.reducer';
 
 const CustomDropdown: FC<CustomDropdownProps> = (props) => {
 
-    const { id, name, labelId, items, type, onClearFilter, disabled } = props
+    const { id, name, labelId, items, type, disabled } = props
 
     const dropdownRef = useRef(null);
     const dispatch = useAppDispatch()
     const filterBy = useAppSelector(state => state.filter.filterBy)
-    const isFilterCleared = useAppSelector(state => state.filter.isFilterCleared)
+    // const isFilterCleared = useAppSelector(state => state.filter.isFilterCleared)
     const isFirstSearch = useAppSelector(state => state.news.isFirstSearch)
     const isEverything = useAppSelector(state => state.system.isEverything)
     const [isOpen, setIsOpen] = useState(false)

@@ -33,8 +33,8 @@ export enum FilterOptions {
 }
 
 export enum EndpointOption {
-    EVERYTHING = "Everything?",
-    TOP_HEADLINES = `Top-headlines?`,
+    EVERYTHING = "everything?",
+    TOP_HEADLINES = `top-headlines?`,
 
 }
 
@@ -51,7 +51,7 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         // if (news) {
         //     return JSON.parse(news)
         // }
-        const { country, source, category, type, language, sortBy, dates } = filterBy
+        const { country, source, category, type, language, sortBy, from, to } = filterBy
         // Build url request string to send to api
         let reqQuery = BASE_URL
 
@@ -77,8 +77,12 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
         if (searchQuery) {
             reqQuery += `q=${searchQuery}&`
         }
-        if (dates.from !== '' && dates.to !== '') {
-            reqQuery += `from=${dates.from}&to=${dates.to}&`
+        // if (dates.from !== '' && dates.to !== '') {
+        //     reqQuery += `from=${dates.from}&to=${dates.to}&`
+        // }
+        if (from !== undefined && to !== undefined) {
+            reqQuery += `from=${from}&to=${to}&`
+
         }
         if (page) {
             reqQuery += `page=${page}&`
@@ -109,16 +113,17 @@ async function query(filterBy: FilterBy, searchQuery?: string, page: number = 1)
 }
 
 async function queryToBackend(filterBy: FilterBy, searchQuery?: string, page: number = 1) {
-    // try {
+    try {
+        const response = await httpService.post('news/articles', { filterBy, searchQuery, page })
+        // console.log('articles from service:', response)
+        return response
 
-    //     const response = await httpService.get('articles', { filterBy, searchQuery, page })
-    //     console.log('articles from service:', response)
-    //     return response
-    // } catch (err) {
-    //     console.log('Query has failed', err)
-    //     throw err
+        // i need to have {res.status : string "ok", res.page: number, res.articles: Article[], totalResults: number
+    } catch (err) {
+        console.log('Query has failed', err)
+        throw err
 
-    // }
+    }
 }
 
 // async function query() {
@@ -139,9 +144,10 @@ function formatDate(dateStr: string) {
 
 function formatFilterDates(startDate: Date | null, endDate: Date | null) {
     if (endDate || startDate) {
-        const formattedStartDate = startDate ? format(startDate, 'yyyy-MM-dd') : null;
-        const formattedEndDate = endDate ? format(endDate, 'yyyy-MM-dd') : null;
-        return { formattedStartDate, formattedEndDate };
+        return {
+            formattedStartDate: startDate ? new Date(format(startDate, 'yyyy-MM-dd')).toISOString() : null,
+            formattedEndDate: endDate ? new Date(format(endDate, 'yyyy-MM-dd')).toISOString() : null
+        };
     }
     return { formattedStartDate: null, formattedEndDate: null };
 }

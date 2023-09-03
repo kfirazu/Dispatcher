@@ -8,6 +8,7 @@ import { newsService } from "../../services/news.service";
 import "../../index.css"
 import DatePickerCustomInput from "./datepicker-custom-input";
 import { addDays, subDays } from "date-fns";
+import { TopHeadlines } from "../side-bar/side-bar.types";
 
 
 interface DatePickerProps {
@@ -25,10 +26,12 @@ const DatePickerCmp: React.FC<DatePickerProps> = ({ disabled }) => {
 
     useEffect(() => {
         if (endDate) {
-            const formattedDates = newsService.formatFilterDates(startDate, endDate)
-            const { formattedStartDate, formattedEndDate } = formattedDates
+            // const formattedDates = newsService.formatFilterDates(startDate, endDate)
+            // const { formattedStartDate, formattedEndDate } = formattedDates
+            // console.log('formatterStartDate:', formattedStartDate)
+            // console.log('formattedEndDate:', formattedEndDate)
 
-            dispatch(updateFilterByDates({ from: formattedStartDate, to: formattedEndDate }));
+            dispatch(updateFilterByDates({ from: startDate, to: endDate }));
         }
         setIsOpen(false)
     }, [endDate])
